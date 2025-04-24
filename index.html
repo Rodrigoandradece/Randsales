@@ -74,16 +74,78 @@
             color: #1C2526;
         }
 
+        .login-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .login-card {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            padding: 2rem;
+            width: 100%;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            backdrop-filter: blur(10px);
+        }
+
+        .login-input {
+            width: 100%;
+            padding: 0.8rem;
+            margin: 0.5rem 0;
+            border: 1px solid #D1D5DB;
+            border-radius: 10px;
+            font-size: 1rem;
+            background-color: #F9FAFB;
+        }
+
+        .login-button {
+            width: 100%;
+            padding: 0.8rem;
+            margin-top: 1rem;
+            background-color: #A0C4C4;
+            color: #1C2526;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.1s ease;
+        }
+
+        .login-button:hover {
+            background-color: #F8F801;
+        }
+
+        .login-button:active {
+            background-color: #F8F801;
+            transform: scale(0.98);
+        }
+
+        .error-message {
+            color: #EF4444;
+            font-size: 0.9rem;
+            text-align: center;
+            margin-top: 0.5rem;
+            display: none;
+        }
+
+        .hidden {
+            display: none;
+        }
+
         @media (max-width: 600px) {
             h1 {
                 font-size: 1.5rem;
             }
 
-            .card {
+            .card, .login-card {
                 padding: 1rem;
             }
 
-            .custom-button {
+            .custom-button, .login-button {
                 font-size: 1rem;
                 padding: 0.8rem;
             }
@@ -91,30 +153,72 @@
     </style>
 </head>
 <body>
-    <h1>Gestão Comercial</h1>
-    <div class="card">
-        <div class="button-container">
-            <a href="https://docs.google.com/spreadsheets/d/1UN--ziVuBOQUX-3GX3XozhZ1AmpTd-md/edit?gid=2124283496#gid=2124283496" 
-               target="_blank" 
-               class="custom-button">
-               <i class="fas fa-table"></i> CRM
-            </a>
-            <a href="metas.html" 
-               target="_blank" 
-               class="custom-button">
-               <i class="fas fa-chart-line"></i> Metas
-            </a>
-            <a href="https://forms.gle/iQ9HKd327Adk63MU8" 
-               target="_blank" 
-               class="custom-button">
-               <i class="fas fa-user-plus"></i> Cadastro Lead's
-            </a>
-            <a href="analitico.html" 
-               target="_blank" 
-               class="custom-button">
-               <i class="fas fa-chart-bar"></i> Analítico
-            </a>
+    <div id="loginSection" class="login-container">
+        <h1>Gestão Comercial</h1>
+        <div class="login-card">
+            <input type="text" id="username" class="login-input" placeholder="Login" />
+            <input type="password" id="password" class="login-input" placeholder="Senha" />
+            <button class="login-button" onclick="validateLogin()">Entrar</button>
+            <p id="errorMessage" class="error-message">Login ou senha incorretos</p>
         </div>
     </div>
+
+    <div id="mainSection" class="hidden">
+        <h1>Gestão Comercial</h1>
+        <div class="card">
+            <div class="button-container">
+                <a href="https://docs.google.com/spreadsheets/d/1UN--ziVuBOQUX-3GX3XozhZ1AmpTd-md/edit?gid=2124283496#gid=2124283496" 
+                   target="_blank" 
+                   class="custom-button">
+                   <i class="fas fa-table"></i> CRM
+                </a>
+                <a href="metas.html" 
+                   target="_blank" 
+                   class="custom-button">
+                   <i class="fas fa-chart-line"></i> Metas
+                </a>
+                <a href="https://forms.gle/iQ9HKd327Adk63MU8" 
+                   target="_blank" 
+                   class="custom-button">
+                   <i class="fas fa-user-plus"></i> Lead's Rodrigo
+                </a>
+                <a href="https://forms.gle/7tJ13WkzmHrB7H6x9" 
+                   target="_blank" 
+                   class="custom-button">
+                   <i class="fas fa-user-plus"></i> Lead's Welliana
+                </a>
+                <a href="analitico.html" 
+                   target="_blank" 
+                   class="custom-button">
+                   <i class="fas fa-chart-bar"></i> Analítico
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function validateLogin() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const errorMessage = document.getElementById('errorMessage');
+            const loginSection = document.getElementById('loginSection');
+            const mainSection = document.getElementById('mainSection');
+
+            if (username === 'comercialws' && password === 'WS2025') {
+                loginSection.classList.add('hidden');
+                mainSection.classList.remove('hidden');
+                errorMessage.style.display = 'none';
+            } else {
+                errorMessage.style.display = 'block';
+            }
+        }
+
+        // Permitir login ao pressionar Enter
+        document.getElementById('password').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                validateLogin();
+            }
+        });
+    </script>
 </body>
 </html>
