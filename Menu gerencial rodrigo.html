@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestão Comercial</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 2rem;
+            background: linear-gradient(180deg, #F5F7FA 0%, #E5E7EB 100%);
+            font-family: 'Roboto', -apple-system, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            color: #1C2526;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .card {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            padding: 1.5rem;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            margin-bottom: 1.5rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .custom-button {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            width: 100%;
+            padding: 1rem;
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #1C2526;
+            background-color: #A0C4C4;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.1s ease;
+            text-decoration: none;
+        }
+
+        .custom-button:hover {
+            background-color: #F8F801;
+        }
+
+        .custom-button:active {
+            background-color: #F8F801;
+            transform: scale(0.98);
+        }
+
+        .custom-button i {
+            font-size: 1.2rem;
+            color: #1C2526;
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            .card {
+                padding: 1rem;
+            }
+
+            .custom-button {
+                font-size: 1rem;
+                padding: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Gestão Comercial</h1>
+    <div class="card">
+        <div class="button-container">
+            <a href="https://docs.google.com/spreadsheets/d/1UN--ziVuBOQUX-3GX3XozhZ1AmpTd-md/edit?gid=2124283496#gid=2124283496" 
+               target="_blank" 
+               class="custom-button">
+               <i class="fas fa-table"></i> CRM
+            </a>
+            <a href="metas.html" 
+               target="_blank" 
+               class="custom-button">
+               <i class="fas fa-chart-line"></i> Metas
+            </a>
+            <a href="https://forms.gle/iQ9HKd327Adk63MU8" 
+               target="_blank" 
+               class="custom-button">
+               <i class="fas fa-user-plus"></i> Cadastro Lead's
+            </a>
+            <a href="analitico.html" 
+               target="_blank" 
+               class="custom-button">
+               <i class="fas fa-chart-bar"></i> Analítico
+            </a>
+        </div>
+    </div>
+</body>
+</html>
