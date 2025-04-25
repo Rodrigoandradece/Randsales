@@ -1,1 +1,661 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metas</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 2rem;
+            background: linear-gradient(180deg, #f5f7fa 0%, #e8ecef 100%);
+            font-family: 'Roboto', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
 
+        .card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 24px;
+            padding: 1.8rem;
+            width: 100%;
+            max-width: 800px;
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
+            margin-bottom: 2.5rem;
+            backdrop-filter: blur(12px);
+            animation: slideIn 0.6s ease-out forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .card:nth-child(1) { animation-delay: 0.1s; }
+        .card:nth-child(2) { animation-delay: 0.2s; }
+        .card:nth-child(3) { animation-delay: 0.3s; }
+        .card:nth-child(4) { animation-delay: 0.4s; }
+        .card:nth-child(5) { animation-delay: 0.5s; }
+
+        @keyframes slideIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .meta-button {
+            background: linear-gradient(180deg, #A4FF01 0%, #9cf001 100%);
+            color: #1a1a1a;
+            font-size: 1.5rem;
+            font-weight: 600;
+            padding: 0.9rem 1.5rem;
+            border: none;
+            border-radius: 14px;
+            width: 100%;
+            text-align: left;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.3s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .meta-button:hover {
+            background: linear-gradient(180deg, #8ce000 0%, #83d600 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+        }
+
+        .meta-button.active {
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .meta-button .arrow {
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .meta-button.active .arrow {
+            transform: rotate(90deg);
+        }
+
+        .meta-content {
+            display: none;
+            margin-top: 1rem;
+            animation: slideInUp 0.5s ease-out forwards;
+        }
+
+        .meta-content.active {
+            display: block;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin-bottom: 1.5rem;
+            background: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        th {
+            background: linear-gradient(90deg, #2d3748 0%, #4a5568 100%);
+            color: #fff;
+            font-weight: 600;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr {
+            transition: background 0.3s ease, transform 0.2s ease;
+            animation: rowSlide 0.5s ease-out forwards;
+            opacity: 0;
+            transform: translateX(-10px);
+        }
+
+        tr:nth-child(1) { animation-delay: 0.1s; }
+        tr:nth-child(2) { animation-delay: 0.2s; }
+        tr:nth-child(3) { animation-delay: 0.3s; }
+        tr:nth-child(4) { animation-delay: 0.4s; }
+        tr:nth-child(5) { animation-delay: 0.5s; }
+        tr:nth-child(6) { animation-delay: 0.6s; }
+        tr:nth-child(7) { animation-delay: 0.7s; }
+        tr:nth-child(8) { animation-delay: 0.8s; }
+
+        @keyframes rowSlide {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9fafb;
+        }
+
+        tr:hover {
+            background-color: #e6f0fa;
+            transform: scale(1.005);
+        }
+
+        p {
+            font-size: 0.95rem;
+            color: #2d3748;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .highlight {
+            font-weight: 700;
+            color: #007aff;
+            font-size: 1rem;
+        }
+
+        ul {
+            font-size: 0.95rem;
+            color: #2d3748;
+            margin-bottom: 1rem;
+            padding-left: 1.5rem;
+            line-height: 1.6;
+        }
+
+        ul li {
+            margin-bottom: 0.6rem;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 1rem;
+            }
+
+            .meta-button {
+                font-size: 1.3rem;
+                padding: 0.8rem 1.2rem;
+                border-radius: 12px;
+            }
+
+            .meta-button .arrow {
+                font-size: 1rem;
+            }
+
+            th, td {
+                padding: 0.8rem;
+                font-size: 0.9rem;
+            }
+
+            .card {
+                padding: 1.2rem;
+                border-radius: 18px;
+                margin-bottom: 1.5rem;
+            }
+
+            p, ul {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <button class="meta-button" onclick="toggleContent('metas-trimestre')" aria-expanded="false" aria-controls="metas-trimestre">
+            Metas Trimestre
+            <span class="arrow">▶</span>
+        </button>
+        <div id="metas-trimestre" class="meta-content">
+            <p class="highlight">Meta Mínima: 4 Fechamentos | Meta Desafio: 8 Fechamentos</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Segmento</th>
+                        <th>Reuniões por Executivo (Trimestre)</th>
+                        <th>Reuniões Mensais</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Condomínios</td>
+                        <td>25</td>
+                        <td>8</td>
+                    </tr>
+                    <tr>
+                        <td>Varejo</td>
+                        <td>18</td>
+                        <td>6</td>
+                    </tr>
+                    <tr>
+                        <td>Educacional</td>
+                        <td>14</td>
+                        <td>5</td>
+                    </tr>
+                    <tr>
+                        <td>Utilities</td>
+                        <td>11</td>
+                        <td>4</td>
+                    </tr>
+                    <tr>
+                        <td>Bancário</td>
+                        <td>4</td>
+                        <td>1</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Total</strong></td>
+                        <td><strong>72</strong></td>
+                        <td><strong>24</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>Reuniões Realizadas:</strong> Cada executivo deve realizar 72 reuniões por trimestre (24 por mês), divididas em:</p>
+            <ul>
+                <li>Reuniões iniciais (50%): Apresentação do modelo de cobrança no sucesso.</li>
+                <li>Apresentações de proposta (30%): Soluções personalizadas, com ênfase em ROI.</li>
+                <li>Follow-ups (20%): Negociações para alinhar expectativas de recebimento.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="card">
+        <button class="meta-button" onclick="toggleContent('kpis-operacionais')" aria-expanded="false" aria-controls="kpis-operacionais">
+            KPIs Operacionais
+            <span class="arrow">▶</span>
+        </button>
+        <div id="kpis-operacionais" class="meta-content">
+            <p><strong>Número de Prospecções:</strong> Cada executivo deve gerar 180 leads qualificados por trimestre (60 por mês). Canais de prospecção:</p>
+            <ul>
+                <li>LinkedIn: 40% (gestores e diretores, foco em utilities e bancário).</li>
+                <li>Cold Calls: 30% (condomínios e varejo, alto volume).</li>
+                <li>Eventos Setoriais: 20% (educacional e utilities, networking qualificado).</li>
+                <li>Indicações: 10% (bancário, para superar barreiras regulatórias).</li>
+            </ul>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Segmento</th>
+                        <th>Prospecções por Executivo (Trimestre)</th>
+                        <th>Prospecções Mensais</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Condomínios</td>
+                        <td>63</td>
+                        <td>21</td>
+                    </tr>
+                    <tr>
+                        <td>Varejo</td>
+                        <td>45</td>
+                        <td>15</td>
+                    </tr>
+                    <tr>
+                        <td>Educacional</td>
+                        <td>36</td>
+                        <td>12</td>
+                    </tr>
+                    <tr>
+                        <td>Utilities</td>
+                        <td>27</td>
+                        <td>9</td>
+                    </tr>
+                    <tr>
+                        <td>Bancário</td>
+                        <td>9</td>
+                        <td>3</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Total</strong></td>
+                        <td><strong>180</strong></td>
+                        <td><strong>60</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <button class="meta-button" onclick="toggleContent('crescimento-anual')" aria-expanded="false" aria-controls="crescimento-anual">
+            Crescimento Estratégico Anual
+            <span class="arrow">▶</span>
+        </button>
+        <div id="crescimento-anual" class="meta-content">
+            <p><strong>Meta de Fechamento</strong></p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Periodicidade</th>
+                        <th>Meta por Pessoa</th>
+                        <th>Meta da Equipe</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Mensal</td>
+                        <td>2 contratos</td>
+                        <td>4 contratos</td>
+                    </tr>
+                    <tr>
+                        <td>Anual (2025)</td>
+                        <td>20 contratos</td>
+                        <td>40 contratos</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>🎯 Leads qualificados + ações semanais constantes = resultado previsível.</p>
+
+            <p><strong>Meta Semanal de Ações</strong></p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tipo de Ação</th>
+                        <th>Meta Individual</th>
+                        <th>Meta da Equipe</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Contatos Ativos</td>
+                        <td>20</td>
+                        <td>40</td>
+                    </tr>
+                    <tr>
+                        <td>Reuniões Realizadas</td>
+                        <td>6</td>
+                        <td>12</td>
+                    </tr>
+                    <tr>
+                        <td>Follow-ups Executados</td>
+                        <td>10</td>
+                        <td>20</td>
+                    </tr>
+                    <tr>
+                        <td>Propostas Enviadas</td>
+                        <td>4</td>
+                        <td>8</td>
+                    </tr>
+                    <tr>
+                        <td>Reuniões de Expansão</td>
+                        <td>2</td>
+                        <td>4</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>📌 Essas ações são o motor do funil de vendas. Constância = Contratos.</p>
+
+            <p><strong>Como Ler Essas Metas</strong></p>
+            <ul>
+                <li><strong>Contatos Ativos:</strong> Prospects novos ou inativos reativados com potencial.</li>
+                <li><strong>Reuniões Realizadas:</strong> Qualquer etapa do funil (descoberta, diagnóstico, proposta, expansão).</li>
+                <li><strong>Follow-up:</strong> Pós-reunião, proposta enviada ou negociação em andamento.</li>
+                <li><strong>Propostas Enviadas:</strong> Formalização do valor e escopo do serviço.</li>
+                <li><strong>Reunião de Expansão:</strong> Contato com clientes atuais para oferta de novos serviços.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="card">
+        <button class="meta-button" onclick="toggleContent('expansao-geografica')" aria-expanded="false" aria-controls="expansao-geografica">
+            Expansão Geográfica
+            <span class="arrow">▶</span>
+        </button>
+        <div id="expansao-geografica" class="meta-content">
+            <p><strong>Planejamento de Expansão para Novos Mercados e Regiões Comerciais (2025)</strong></p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Fase</th>
+                        <th>Ações</th>
+                        <th>Metas</th>
+                        <th>Prazo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Pesquisa e Validação</td>
+                        <td>Análise de mercado em 5 regiões prioritárias; Identificar segmentos-alvo; Mapear concorrentes e barreiras regulatórias.</td>
+                        <td>Relatório de viabilidade para 5 regiões; Segmentos priorizados por potencial.</td>
+                        <td>Q1 2025</td>
+                    </tr>
+                    <tr>
+                        <td>Prospecção e Testes</td>
+                        <td>Campanhas via LinkedIn e cold calls; Participação em eventos setoriais; Pilotos em 2 regiões.</td>
+                        <td>10 reuniões iniciais por região; 2 contratos fechados por trimestre.</td>
+                        <td>Q2-Q3 2025</td>
+                    </tr>
+                    <tr>
+                        <td>Consolidação e Escala</td>
+                        <td>Parcerias locais; Contratação/realocação de executivos; Escalar operações nas melhores regiões.</td>
+                        <td>1 executivo por região; 5 contratos por região.</td>
+                        <td>Q4 2025</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p><strong>Regiões Prioritárias</strong></p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Região</th>
+                        <th>Foco de Segmento</th>
+                        <th>Justificativa</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Nordeste (Recife, Fortaleza)</td>
+                        <td>Varejo, Condomínios</td>
+                        <td>Crescimento imobiliário e comercial.</td>
+                    </tr>
+                    <tr>
+                        <td>Sudeste (Ribeirão Preto, Campinas)</td>
+                        <td>Educacional, Utilities</td>
+                        <td>Pólos tecnológicos e instituições de ensino.</td>
+                    </tr>
+                    <tr>
+                        <td>América Latina (Bogotá, Santiago)</td>
+                        <td>Bancário, Utilities</td>
+                        <td>Regulação favorável e mercado emergente.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p><strong>KPIs de Expansão</strong></p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Métrica</th>
+                        <th>Meta por Região (2025)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Leads Qualificados</td>
+                        <td>100</td>
+                    </tr>
+                    <tr>
+                        <td>Reuniões Iniciais</td>
+                        <td>30</td>
+                    </tr>
+                    <tr>
+                        <td>Contratos Fechados</td>
+                        <td>5</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <button class="meta-button" onclick="toggleContent('kpis-consolidados')" aria-expanded="false" aria-controls="kpis-consolidados">
+            KPIs
+            <span class="arrow">▶</span>
+        </button>
+        <div id="kpis-consolidados" class="meta-content">
+            <p><strong>KPIs Consolidados com Parâmetros de Qualidade</strong></p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Categoria</th>
+                        <th>KPI</th>
+                        <th>Meta</th>
+                        <th>Periodicidade</th>
+                        <th>Parâmetro de Qualidade</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Reuniões</td>
+                        <td>Reuniões por Executivo</td>
+                        <td>72 (24 mensal)</td>
+                        <td>Trimestral</td>
+                        <td>Mínimo 50% reuniões iniciais, 30% propostas, 20% follow-ups; Taxa de conversão de reuniões para propostas ≥ 20%.</td>
+                    </tr>
+                    <tr>
+                        <td>Reuniões</td>
+                        <td>Reuniões por Segmento</td>
+                        <td>Condomínios: 25, Varejo: 18, Educacional: 14, Utilities: 11, Bancário: 4</td>
+                        <td>Trimestral</td>
+                        <td>Foco em segmentos de maior ROI; ≥ 80% das reuniões com decisores.</td>
+                    </tr>
+                    <tr>
+                        <td>Prospecções</td>
+                        <td>Leads Qualificados</td>
+                        <td>180 (60 mensal)</td>
+                        <td>Trimestral</td>
+                        <td>≥ 70% dos leads com fit para o serviço; Taxa de qualificação via LinkedIn ≥ 40%.</td>
+                    </tr>
+                    <tr>
+                        <td>Prospecções</td>
+                        <td>Prospecções por Segmento</td>
+                        <td>Condomínios: 63, Varejo: 45, Educacional: 36, Utilities: 27, Bancário: 9</td>
+                        <td>Trimestral</td>
+                        <td>Leads alinhados ao perfil do segmento; ≥ 60% de prospecções via canais diretos (LinkedIn, Cold Calls).</td>
+                    </tr>
+                    <tr>
+                        <td>Contratos</td>
+                        <td>Fechamentos</td>
+                        <td>Mínima: 4, Desafio: 8</td>
+                        <td>Trimestral</td>
+                        <td>Taxa de fechamento de propostas ≥ 25%; Contratos com ROI projetado ≥ 15%.</td>
+                    </tr>
+                    <tr>
+                        <td>Contratos</td>
+                        <td>Contratos Mensais</td>
+                        <td>2 por pessoa, 4 por equipe</td>
+                        <td>Mensal</td>
+                        <td>Contratos com escopo claro e alinhamento estratégico; ≥ 80% de satisfação inicial do cliente.</td>
+                    </tr>
+                    <tr>
+                        <td>Contratos</td>
+                        <td>Contratos Anuais</td>
+                        <td>20 por pessoa, 40 por equipe</td>
+                        <td>Anual (2025)</td>
+                        <td>Distribuição equilibrada entre segmentos; ≥ 70% de renovação prevista.</td>
+                    </tr>
+                    <tr>
+                        <td>Ações Semanais</td>
+                        <td>Contatos Ativos</td>
+                        <td>20 individual, 40 equipe</td>
+                        <td>Semanal</td>
+                        <td>≥ 50% de contatos com potencial de conversão; Consistência semanal ≥ 90%.</td>
+                    </tr>
+                    <tr>
+                        <td>Ações Semanais</td>
+                        <td>Reuniões Realizadas</td>
+                        <td>6 individual, 12 equipe</td>
+                        <td>Semanal</td>
+                        <td>≥ 80% das reuniões com agenda clara e follow-up definido.</td>
+                    </tr>
+                    <tr>
+                        <td>Ações Semanais</td>
+                        <td>Follow-ups Executados</td>
+                        <td>10 individual, 20 equipe</td>
+                        <td>Semanal</td>
+                        <td>Resposta em até 48h; ≥ 60% avançando para próxima etapa.</td>
+                    </tr>
+                    <tr>
+                        <td>Ações Semanais</td>
+                        <td>Propostas Enviadas</td>
+                        <td>4 individual, 8 equipe</td>
+                        <td>Semanal</td>
+                        <td>Propostas personalizadas; ≥ 90% com ROI explicitado.</td>
+                    </tr>
+                    <tr>
+                        <td>Ações Semanais</td>
+                        <td>Reuniões de Expansão</td>
+                        <td>2 individual, 4 equipe</td>
+                        <td>Semanal</td>
+                        <td>Foco em upsell/cross-sell; ≥ 50% com novas oportunidades identificadas.</td>
+                    </tr>
+                    <tr>
+                        <td>Expansão</td>
+                        <td>Leads Qualificados por Região</td>
+                        <td>100</td>
+                        <td>Anual (2025)</td>
+                        <td>≥ 70% dos leads com fit cultural e econômico; Taxa de qualificação ≥ 30%.</td>
+                    </tr>
+                    <tr>
+                        <td>Expansão</td>
+                        <td>Reuniões Iniciais por Região</td>
+                        <td>30</td>
+                        <td>Anual (2025)</td>
+                        <td>≥ 80% com decisores regionais; Agenda clara e estruturada.</td>
+                    </tr>
+                    <tr>
+                        <td>Expansão</td>
+                        <td>Contratos Fechados por Região</td>
+                        <td>5</td>
+                        <td>Anual (2025)</td>
+                        <td>Contratos com ROI projetado ≥ 15%; ≥ 80% alinhados à estratégia regional.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        function toggleContent(id) {
+            const content = document.getElementById(id);
+            const button = content.previousElementSibling;
+            const isActive = content.classList.contains('active');
+
+            // Oculta todos os conteúdos e reseta botões
+            document.querySelectorAll('.meta-content').forEach(el => {
+                el.classList.remove('active');
+            });
+            document.querySelectorAll('.meta-button').forEach(btn => {
+                btn.classList.remove('active');
+                btn.setAttribute('aria-expanded', 'false');
+            });
+
+            // Exibe apenas o conteúdo clicado, se não estava ativo
+            if (!isActive) {
+                content.classList.add('active');
+                button.classList.add('active');
+                button.setAttribute('aria-expanded', 'true');
+            }
+        }
+    </script>
+</body>
+</html>
