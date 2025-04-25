@@ -8,8 +8,8 @@
     <style>
         body {
             margin: 0;
-            padding: 2rem;
-            background: linear-gradient(180deg, #f5f7fa 0%, #e8ecef 100%);
+            padding: 1.5rem;
+            background: linear-gradient(180deg, #f5f7fa 0%, #eceff1 100%);
             font-family: 'Roboto', sans-serif;
             display: flex;
             flex-direction: column;
@@ -19,17 +19,17 @@
         }
 
         .card {
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 24px;
-            padding: 1.8rem;
+            background: rgba(255, 255, 255, 0.92);
+            border-radius: 18px;
+            padding: 1.5rem;
             width: 100%;
             max-width: 800px;
-            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
-            margin-bottom: 2.5rem;
-            backdrop-filter: blur(12px);
-            animation: slideIn 0.6s ease-out forwards;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+            margin-bottom: 2rem;
+            backdrop-filter: blur(10px);
+            animation: slideIn 0.5s ease-out forwards;
             opacity: 0;
-            transform: translateY(20px);
+            transform: translateY(15px);
         }
 
         .card:nth-child(1) { animation-delay: 0.1s; }
@@ -46,36 +46,36 @@
         }
 
         .meta-button {
-            background: linear-gradient(180deg, #A4FF01 0%, #9cf001 100%);
+            background: #A4FF01;
             color: #1a1a1a;
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             font-weight: 600;
-            padding: 0.9rem 1.5rem;
+            padding: 0.8rem 1.2rem;
             border: none;
-            border-radius: 14px;
+            border-radius: 12px;
             width: 100%;
             text-align: left;
             cursor: pointer;
-            transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.3s ease;
+            transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.2s ease;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
         }
 
         .meta-button:hover {
-            background: linear-gradient(180deg, #8ce000 0%, #83d600 100%);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+            background: #9cf001;
+            transform: scale(1.01);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
         .meta-button.active {
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
         }
 
         .meta-button .arrow {
-            font-size: 1.2rem;
-            transition: transform 0.3s ease;
+            font-size: 1rem;
+            transition: transform 0.2s ease;
         }
 
         .meta-button.active .arrow {
@@ -85,7 +85,7 @@
         .meta-content {
             display: none;
             margin-top: 1rem;
-            animation: slideInUp 0.5s ease-out forwards;
+            animation: slideInUp 0.4s ease-out forwards;
         }
 
         .meta-content.active {
@@ -95,7 +95,7 @@
         @keyframes slideInUp {
             from {
                 opacity: 0;
-                transform: translateY(15px);
+                transform: translateY(10px);
             }
             to {
                 opacity: 1;
@@ -109,13 +109,13 @@
             border-spacing: 0;
             margin-bottom: 1.5rem;
             background: #fff;
-            border-radius: 12px;
+            border-radius: 10px;
             overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 1px 6px rgba(0, 0, 0, 0.04);
         }
 
         th, td {
-            padding: 1rem;
+            padding: 0.9rem;
             text-align: left;
             border-bottom: 1px solid #e5e7eb;
         }
@@ -131,10 +131,10 @@
         }
 
         tr {
-            transition: background 0.3s ease, transform 0.2s ease;
-            animation: rowSlide 0.5s ease-out forwards;
+            transition: background 0.2s ease, transform 0.15s ease;
+            animation: rowSlide 0.4s ease-out forwards;
             opacity: 0;
-            transform: translateX(-10px);
+            transform: translateX(-5px);
         }
 
         tr:nth-child(1) { animation-delay: 0.1s; }
@@ -143,8 +143,6 @@
         tr:nth-child(4) { animation-delay: 0.4s; }
         tr:nth-child(5) { animation-delay: 0.5s; }
         tr:nth-child(6) { animation-delay: 0.6s; }
-        tr:nth-child(7) { animation-delay: 0.7s; }
-        tr:nth-child(8) { animation-delay: 0.8s; }
 
         @keyframes rowSlide {
             to {
@@ -172,7 +170,7 @@
         .highlight {
             font-weight: 700;
             color: #007aff;
-            font-size: 1rem;
+            font-size: 0.95rem;
         }
 
         ul {
@@ -184,7 +182,7 @@
         }
 
         ul li {
-            margin-bottom: 0.6rem;
+            margin-bottom: 0.5rem;
         }
 
         @media (max-width: 600px) {
@@ -193,23 +191,23 @@
             }
 
             .meta-button {
-                font-size: 1.3rem;
-                padding: 0.8rem 1.2rem;
-                border-radius: 12px;
+                font-size: 1.2rem;
+                padding: 0.7rem 1rem;
+                border-radius: 10px;
             }
 
             .meta-button .arrow {
-                font-size: 1rem;
-            }
-
-            th, td {
-                padding: 0.8rem;
                 font-size: 0.9rem;
             }
 
+            th, td {
+                padding: 0.7rem;
+                font-size: 0.85rem;
+            }
+
             .card {
-                padding: 1.2rem;
-                border-radius: 18px;
+                padding: 1rem;
+                border-radius: 14px;
                 margin-bottom: 1.5rem;
             }
 
