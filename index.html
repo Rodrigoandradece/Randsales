@@ -147,8 +147,16 @@
             margin-left: 70px;
         }
 
+        .welcome-message {
+            font-size: 1.5rem;
+            color: #000;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
         .highlight-buttons {
             display: flex;
+            justify-content: center;
             gap: 1rem;
             margin-bottom: 2rem;
         }
@@ -157,10 +165,9 @@
             padding: 0.8rem 1.5rem;
             font-size: 1rem;
             color: #000;
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(10px);
+            background: transparent;
+            border: none;
             border-radius: 12px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
             cursor: pointer;
             text-decoration: none;
             display: flex;
@@ -172,6 +179,8 @@
         .highlight-button:hover {
             background: #A4FF01;
             color: #000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
         }
 
         .highlight-button:active {
@@ -227,12 +236,21 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center;
             width: 100%;
             max-width: 400px;
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
+            z-index: 1000;
+        }
+
+        .login-logo {
+            max-width: 200px;
+            max-height: 200px;
+            margin-bottom: 1.5rem;
+            display: block;
         }
 
         .login-card {
@@ -293,155 +311,8 @@
             display: none;
         }
 
-        .funnel-container {
-            width: 100%;
-            max-width: 1200px;
-            margin: 2rem auto;
-            padding: 1.5rem;
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(10px);
-            border-radius: 16px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-        }
-
-        .funnel-step {
-            margin: 0.5rem 0;
-            border-radius: 12px;
-            background: rgba(255, 255, 255, 0.8);
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .funnel-step:hover {
-            background: #A4FF01;
-            transform: translateY(-2px);
-        }
-
-        .funnel-step-header {
-            display: flex;
-            align-items: center;
-            padding: 1rem;
-            border: 2px solid #A4FF01;
-            border-radius: 12px;
-        }
-
-        .funnel-step-header i {
-            font-size: 1.5rem;
-            color: #A4FF01;
-            margin-right: 1rem;
-        }
-
-        .funnel-step:hover .funnel-step-header i {
-            color: #000;
-        }
-
-        .funnel-step-header h3 {
-            font-size: 1.1rem;
-            color: #000;
-            margin: 0;
-        }
-
-        .funnel-step-content {
-            display: none;
-            padding: 1rem;
-            border: 2px solid #A4FF01;
-            border-top: none;
-            border-radius: 0 0 12px 12px;
-            background: rgba(255, 255, 255, 0.9);
-        }
-
-        .funnel-step-content.active {
-            display: block;
-        }
-
-        .funnel-step-content p {
-            font-size: 0.9rem;
-            color: #000;
-            margin: 0.5rem 0;
-        }
-
-        .funnel-step-content table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 1rem;
-        }
-
-        .funnel-step-content th, .funnel-step-content td {
-            padding: 0.8rem;
-            text-align: left;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-            font-size: 0.9rem;
-        }
-
-        .funnel-step-content th {
-            background: rgba(164, 255, 1, 0.1);
-            font-weight: 600;
-        }
-
-        .funnel-step-content tr:hover {
-            background: rgba(164, 255, 1, 0.2);
-        }
-
-        .funnel-step.top {
-            width: 100%;
-        }
-
-        .funnel-step.middle {
-            width: 80%;
-            margin-left: 10%;
-        }
-
-        .funnel-step.bottom {
-            width: 60%;
-            margin-left: 20%;
-        }
-
-        .funnel-step.post-sale {
-            width: 40%;
-            margin-left: 30%;
-        }
-
-        .follow-up-container, .kpi-container {
-            width: 100%;
-            max-width: 1200px;
-            margin: 2rem auto;
-            padding: 1.5rem;
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(10px);
-            border-radius: 16px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-        }
-
-        .follow-up-container h3, .kpi-container h3 {
-            font-size: 1.2rem;
-            color: #000;
-            margin-bottom: 1rem;
-        }
-
-        .follow-up-container table, .kpi-container table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .follow-up-container th, .follow-up-container td,
-        .kpi-container th, .kpi-container td {
-            padding: 0.8rem;
-            text-align: left;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-            font-size: 0.9rem;
-        }
-
-        .follow-up-container th, .kpi-container th {
-            background: rgba(164, 255, 1, 0.1);
-            font-weight: 600;
-        }
-
-        .follow-up-container tr:hover, .kpi-container tr:hover {
-            background: rgba(164, 255, 1, 0.2);
-        }
-
         .hidden {
-            display: none;
+            display: none !important;
         }
 
         @media (max-width: 900px) {
@@ -465,16 +336,16 @@
                 opacity: 0;
                 width: 0;
             }
-
-            .funnel-step.top, .funnel-step.middle, .funnel-step.bottom, .funnel-step.post-sale {
-                width: 100%;
-                margin-left: 0;
-            }
         }
 
         @media (max-width: 600px) {
             .login-card {
                 padding: 1.5rem;
+            }
+
+            .login-logo {
+                max-width: 150px;
+                max-height: 150px;
             }
 
             .highlight-button {
@@ -498,7 +369,10 @@
 </head>
 <body>
     <div id="loginSection" class="login-container">
-        <h1>Gestão Comercial</h1>
+        <!-- Usando o link raw -->
+        <img src="https://raw.githubusercontent.com/rodrigoandradece/Randsales/main/images/logows.png" alt="Logo WS" class="login-logo">
+        <!-- Alternativa: usar caminho relativo (descomente para usar) -->
+        <!-- <img src="images/logows.png" alt="Logo WS" class="login-logo"> -->
         <div class="login-card">
             <input type="text" id="username" class="login-input" placeholder="Login" />
             <input type="password" id="password" class="login-input" placeholder="Senha" />
@@ -552,6 +426,7 @@
         </div>
 
         <div class="content">
+            <div id="welcomeMessage" class="welcome-message"></div>
             <div class="highlight-buttons">
                 <a href="https://docs.google.com/spreadsheets/d/1amJafVZn4hbSUbx1eGnXcIx7C6THYDj5E4iEh4EbF0g/edit?gid=0#gid=0" 
                    target="_blank" 
@@ -597,237 +472,31 @@
                     <p>5%</p>
                 </div>
             </div>
-
-            <div class="funnel-container">
-                <div class="funnel-step top">
-                    <div class="funnel-step-header" onclick="toggleFunnelStep(this)">
-                        <i class="fas fa-filter"></i>
-                        <h3>Topo do Funil (Atração / Prospeção / Geração de Leads)</h3>
-                    </div>
-                    <div class="funnel-step-content">
-                        <p><strong>Objetivo:</strong> Gerar interesse e captar leads qualificados (ICP).</p>
-                        <table>
-                            <tr>
-                                <th>Etapa</th>
-                                <th>Ação</th>
-                                <th>Ferramentas</th>
-                                <th>Indicadores</th>
-                            </tr>
-                            <tr>
-                                <td>ICP & Lista</td>
-                                <td>Definir Perfil Ideal de Cliente (segmentos, dores, decisores)</td>
-                                <td>CRM, LinkedIn Sales Navigator</td>
-                                <td>Nº de leads gerados</td>
-                            </tr>
-                            <tr>
-                                <td>Prospecção Ativa</td>
-                                <td>Cold call, cold mail, LinkedIn, eventos, redes de parceiros</td>
-                                <td>Apollo, Ramper, Hunter, ZoomInfo</td>
-                                <td>Taxa de conexão (resposta)</td>
-                            </tr>
-                            <tr>
-                                <td>Geração Inbound</td>
-                                <td>Conteúdo direcionado, campanhas, webinars, SEO</td>
-                                <td>YouTube, Blog, Instagram, Mídia paga</td>
-                                <td>Conversões por canal</td>
-                            </tr>
-                            <tr>
-                                <td>Qualificação Pré-Venda</td>
-                                <td>SDR qualifica usando BANT/SPIN</td>
-                                <td>SDR com script estruturado</td>
-                                <td>% leads qualificados</td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-                <div class="funnel-step middle">
-                    <div class="funnel-step-header" onclick="toggleFunnelStep(this)">
-                        <i class="fas fa-check-circle"></i>
-                        <h3>Meio do Funil (Diagnóstico / Apresentação / Nutrição)</h3>
-                    </div>
-                    <div class="funnel-step-content">
-                        <p><strong>Objetivo:</strong> Criar valor, entender a dor e apresentar a solução.</p>
-                        <table>
-                            <tr>
-                                <th>Etapa</th>
-                                <th>Ação</th>
-                                <th>Ferramentas</th>
-                                <th>Indicadores</th>
-                            </tr>
-                            <tr>
-                                <td>Diagnóstico</td>
-                                <td>Entendimento profundo do problema (SPIN Selling)</td>
-                                <td>Reunião no Zoom/Google Meet</td>
-                                <td>Taxa de avanço p/ proposta</td>
-                            </tr>
-                            <tr>
-                                <td>Nutrição</td>
-                                <td>E-mails com cases, vídeos, insights personalizados</td>
-                                <td>RD Station, Pipedrive, automações</td>
-                                <td>Engajamento (cliques, respostas)</td>
-                            </tr>
-                            <tr>
-                                <td>Apresentação da Solução</td>
-                                <td>Demonstração adaptada à dor do cliente</td>
-                                <td>Pitch + materiais visuais</td>
-                                <td>% que solicitam proposta</td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-                <div class="funnel-step bottom">
-                    <div class="funnel-step-header" onclick="toggleFunnelStep(this)">
-                        <i class="fas fa-handshake"></i>
-                        <h3>Fundo do Funil (Proposta / Negociação / Fechamento)</h3>
-                    </div>
-                    <div class="funnel-step-content">
-                        <p><strong>Objetivo:</strong> Converter em cliente ativo.</p>
-                        <table>
-                            <tr>
-                                <th>Etapa</th>
-                                <th>Ação</th>
-                                <th>Ferramentas</th>
-                                <th>Indicadores</th>
-                            </tr>
-                            <tr>
-                                <td>Envio de Proposta</td>
-                                <td>Documento claro, ROI, plano de ação inicial</td>
-                                <td>PandaDoc, PDF estruturado</td>
-                                <td>Taxa de conversão por proposta</td>
-                            </tr>
-                            <tr>
-                                <td>Follow-Up Estratégico</td>
-                                <td>Nutrição contínua, lidar com objeções, urgência</td>
-                                <td>Scripts de follow-up, CRM</td>
-                                <td>Nº interações até o “sim”</td>
-                            </tr>
-                            <tr>
-                                <td>Fechamento</td>
-                                <td>Fechamento consultivo + onboarding</td>
-                                <td>Assinatura digital + time de CS</td>
-                                <td>Tempo médio de fechamento</td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-                <div class="funnel-step post-sale">
-                    <div class="funnel-step-header" onclick="toggleFunnelStep(this)">
-                        <i class="fas fa-star"></i>
-                        <h3>Pós-Venda (Onboarding / Expansão / Retenção)</h3>
-                    </div>
-                    <div class="funnel-step-content">
-                        <p><strong>Objetivo:</strong> Gerar resultados, fidelizar e expandir.</p>
-                        <table>
-                            <tr>
-                                <th>Etapa</th>
-                                <th>Ação</th>
-                                <th>Ferramentas</th>
-                                <th>Indicadores</th>
-                            </tr>
-                            <tr>
-                                <td>Onboarding</td>
-                                <td>Ativação rápida com plano dos 90 dias</td>
-                                <td>Playbook, CS dedicado</td>
-                                <td>Tempo de ativação</td>
-                            </tr>
-                            <tr>
-                                <td>Sucesso do Cliente</td>
-                                <td>Monitorar KPIs, mostrar resultados</td>
-                                <td>Dashboards personalizados</td>
-                                <td>Retenção e satisfação (NPS)</td>
-                            </tr>
-                            <tr>
-                                <td>Up-Sell e Cross-Sell</td>
-                                <td>Apresentar novos serviços ou expansão</td>
-                                <td>Relacionamento consultivo</td>
-                                <td>% de expansão da conta</td>
-                            </tr>
-                            <tr>
-                                <td>Indicação</td>
-                                <td>Programa de indicação estruturado</td>
-                                <td>Landing page de indicações</td>
-                                <td>Nº de leads por cliente</td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-            </div>
-
-            <div class="follow-up-container">
-                <h3>Fluxo de Follow-ups no Funil (Exemplo SDR ou Closer)</h3>
-                <table>
-                    <tr>
-                        <th>Dia</th>
-                        <th>Ação</th>
-                    </tr>
-                    <tr>
-                        <td>Dia 1</td>
-                        <td>E-mail 1 + LinkedIn + ligação</td>
-                    </tr>
-                    <tr>
-                        <td>Dia 3</td>
-                        <td>E-mail 2 (case) + WhatsApp</td>
-                    </tr>
-                    <tr>
-                        <td>Dia 6</td>
-                        <td>Vídeo personalizado ou áudio direto</td>
-                    </tr>
-                    <tr>
-                        <td>Dia 9</td>
-                        <td>Prova social + insight estratégico</td>
-                    </tr>
-                    <tr>
-                        <td>Dia 12</td>
-                        <td>Última tentativa com CTA direto</td>
-                    </tr>
-                </table>
-            </div>
-
-            <div class="kpi-container">
-                <h3>Visão Estratégica (KPIs por fase)</h3>
-                <table>
-                    <tr>
-                        <th>Fase</th>
-                        <th>KPI Principal</th>
-                        <th>Meta Ideal (exemplo)</th>
-                    </tr>
-                    <tr>
-                        <td>Topo</td>
-                        <td>Leads qualificados (MQLs)</td>
-                        <td>100/mês</td>
-                    </tr>
-                    <tr>
-                        <td>Meio</td>
-                        <td>Oportunidades (SQLs)</td>
-                        <td>40/mês</td>
-                    </tr>
-                    <tr>
-                        <td>Fundo</td>
-                        <td>Fechamentos</td>
-                        <td>15/mês</td>
-                    </tr>
-                    <tr>
-                        <td>Pós-venda</td>
-                        <td>Retenção e Expansão</td>
-                        <td>90% retenção, 20% expansão</td>
-                    </tr>
-                </table>
-            </div>
         </div>
     </div>
 
     <script>
         function validateLogin() {
-            const username = document.getElementById('username').value;
+            const username = document.getElementById('username').value.toLowerCase();
             const password = document.getElementById('password').value;
             const errorMessage = document.getElementById('errorMessage');
             const loginSection = document.getElementById('loginSection');
             const mainSection = document.getElementById('mainSection');
+            const welcomeMessage = document.getElementById('welcomeMessage');
 
-            if (username === 'comercialws' && password === 'WS2025') {
+            const users = [
+                { username: 'rodrigo', password: 'rodrigo@2016' },
+                { username: 'welliana', password: 'WS2025' },
+                { username: 'wellington', password: 'WS2025' }
+            ];
+
+            const user = users.find(u => u.username === username && u.password === password);
+
+            if (user) {
                 loginSection.classList.add('hidden');
                 mainSection.classList.remove('hidden');
                 errorMessage.style.display = 'none';
+                welcomeMessage.textContent = `Seja muito bem-vindo, ${user.username.charAt(0).toUpperCase() + user.username.slice(1)}!`;
             } else {
                 errorMessage.style.display = 'block';
             }
@@ -843,15 +512,12 @@
         function logout() {
             const loginSection = document.getElementById('loginSection');
             const mainSection = document.getElementById('mainSection');
+            const welcomeMessage = document.getElementById('welcomeMessage');
             loginSection.classList.remove('hidden');
             mainSection.classList.add('hidden');
             document.getElementById('username').value = '';
             document.getElementById('password').value = '';
-        }
-
-        function toggleFunnelStep(header) {
-            const content = header.nextElementSibling;
-            content.classList.toggle('active');
+            welcomeMessage.textContent = '';
         }
 
         document.getElementById('password').addEventListener('keypress', function(e) {
