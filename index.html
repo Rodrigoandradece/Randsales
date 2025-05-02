@@ -15,6 +15,7 @@
             min-height: 100vh;
             display: flex;
             overflow-x: hidden;
+            position: relative;
         }
 
         .sidebar {
@@ -28,6 +29,7 @@
             height: 100vh;
             box-shadow: 2px 0 15px rgba(0, 0, 0, 0.05);
             transition: width 0.3s ease;
+            z-index: 10;
         }
 
         .sidebar.collapsed {
@@ -150,8 +152,26 @@
         .welcome-message {
             font-size: 1.5rem;
             color: #000;
-            margin-bottom: 2rem;
+            margin-bottom: 1rem;
             text-align: center;
+        }
+
+        .calendar-box {
+            text-align: left;
+            margin-bottom: 1rem;
+        }
+
+        .calendar-box h2 {
+            font-size: 1.2rem;
+            color: #000;
+            margin: 0;
+            font-weight: 600;
+        }
+
+        .calendar-box p {
+            font-size: 0.9rem;
+            color: #666;
+            margin: 0.2rem 0 0;
         }
 
         .highlight-buttons {
@@ -213,9 +233,26 @@
             padding: 1rem;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
             transition: all 0.3s ease;
+            opacity: 0;
+            animation: fadeInScale 0.5s ease forwards;
+            position: relative;
+            text-align: center;
+            cursor: pointer;
         }
 
+        @keyframes fadeInScale {
+            0% { opacity: 0; transform: scale(0.9); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        .metric-card:nth-child(1) { animation-delay: 0.1s; }
+        .metric-card:nth-child(2) { animation-delay: 0.2s; }
+        .metric-card:nth-child(3) { animation-delay: 0.3s; }
+        .metric-card:nth-child(4) { animation-delay: 0.4s; }
+        .metric-card:nth-child(5) { animation-delay: 0.5s; }
+
         .metric-card:hover {
+            background: #A4FF01;
             transform: translateY(-3px);
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
@@ -224,12 +261,267 @@
             font-size: 0.9rem;
             color: #000;
             margin-bottom: 0.5rem;
+            transition: opacity 0.3s ease;
+        }
+
+        .metric-card:hover h3 {
+            opacity: 0;
         }
 
         .metric-card p {
-            font-size: 1.1rem;
+            font-size: 1.5rem;
             font-weight: 600;
             color: #000;
+            transition: font-size 0.3s ease;
+        }
+
+        .metric-card:hover p {
+            font-size: 1.8rem;
+        }
+
+        .metric-name {
+            font-size: 0.8rem;
+            color: #000;
+            opacity: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: opacity 0.3s ease, max-height 0.3s ease;
+        }
+
+        .metric-card:hover .metric-name {
+            opacity: 1;
+            max-height: 20px;
+            margin-top: 0.5rem;
+        }
+
+        .metric-explanation {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            padding: 1.5rem;
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.95), rgba(240, 240, 240, 0.9));
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            text-align: center;
+            position: relative;
+        }
+
+        .metric-explanation h3 {
+            font-size: 1.3rem;
+            color: #333;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .faq-select {
+            width: 100%;
+            max-width: 600px;
+            padding: 0.8rem;
+            font-size: 1rem;
+            border: 1px solid #A4FF01;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+            appearance: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            outline: none;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            margin: 0 auto;
+            display: block;
+        }
+
+        .faq-select:hover {
+            border-color: #8FE001;
+            box-shadow: 0 4px 12px rgba(164, 255, 1, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .faq-select:focus {
+            border-color: #8FE001;
+            box-shadow: 0 4px 16px rgba(164, 255, 1, 0.3);
+        }
+
+        .faq-answer-container {
+            margin-top: 1.5rem;
+            padding: 0 1rem;
+        }
+
+        .faq-category-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #A4FF01;
+            margin-bottom: 0.5rem;
+            opacity: 0;
+            transform: translateY(-10px);
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        .faq-answer {
+            padding: 1rem;
+            background: linear-gradient(145deg, #F5F5F5, #E8E8E8);
+            border-radius: 12px;
+            color: #333;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(-20px);
+            animation: slideUpFadeIn 0.5s ease forwards;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            transition: max-height 0.5s ease, opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        @keyframes slideUpFadeIn {
+            0% { max-height: 0; opacity: 0; transform: translateY(-20px); }
+            100% { max-height: 300px; opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(-10px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .faq-answer.active {
+            max-height: 300px;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .chat-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 350px;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            display: none;
+            flex-direction: column;
+        }
+
+        .chat-header {
+            background: #A4FF01;
+            color: #000;
+            padding: 0.8rem;
+            border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chat-header h3 {
+            margin: 0;
+            font-size: 1rem;
+        }
+
+        .chat-close {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        .chat-body {
+            padding: 1rem;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .chat-message {
+            margin-bottom: 1rem;
+        }
+
+        .chat-message p {
+            background: #E5E5EA;
+            padding: 0.5rem 1rem;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            color: #000;
+            display: inline-block;
+        }
+
+        .chat-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .chat-option {
+            padding: 0.5rem 1rem;
+            background: #A4FF01;
+            color: #000;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .chat-option:hover {
+            background: #8FE001;
+        }
+
+        .chat-form {
+            padding: 1rem;
+            display: none;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .chat-form label {
+            font-size: 0.9rem;
+            color: #000;
+        }
+
+        .chat-form input, .chat-form select, .chat-form textarea {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            font-size: 0.9rem;
+            background: #FFF;
+        }
+
+        .chat-form button {
+            padding: 0.5rem;
+            background: #A4FF01;
+            color: #000;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .chat-form button:hover {
+            background: #8FE001;
+        }
+
+        .chat-icon {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #A4FF01;
+            color: #000;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
         }
 
         .login-container {
@@ -316,63 +608,34 @@
         }
 
         @media (max-width: 900px) {
-            .sidebar {
-                width: 70px;
-            }
-
-            .sidebar.collapsed {
-                width: 70px;
-            }
-
-            .content {
-                margin-left: 70px;
-            }
-
-            .content.collapsed {
-                margin-left: 70px;
-            }
-
-            .sidebar-button span, .sidebar-header h2 {
-                opacity: 0;
-                width: 0;
-            }
+            .sidebar { width: 70px; }
+            .sidebar.collapsed { width: 70px; }
+            .content { margin-left: 70px; }
+            .content.collapsed { margin-left: 70px; }
+            .sidebar-button span, .sidebar-header h2 { opacity: 0; width: 0; }
         }
 
         @media (max-width: 600px) {
-            .login-card {
-                padding: 1.5rem;
-            }
-
-            .login-logo {
-                max-width: 150px;
-                max-height: 150px;
-            }
-
-            .highlight-button {
-                font-size: 0.9rem;
-                padding: 0.7rem;
-            }
-
-            .metric-card {
-                padding: 0.8rem;
-            }
-
-            .metric-card h3 {
-                font-size: 0.8rem;
-            }
-
-            .metric-card p {
-                font-size: 1rem;
-            }
+            .login-card { padding: 1.5rem; }
+            .login-logo { max-width: 150px; max-height: 150px; }
+            .highlight-button { font-size: 0.9rem; padding: 0.7rem; }
+            .metric-card { padding: 0.8rem; }
+            .metric-card h3 { font-size: 0.8rem; }
+            .metric-card p { font-size: 1.2rem; }
+            .metric-card:hover p { font-size: 1.5rem; }
+            .calendar-box h2 { font-size: 1rem; }
+            .calendar-box p { font-size: 0.8rem; }
+            .chat-container { width: 300px; }
+            .faq-select { font-size: 0.9rem; padding: 0.6rem; }
+            .metric-explanation { padding: 1rem; }
+            .faq-category-title { font-size: 1rem; }
+            .faq-answer { font-size: 0.85rem; }
         }
     </style>
 </head>
 <body>
     <div id="loginSection" class="login-container">
-        <!-- Usando o link raw -->
         <img src="https://raw.githubusercontent.com/rodrigoandradece/Randsales/main/images/logows.png" alt="Logo WS" class="login-logo">
-        <!-- Alternativa: usar caminho relativo (descomente para usar) -->
-        <!-- <img src="images/logows.png" alt="Logo WS" class="login-logo"> -->
         <div class="login-card">
             <input type="text" id="username" class="login-input" placeholder="Login" />
             <input type="password" id="password" class="login-input" placeholder="Senha" />
@@ -427,6 +690,10 @@
 
         <div class="content">
             <div id="welcomeMessage" class="welcome-message"></div>
+            <div class="calendar-box">
+                <h2>Maio</h2>
+                <p>2025</p>
+            </div>
             <div class="highlight-buttons">
                 <a href="https://docs.google.com/spreadsheets/d/1amJafVZn4hbSUbx1eGnXcIx7C6THYDj5E4iEh4EbF0g/edit?gid=0#gid=0" 
                    target="_blank" 
@@ -449,28 +716,153 @@
                    <i class="fas fa-user-check"></i> Acompanhamento de Cliente
                 </a>
             </div>
+            <div class="metrics-container" id="metricsContainer">
+                <div class="metric-card" onclick="updateExplanation('Leads Gerados', 166)">
+                    <h3>Lead's Gerados</h3>
+                    <p>166</p>
+                    <span class="metric-name">Lead's Gerados</span>
+                </div>
+                <div class="metric-card" onclick="updateExplanation('Conversão em Reunião', 27)">
+                    <h3>% Conversão em Reunião</h3>
+                    <p>27%</p>
+                    <span class="metric-name">% Conversão em Reunião</span>
+                </div>
+                <div class="metric-card" onclick="updateExplanation('Reuniões Realizadas', 44)">
+                    <h3>Reuniões Realizadas</h3>
+                    <p>44</p>
+                    <span class="metric-name">Reuniões Realizadas</span>
+                </div>
+                <div class="metric-card" onclick="updateExplanation('Fechamento Total', 9)">
+                    <h3>Fechamento Total</h3>
+                    <p>9</p>
+                    <span class="metric-name">Fechamento Total</span>
+                </div>
+                <div class="metric-card" onclick="updateExplanation('Conversão em Fechamento', 20)">
+                    <h3>% Conversão em Fechamento</h3>
+                    <p>20%</p>
+                    <span class="metric-name">% Conversão em Fechamento</span>
+                </div>
+            </div>
+            <div class="metric-explanation" id="metricExplanation">
+                <h3>Dúvidas Frequentes 😊</h3>
+                <select id="faqSelect" class="faq-select" onchange="showAnswer()">
+                    <option value="">Selecione uma dúvida</option>
+                    <optgroup label="Quebra de Objeções">
+                        <option value="1">1. Meu cliente acha o serviço caro. O que fazer?</option>
+                        <option value="2">2. Eles dizem que preferem resolver internamente. Como responder?</option>
+                        <option value="3">3. Não confiam em terceirizar a cobrança. E agora?</option>
+                        <option value="4">4. Acham que o processo é muito invasivo.</option>
+                        <option value="5">5. Não veem urgência em contratar.</option>
+                        <option value="6">6. Temem impacto na imagem da empresa.</option>
+                        <option value="7">7. Acham que o serviço é desnecessário.</option>
+                        <option value="8">8. Querem um preço fixo.</option>
+                        <option value="9">9. Duvidam da legalidade do serviço.</option>
+                        <option value="10">10. Acham que o retorno será lento.</option>
+                        <option value="11">11. Não gostam de terceiros lidando com clientes.</option>
+                        <option value="12">12. Temem custos ocultos.</option>
+                        <option value="13">13. Acham que não precisam de ajuda.</option>
+                        <option value="14">14. Querem provas de sucesso.</option>
+                        <option value="15">15. Duvidam da qualidade da equipe.</option>
+                    </optgroup>
+                    <optgroup label="Cobrança Judicializada">
+                        <option value="16">16. O que é o Juizado Especial?</option>
+                        <option value="17">17. Qual o valor mínimo para judicializar?</option>
+                        <option value="18">18. Quanto tempo leva uma cobrança judicial?</option>
+                        <option value="19">19. Posso judicializar débitos menores?</option>
+                        <option value="20">20. É necessário advogado?</option>
+                        <option value="21">21. O que acontece após 90 dias?</option>
+                        <option value="22">22. Há custos adicionais na judicialização?</option>
+                        <option value="23">23. Posso acompanhar o processo?</option>
+                        <option value="24">24. É garantido que ganhe o processo?</option>
+                        <option value="25">25. Como preparo os documentos?</option>
+                        <option value="26">26. Posso judicializar sem tentativa extrajudicial?</option>
+                        <option value="27">27. O que fazer se o devedor não pagar?</option>
+                        <option value="28">28. Há risco de perder o caso?</option>
+                        <option value="29">29. Posso cancelar a judicialização?</option>
+                        <option value="30">30. Como sei se vale a pena judicializar?</option>
+                    </optgroup>
+                    <optgroup label="Operacional">
+                        <option value="31">31. O que é LGPD e como afeta a cobrança?</option>
+                        <option value="32">32. Como garantimos conformidade com a LGPD?</option>
+                        <option value="33">33. Há regulamentação para call centers?</option>
+                        <option value="34">34. Como funciona a cobrança educacional?</option>
+                        <option value="35">35. E a cobrança condominial?</option>
+                        <option value="36">36. Qual a diferença na cobrança de varejo?</option>
+                        <option value="37">37. Posso gravar as chamadas?</option>
+                        <option value="38">38. Quantas tentativas de contato são feitas?</option>
+                        <option value="39">39. Como treina a equipe?</option>
+                        <option value="40">40. Há relatórios de desempenho?</option>
+                        <option value="41">41. Posso personalizar a abordagem?</option>
+                        <option value="42">42. Qual o tempo médio de recuperação?</option>
+                        <option value="43">43. Há suporte 24/7?</option>
+                        <option value="44">44. Como lidamos com reclamações?</option>
+                        <option value="45">45. Posso integrar com meu CRM?</option>
+                    </optgroup>
+                    <optgroup label="Scripts">
+                        <option value="46">46. Posso ver exemplos de scripts?</option>
+                        <option value="47">47. Como usar SPIN Selling no script?</option>
+                        <option value="48">48. Há scripts para diferentes setores?</option>
+                        <option value="49">49. Posso criar meu próprio script?</option>
+                        <option value="50">50. Como treinar a equipe com scripts?</option>
+                        <option value="51">51. Script 1 - Abordagem Inicial (SPIN)</option>
+                        <option value="52">52. Script 2 - Fechamento com Benefícios</option>
+                        <option value="53">53. Script 3 - Objeção de Custo</option>
+                        <option value="54">54. Script 4 - Abordagem Educacional</option>
+                        <option value="55">55. Script 5 - Urgência com Prova Social</option>
+                    </optgroup>
+                    <optgroup label="Outras Dúvidas">
+                        <option value="56">56. Como cancelo o serviço?</option>
+                        <option value="57">57. Há garantia de resultados?</option>
+                        <option value="58">58. Posso mudar o plano?</option>
+                        <option value="59">59. Qual o suporte oferecido?</option>
+                        <option value="60">60. Como recebo os relatórios?</option>
+                    </optgroup>
+                </select>
+                <div class="faq-answer-container" id="faqAnswerContainer">
+                    <div id="faqCategoryTitle" class="faq-category-title"></div>
+                    <div id="faqAnswer" class="faq-answer"></div>
+                </div>
+            </div>
+        </div>
 
-            <div class="metrics-container">
-                <div class="metric-card">
-                    <h3>Meta Trimestral Total</h3>
-                    <p>216 Reuniões</p>
+        <div class="chat-icon" onclick="toggleChat()">
+            <i class="fas fa-comment-alt"></i>
+        </div>
+
+        <div class="chat-container" id="chatContainer">
+            <div class="chat-header">
+                <h3>Alfred, seu Assistente</h3>
+                <button class="chat-close" onclick="toggleChat()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="chat-body" id="chatBody">
+                <div class="chat-message">
+                    <p>Olá! Eu sou o Alfred, seu assistente virtual. Vou te ajudar a preencher um formulário. Qual é o seu nome?</p>
                 </div>
-                <div class="metric-card">
-                    <h3>Meta por Executivo</h3>
-                    <p>72 Reuniões</p>
+                <div class="chat-options">
+                    <input type="text" id="nameInput" placeholder="Digite seu nome" style="padding: 0.5rem; border-radius: 8px; border: 1px solid #ccc; width: 100%;">
+                    <button class="chat-option" onclick="handleChatResponse('name')">Enviar</button>
                 </div>
-                <div class="metric-card">
-                    <h3>Meta de Reuniões Semanal</h3>
-                    <p>6 Reuniões</p>
-                </div>
-                <div class="metric-card">
-                    <h3>Meta de Conversão</h3>
-                    <p>30%</p>
-                </div>
-                <div class="metric-card">
-                    <h3>Meta de Quebra</h3>
-                    <p>5%</p>
-                </div>
+            </div>
+            <div class="chat-form" id="chatForm">
+                <label for="formName">Nome:</label>
+                <input type="text" id="formName" readonly>
+                <label for="formEmail">Email:</label>
+                <input type="email" id="formEmail" readonly>
+                <label for="formPhone">Telefone:</label>
+                <input type="text" id="formPhone" readonly>
+                <label for="formObjective">Objetivo Principal:</label>
+                <select id="formObjective" disabled>
+                    <option value="leads">Aumentar Lead's Gerados</option>
+                    <option value="conversaoReuniao">Melhorar % Conversão em Reunião</option>
+                    <option value="reunioes">Realizar mais Reuniões</option>
+                    <option value="fechamento">Aumentar Fechamento Total</option>
+                    <option value="conversaoFechamento">Melhorar % Conversão em Fechamento</option>
+                </select>
+                <label for="formNeeds">Necessidades Específicas:</label>
+                <textarea id="formNeeds" readonly></textarea>
+                <button onclick="submitForm()">Enviar Formulário</button>
             </div>
         </div>
     </div>
@@ -525,6 +917,381 @@
                 validateLogin();
             }
         });
+
+        function updateExplanation(metricName, value) {
+            const explanationDiv = document.getElementById('metricExplanation');
+            explanationDiv.innerHTML = `
+                <h3>Dúvidas Frequentes 😊</h3>
+                <select id="faqSelect" class="faq-select" onchange="showAnswer()">
+                    <option value="">Selecione uma dúvida</option>
+                    <optgroup label="Quebra de Objeções">
+                        <option value="1">1. Meu cliente acha o serviço caro. O que fazer?</option>
+                        <option value="2">2. Eles dizem que preferem resolver internamente. Como responder?</option>
+                        <option value="3">3. Não confiam em terceirizar a cobrança. E agora?</option>
+                        <option value="4">4. Acham que o processo é muito invasivo.</option>
+                        <option value="5">5. Não veem urgência em contratar.</option>
+                        <option value="6">6. Temem impacto na imagem da empresa.</option>
+                        <option value="7">7. Acham que o serviço é desnecessário.</option>
+                        <option value="8">8. Querem um preço fixo.</option>
+                        <option value="9">9. Duvidam da legalidade do serviço.</option>
+                        <option value="10">10. Acham que o retorno será lento.</option>
+                        <option value="11">11. Não gostam de terceiros lidando com clientes.</option>
+                        <option value="12">12. Temem custos ocultos.</option>
+                        <option value="13">13. Acham que não precisam de ajuda.</option>
+                        <option value="14">14. Querem provas de sucesso.</option>
+                        <option value="15">15. Duvidam da qualidade da equipe.</option>
+                    </optgroup>
+                    <optgroup label="Cobrança Judicializada">
+                        <option value="16">16. O que é o Juizado Especial?</option>
+                        <option value="17">17. Qual o valor mínimo para judicializar?</option>
+                        <option value="18">18. Quanto tempo leva uma cobrança judicial?</option>
+                        <option value="19">19. Posso judicializar débitos menores?</option>
+                        <option value="20">20. É necessário advogado?</option>
+                        <option value="21">21. O que acontece após 90 dias?</option>
+                        <option value="22">22. Há custos adicionais na judicialização?</option>
+                        <option value="23">23. Posso acompanhar o processo?</option>
+                        <option value="24">24. É garantido que ganhe o processo?</option>
+                        <option value="25">25. Como preparo os documentos?</option>
+                        <option value="26">26. Posso judicializar sem tentativa extrajudicial?</option>
+                        <option value="27">27. O que fazer se o devedor não pagar?</option>
+                        <option value="28">28. Há risco de perder o caso?</option>
+                        <option value="29">29. Posso cancelar a judicialização?</option>
+                        <option value="30">30. Como sei se vale a pena judicializar?</option>
+                    </optgroup>
+                    <optgroup label="Operacional">
+                        <option value="31">31. O que é LGPD e como afeta a cobrança?</option>
+                        <option value="32">32. Como garantimos conformidade com a LGPD?</option>
+                        <option value="33">33. Há regulamentação para call centers?</option>
+                        <option value="34">34. Como funciona a cobrança educacional?</option>
+                        <option value="35">35. E a cobrança condominial?</option>
+                        <option value="36">36. Qual a diferença na cobrança de varejo?</option>
+                        <option value="37">37. Posso gravar as chamadas?</option>
+                        <option value="38">38. Quantas tentativas de contato são feitas?</option>
+                        <option value="39">39. Como treina a equipe?</option>
+                        <option value="40">40. Há relatórios de desempenho?</option>
+                        <option value="41">41. Posso personalizar a abordagem?</option>
+                        <option value="42">42. Qual o tempo médio de recuperação?</option>
+                        <option value="43">43. Há suporte 24/7?</option>
+                        <option value="44">44. Como lidamos com reclamações?</option>
+                        <option value="45">45. Posso integrar com meu CRM?</option>
+                    </optgroup>
+                    <optgroup label="Scripts">
+                        <option value="46">46. Posso ver exemplos de scripts?</option>
+                        <option value="47">47. Como usar SPIN Selling no script?</option>
+                        <option value="48">48. Há scripts para diferentes setores?</option>
+                        <option value="49">49. Posso criar meu próprio script?</option>
+                        <option value="50">50. Como treinar a equipe com scripts?</option>
+                        <option value="51">51. Script 1 - Abordagem Inicial (SPIN)</option>
+                        <option value="52">52. Script 2 - Fechamento com Benefícios</option>
+                        <option value="53">53. Script 3 - Objeção de Custo</option>
+                        <option value="54">54. Script 4 - Abordagem Educacional</option>
+                        <option value="55">55. Script 5 - Urgência com Prova Social</option>
+                    </optgroup>
+                    <optgroup label="Outras Dúvidas">
+                        <option value="56">56. Como cancelo o serviço?</option>
+                        <option value="57">57. Há garantia de resultados?</option>
+                        <option value="58">58. Posso mudar o plano?</option>
+                        <option value="59">59. Qual o suporte oferecido?</option>
+                        <option value="60">60. Como recebo os relatórios?</option>
+                    </optgroup>
+                </select>
+                <div class="faq-answer-container" id="faqAnswerContainer">
+                    <div id="faqCategoryTitle" class="faq-category-title"></div>
+                    <div id="faqAnswer" class="faq-answer"></div>
+                </div>
+            `;
+
+            const faqData = {
+                "1": { answer: "Ofereça uma análise gratuita para demonstrar o retorno sobre investimento (ROI).", category: "Quebra de Objeções" },
+                "2": { answer: "Mostre dados de eficiência: nossa expertise aumenta a recuperação em até 30%.", category: "Quebra de Objeções" },
+                "3": { answer: "Ofereça um contrato piloto com resultados garantidos.", category: "Quebra de Objeções" },
+                "4": { answer: "Explique que usamos abordagens educacionais e respeitosas, alinhadas à LGPD.", category: "Quebra de Objeções" },
+                "5": { answer: "Apresente um estudo de caso mostrando perdas por atraso na recuperação.", category: "Quebra de Objeções" },
+                "6": { answer: "Garantimos discrição e personalização para proteger a reputação.", category: "Quebra de Objeções" },
+                "7": { answer: "Demonstre como a inadimplência afeta o fluxo de caixa com exemplos reais.", category: "Quebra de Objeções" },
+                "8": { answer: "Oferecemos modelos híbridos: taxa fixa + percentual de sucesso.", category: "Quebra de Objeções" },
+                "9": { answer: "Todos os processos seguem a legislação brasileira, como o Código de Defesa do Consumidor.", category: "Quebra de Objeções" },
+                "10": { answer: "Nossos relatórios mostram resultados em até 60 dias.", category: "Quebra de Objeções" },
+                "11": { answer: "Treinamos nossa equipe para agir como extensão da sua marca.", category: "Quebra de Objeções" },
+                "12": { answer: "Transparência total: todos os custos são detalhados no contrato.", category: "Quebra de Objeções" },
+                "13": { answer: "Compare o custo da inadimplência com o investimento no nosso serviço.", category: "Quebra de Objeções" },
+                "14": { answer: "Fornecemos casos de sucesso e relatórios de clientes anteriores.", category: "Quebra de Objeções" },
+                "15": { answer: "Nossa equipe é certificada e treinada em técnicas de negociação.", category: "Quebra de Objeções" },
+                "16": { answer: "É uma corte para ações de até 40 salários mínimos, com processo simplificado.", category: "Cobrança Judicializada" },
+                "17": { answer: "Acima de 40 salários mínimos (aprox. R$ 54.000 em 2025).", category: "Cobrança Judicializada" },
+                "18": { answer: "Depende do caso, mas geralmente de 6 a 12 meses.", category: "Cobrança Judicializada" },
+                "19": { answer: "Não, o Juizado Especial tem limite de 40 salários mínimos.", category: "Cobrança Judicializada" },
+                "20": { answer: "Para valores até 20 salários, não é obrigatório no Juizado Especial.", category: "Cobrança Judicializada" },
+                "21": { answer: "Enviamos um relatório ao cliente propondo a judicialização.", category: "Cobrança Judicializada" },
+                "22": { answer: "Somente taxas judiciais, que variam por estado.", category: "Cobrança Judicializada" },
+                "23": { answer: "Sim, fornecemos atualizações regulares via relatório.", category: "Cobrança Judicializada" },
+                "24": { answer: "Não, depende da documentação e da defesa do devedor.", category: "Cobrança Judicializada" },
+                "25": { answer: "Fornecemos um checklist e orientamos a coleta.", category: "Cobrança Judicializada" },
+                "26": { answer: "É recomendável tentar antes, mas não é obrigatório.", category: "Cobrança Judicializada" },
+                "27": { answer: "Podemos iniciar a execução judicial após sentença.", category: "Cobrança Judicializada" },
+                "28": { answer: "Sim, se a documentação for insuficiente ou o devedor provar defesa.", category: "Cobrança Judicializada" },
+                "29": { answer: "Sim, a qualquer momento, mas há custos já incorridos.", category: "Cobrança Judicializada" },
+                "30": { answer: "Analisamos o valor e a viabilidade com você.", category: "Cobrança Judicializada" },
+                "31": { answer: "É a Lei Geral de Proteção de Dados, exigindo consentimento para uso de dados pessoais.", category: "Operacional" },
+                "32": { answer: "Usamos políticas de privacidade e treinamos a equipe.", category: "Operacional" },
+                "33": { answer: "Sim, seguimos normas da Anatel e do Procon.", category: "Operacional" },
+                "34": { answer: "Abordagem amigável para alunos inadimplentes, com planos de pagamento.", category: "Operacional" },
+                "35": { answer: "Foco em negociar com síndicos e oferecer acordos.", category: "Operacional" },
+                "36": { answer: "É mais personalizada, com foco em clientes individuais.", category: "Operacional" },
+                "37": { answer: "Sim, com consentimento prévio do cliente, conforme LGPD.", category: "Operacional" },
+                "38": { answer: "Até 5 tentativas por canal, respeitando limites legais.", category: "Operacional" },
+                "39": { answer: "Com treinamentos regulares em LGPD e técnicas de negociação.", category: "Operacional" },
+                "40": { answer: "Sim, enviados mensalmente com KPIs.", category: "Operacional" },
+                "41": { answer: "Sim, adaptamos ao perfil do cliente.", category: "Operacional" },
+                "42": { answer: "Entre 30 e 90 dias, dependendo do caso.", category: "Operacional" },
+                "43": { answer: "Não, mas oferecemos suporte em horário comercial.", category: "Operacional" },
+                "44": { answer: "Registramos e resolvemos em até 48 horas.", category: "Operacional" },
+                "45": { answer: "Sim, com API ou exportação de dados.", category: "Operacional" },
+                "46": { answer: "Sim, temos modelos disponíveis (veja abaixo).", category: "Scripts" },
+                "47": { answer: "Focamos em Situação, Problema, Implicação e Necessidade.", category: "Scripts" },
+                "48": { answer: "Sim, adaptamos para educacional, condominial e varejo.", category: "Scripts" },
+                "49": { answer: "Sim, com nosso suporte para alinhamento.", category: "Scripts" },
+                "50": { answer: "Oferecemos workshops práticos.", category: "Scripts" },
+                "51": { answer: "Olá [Nome], sou [Seu Nome] da [Empresa]. Você já enfrentou dificuldades com inadimplência? [Situação] Muitos clientes relatam perda de receita por falta de pagamento. [Problema] Isso pode impactar o fluxo de caixa e até a operação. [Implicação] Queremos oferecer uma solução que recupere esses valores rapidamente. [Necessidade] Podemos analisar seu caso sem custo?", category: "Scripts" },
+                "52": { answer: "[Nome], percebemos que a inadimplência está afetando seus resultados. Nossa solução já recuperou R$ 1M para clientes como você, com taxa de sucesso de 85%. Que tal começarmos com um piloto de 30 dias?", category: "Scripts" },
+                "53": { answer: "Entendo sua preocupação com o custo, [Nome]. Nosso serviço é baseado em resultados: só cobramos uma taxa se recuperarmos o valor. Vale o investimento para recuperar o que já perdeu?", category: "Scripts" },
+                "54": { answer: "Olá [Nome], sou [Seu Nome]. Sabia que a inadimplência pode ser reduzida com uma abordagem educacional? Posso mostrar como ajudamos escolas a recuperar 70% dos débitos em 60 dias?", category: "Scripts" },
+                "55": { answer: "[Nome], 9 em 10 empresas perdem receita por não agir rápido na cobrança. Clientes como [Exemplo] recuperaram 90% com nossa ajuda em 45 dias. Vamos agir agora?", category: "Scripts" },
+                "56": { answer: "Com 30 dias de antecedência por escrito.", category: "Outras Dúvidas" },
+                "57": { answer: "Oferecemos suporte, mas resultados dependem do caso.", category: "Outras Dúvidas" },
+                "58": { answer: "Sim, com análise e ajuste contratual.", category: "Outras Dúvidas" },
+                "59": { answer: "Chat, email e telefone durante o horário comercial.", category: "Outras Dúvidas" },
+                "60": { answer: "Por email, mensalmente ou sob demanda.", category: "Outras Dúvidas" }
+            };
+
+            function showAnswer() {
+                const select = document.getElementById('faqSelect');
+                const categoryTitleDiv = document.getElementById('faqCategoryTitle');
+                const answerDiv = document.getElementById('faqAnswer');
+                const selectedValue = select.value;
+
+                if (selectedValue) {
+                    const data = faqData[selectedValue];
+                    categoryTitleDiv.textContent = data.category;
+                    answerDiv.textContent = data.answer;
+                    categoryTitleDiv.style.display = 'block';
+                    answerDiv.classList.add('active');
+                } else {
+                    categoryTitleDiv.style.display = 'none';
+                    answerDiv.classList.remove('active');
+                }
+            }
+        }
+
+        let formData = { name: '', email: '', phone: '', objective: '', needs: '' };
+
+        function toggleChat() {
+            const chatContainer = document.getElementById('chatContainer');
+            const chatIcon = document.querySelector('.chat-icon');
+            const chatBody = document.getElementById('chatBody');
+            const chatForm = document.getElementById('chatForm');
+            if (chatContainer.style.display === 'flex') {
+                chatContainer.style.display = 'none';
+                chatIcon.style.display = 'flex';
+                chatBody.style.display = 'block';
+                chatForm.style.display = 'none';
+            } else {
+                chatContainer.style.display = 'flex';
+                chatIcon.style.display = 'none';
+            }
+        }
+
+        function addChatMessage(message, isOption = false) {
+            const chatBody = document.getElementById('chatBody');
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('chat-message');
+            messageDiv.innerHTML = `<p>${message}</p>`;
+            chatBody.appendChild(messageDiv);
+            chatBody.scrollTop = chatBody.scrollHeight;
+
+            if (isOption) {
+                const optionsDiv = document.createElement('div');
+                optionsDiv.classList.add('chat-options');
+                chatBody.appendChild(optionsDiv);
+                return optionsDiv;
+            }
+        }
+
+        function handleChatResponse(step) {
+            const chatBody = document.getElementById('chatBody');
+            chatBody.innerHTML = '';
+
+            if (step === 'name') {
+                const nameInput = document.getElementById('nameInput').value.trim();
+                if (nameInput === '') {
+                    addChatMessage('Por favor, digite seu nome para continuar.');
+                    const optionsDiv = addChatMessage('', true);
+                    optionsDiv.innerHTML = `
+                        <input type="text" id="nameInput" placeholder="Digite seu nome" style="padding: 0.5rem; border-radius: 8px; border: 1px solid #ccc; width: 100%;">
+                        <button class="chat-option" onclick="handleChatResponse('name')">Enviar</button>
+                    `;
+                    return;
+                }
+                formData.name = nameInput;
+                document.getElementById('formName').value = nameInput;
+                addChatMessage(`Prazer em conhecê-lo, ${nameInput}! Qual é o seu email?`);
+                const optionsDiv = addChatMessage('', true);
+                optionsDiv.innerHTML = `
+                    <input type="email" id="emailInput" placeholder="Digite seu email" style="padding: 0.5rem; border-radius: 8px; border: 1px solid #ccc; width: 100%;">
+                    <button class="chat-option" onclick="handleChatResponse('email')">Enviar</button>
+                `;
+            } else if (step === 'email') {
+                const emailInput = document.getElementById('emailInput').value.trim();
+                if (!emailInput.includes('@') || emailInput === '') {
+                    addChatMessage('Por favor, digite um email válido.');
+                    const optionsDiv = addChatMessage('', true);
+                    optionsDiv.innerHTML = `
+                        <input type="email" id="emailInput" placeholder="Digite seu email" style="padding: 0.5rem; border-radius: 8px; border: 1px solid #ccc; width: 100%;">
+                        <button class="chat-option" onclick="handleChatResponse('email')">Enviar</button>
+                    `;
+                    return;
+                }
+                formData.email = emailInput;
+                document.getElementById('formEmail').value = emailInput;
+                addChatMessage('Obrigado! Qual é o seu número de telefone?');
+                const optionsDiv = addChatMessage('', true);
+                optionsDiv.innerHTML = `
+                    <input type="text" id="phoneInput" placeholder="Digite seu telefone" style="padding: 0.5rem; border-radius: 8px; border: 1px solid #ccc; width: 100%;">
+                    <button class="chat-option" onclick="handleChatResponse('phone')">Enviar</button>
+                `;
+            } else if (step === 'phone') {
+                const phoneInput = document.getElementById('phoneInput').value.trim();
+                if (phoneInput === '') {
+                    addChatMessage('Por favor, digite seu número de telefone.');
+                    const optionsDiv = addChatMessage('', true);
+                    optionsDiv.innerHTML = `
+                        <input type="text" id="phoneInput" placeholder="Digite seu telefone" style="padding: 0.5rem; border-radius: 8px; border: 1px solid #ccc; width: 100%;">
+                        <button class="chat-option" onclick="handleChatResponse('phone')">Enviar</button>
+                    `;
+                    return;
+                }
+                formData.phone = phoneInput;
+                document.getElementById('formPhone').value = phoneInput;
+                addChatMessage('Perfeito! Agora, qual é o seu objetivo principal?');
+                const optionsDiv = addChatMessage('', true);
+                optionsDiv.innerHTML = `
+                    <button class="chat-option" onclick="handleChatResponse('leads')">Aumentar meus Lead's Gerados</button>
+                    <button class="chat-option" onclick="handleChatResponse('conversaoReuniao')">Melhorar a % Conversão em Reunião</button>
+                    <button class="chat-option" onclick="handleChatResponse('reunioes')">Realizar mais Reuniões</button>
+                    <button class="chat-option" onclick="handleChatResponse('fechamento')">Aumentar o Fechamento Total</button>
+                    <button class="chat-option" onclick="handleChatResponse('conversaoFechamento')">Melhorar a % Conversão em Fechamento</button>
+                `;
+            } else if (step === 'leads') {
+                formData.objective = 'Aumentar Lead\'s Gerados';
+                document.getElementById('formObjective').value = 'leads';
+                addChatMessage('Entendido! Para aumentar os Lead\'s Gerados, você gostaria de focar em:');
+                const optionsDiv = addChatMessage('', true);
+                optionsDiv.innerHTML = `
+                    <button class="chat-option" onclick="handleChatResponse('leads-marketing')">Estratégias de Marketing Digital</button>
+                    <button class="chat-option" onclick="handleChatResponse('leads-parcerias')">Parcerias Estratégicas</button>
+                `;
+            } else if (step === 'leads-marketing') {
+                formData.needs = 'Foco em estratégias de marketing digital.';
+                document.getElementById('formNeeds').value = formData.needs;
+                addChatMessage('Ótimo! No marketing digital, você pode investir em anúncios no Google Ads ou redes sociais.');
+                const optionsDiv = addChatMessage('', true);
+                optionsDiv.innerHTML = `
+                    <button class="chat-option" onclick="handleChatResponse('final')">Concluir Cadastro</button>
+                `;
+            } else if (step === 'leads-parcerias') {
+                formData.needs = 'Foco em parcerias estratégicas.';
+                document.getElementById('formNeeds').value = formData.needs;
+                addChatMessage('Parcerias são uma ótima ideia! Você já tem algum parceiro em mente?');
+                const optionsDiv = addChatMessage('', true);
+                optionsDiv.innerHTML = `
+                    <button class="chat-option" onclick="handleChatResponse('final')">Concluir Cadastro</button>
+                `;
+            } else if (step === 'conversaoReuniao') {
+                formData.objective = 'Melhorar % Conversão em Reunião';
+                document.getElementById('formObjective').value = 'conversaoReuniao';
+                addChatMessage('Para melhorar a % Conversão em Reunião, qualificação de leads é essencial.');
+                const optionsDiv = addChatMessage('', true);
+                optionsDiv.innerHTML = `
+                    <button class="chat-option" onclick="handleChatResponse('final')">Concluir Cadastro</button>
+                `;
+            } else if (step === 'reunioes') {
+                formData.objective = 'Realizar mais Reuniões';
+                document.getElementById('formObjective').value = 'reunioes';
+                addChatMessage('Para realizar mais reuniões, organização é a chave.');
+                const optionsDiv = addChatMessage('', true);
+                optionsDiv.innerHTML = `
+                    <button class="chat-option" onclick="handleChatResponse('final')">Concluir Cadastro</button>
+                `;
+            } else if (step === 'fechamento') {
+                formData.objective = 'Aumentar Fechamento Total';
+                document.getElementById('formObjective').value = 'fechamento';
+                addChatMessage('Para aumentar o Fechamento Total, entender as objeções dos clientes é crucial.');
+                const optionsDiv = addChatMessage('', true);
+                optionsDiv.innerHTML = `
+                    <button class="chat-option" onclick="handleChatResponse('final')">Concluir Cadastro</button>
+                `;
+            } else if (step === 'conversaoFechamento') {
+                formData.objective = 'Melhorar % Conversão em Fechamento';
+                document.getElementById('formObjective').value = 'conversaoFechamento';
+                addChatMessage('Para aumentar a % Conversão em Fechamento, técnicas de negociação ajudam muito.');
+                const optionsDiv = addChatMessage('', true);
+                optionsDiv.innerHTML = `
+                    <button class="chat-option" onclick="handleChatResponse('final')">Concluir Cadastro</button>
+                `;
+            } else if (step === 'final') {
+                addChatMessage('Cadastro concluído! Aqui está o resumo das suas informações:');
+                addChatMessage(`
+                    Nome: ${formData.name}<br>
+                    Email: ${formData.email}<br>
+                    Telefone: ${formData.phone}<br>
+                    Objetivo: ${formData.objective}<br>
+                    Necessidades: ${formData.needs}
+                `);
+                const optionsDiv = addChatMessage('', true);
+                optionsDiv.innerHTML = `
+                    <button class="chat-option" onclick="showForm()">Ver Formulário</button>
+                    <button class="chat-option" onclick="submitForm()">Enviar Formulário</button>
+                    <button class="chat-option" onclick="resetChat()">Novo Cadastro</button>
+                `;
+            }
+        }
+
+        function showForm() {
+            const chatBody = document.getElementById('chatBody');
+            const chatForm = document.getElementById('chatForm');
+            chatBody.style.display = 'none';
+            chatForm.style.display = 'flex';
+        }
+
+        function submitForm() {
+            alert('Formulário enviado com sucesso!\n\n' +
+                  `Nome: ${formData.name}\n` +
+                  `Email: ${formData.email}\n` +
+                  `Telefone: ${formData.phone}\n` +
+                  `Objetivo: ${formData.objective}\n` +
+                  `Necessidades: ${formData.needs}`);
+            resetChat();
+        }
+
+        function resetChat() {
+            formData = { name: '', email: '', phone: '', objective: '', needs: '' };
+            document.getElementById('formName').value = '';
+            document.getElementById('formEmail').value = '';
+            document.getElementById('formPhone').value = '';
+            document.getElementById('formObjective').value = 'leads';
+            document.getElementById('formNeeds').value = '';
+            const chatBody = document.getElementById('chatBody');
+            const chatForm = document.getElementById('chatForm');
+            chatBody.style.display = 'block';
+            chatForm.style.display = 'none';
+            chatBody.innerHTML = '';
+            addChatMessage('Olá! Eu sou o Alfred, seu assistente virtual. Vamos preencher um novo formulário. Qual é o seu nome?');
+            const optionsDiv = addChatMessage('', true);
+            optionsDiv.innerHTML = `
+                <input type="text" id="nameInput" placeholder="Digite seu nome" style="padding: 0.5rem; border-radius: 8px; border: 1px solid #ccc; width: 100%;">
+                <button class="chat-option" onclick="handleChatResponse('name')">Enviar</button>
+            `;
+        }
     </script>
 </body>
 </html>
