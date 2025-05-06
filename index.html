@@ -375,6 +375,7 @@
             animation: slideUpFadeIn 0.5s ease forwards;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
             transition: max-height 0.5s ease, opacity 0.5s ease, transform 0.5s ease;
+            white-space: pre-wrap; /* Preserve line breaks and spacing */
         }
 
         @keyframes slideUpFadeIn {
@@ -502,7 +503,10 @@
 </head>
 <body>
     <div id="loginSection" class="login-container">
-        <img src="https://github.com/rodrigoandradece/Randsales/raw/main/images/logows.png" alt="Logo WS" class="login-logo">
+        <img src="https://cdn.jsdelivr.net/gh/rodrigoandradece/Randsales@main/images/logows.png" 
+             onerror="this.src='https://via.placeholder.com/200x200?text=Logo+WS'" 
+             alt="Logo WS" 
+             class="login-logo">
         <div class="login-card">
             <input type="text" id="username" class="login-input" placeholder="Login" />
             <input type="password" id="password" class="login-input" placeholder="Senha" />
@@ -624,58 +628,17 @@
                         <option value="14">14. Preciso de mais tempo pra analisar com calma.</option>
                         <option value="15">15. E se meu cliente se sentir ofendido ou sair por conta da cobrança?</option>
                     </optgroup>
-                    <optgroup label="Cobrança Judicializada">
-                        <option value="16">16. O que é o Juizado Especial?</option>
-                        <option value="17">17. Qual o valor mínimo para judicializar?</option>
-                        <option value="18">18. Quanto tempo leva uma cobrança judicial?</option>
-                        <option value="19">19. Posso judicializar débitos menores?</option>
-                        <option value="20">20. É necessário advogado?</option>
-                        <option value="21">21. O que acontece após 90 dias?</option>
-                        <option value="22">22. Há custos adicionais na judicialização?</option>
-                        <option value="23">23. Posso acompanhar o processo?</option>
-                        <option value="24">24. É garantido que ganhe o processo?</option>
-                        <option value="25">25. Como preparo os documentos?</option>
-                        <option value="26">26. Posso judicializar sem tentativa extrajudicial?</option>
-                        <option value="27">27. O que fazer se o devedor não pagar?</option>
-                        <option value="28">28. Há risco de perder o caso?</option>
-                        <option value="29">29. Posso cancelar a judicialização?</option>
-                        <option value="30">30. Como sei se vale a pena judicializar?</option>
-                    </optgroup>
                     <optgroup label="Operacional">
-                        <option value="31">31. O que é LGPD e como afeta a cobrança?</option>
-                        <option value="32">32. Como garantimos conformidade com a LGPD?</option>
-                        <option value="33">33. Há regulamentação para call centers?</option>
-                        <option value="34">34. Como funciona a cobrança educacional?</option>
-                        <option value="35">35. E a cobrança condominial?</option>
-                        <option value="36">36. Qual a diferença na cobrança de varejo?</option>
-                        <option value="37">37. Posso gravar as chamadas?</option>
-                        <option value="38">38. Quantas tentativas de contato são feitas?</option>
-                        <option value="39">39. Como treina a equipe?</option>
-                        <option value="40">40. Há relatórios de desempenho?</option>
-                        <option value="41">41. Posso personalizar a abordagem?</option>
-                        <option value="42">42. Qual o tempo médio de recuperação?</option>
-                        <option value="43">43. Há suporte 24/7?</option>
-                        <option value="44">44. Como lidamos com reclamações?</option>
-                        <option value="45">45. Posso integrar com meu CRM?</option>
-                    </optgroup>
-                    <optgroup label="Scripts">
-                        <option value="46">46. Posso ver exemplos de scripts?</option>
-                        <option value="47">47. Como usar SPIN Selling no script?</option>
-                        <option value="48">48. Há scripts para diferentes setores?</option>
-                        <option value="49">49. Posso criar meu próprio script?</option>
-                        <option value="50">50. Como treinar a equipe com scripts?</option>
-                        <option value="51">51. Script 1 - Abordagem Inicial (SPIN)</option>
-                        <option value="52">52. Script 2 - Fechamento com Benefícios</option>
-                        <option value="53">53. Script 3 - Objeção de Custo</option>
-                        <option value="54">54. Script 4 - Abordagem Educacional</option>
-                        <option value="55">55. Script 5 - Urgência com Prova Social</option>
-                    </optgroup>
-                    <optgroup label="Outras Dúvidas">
-                        <option value="56">56. Como cancelo o serviço?</option>
-                        <option value="57">57. Há garantia de resultados?</option>
-                        <option value="58">58. Posso mudar o plano?</option>
-                        <option value="59">59. Qual o suporte oferecido?</option>
-                        <option value="60">60. Como recebo os relatórios?</option>
+                        <option value="16">16. Quanto tempo deve durar uma call de vendas?</option>
+                        <option value="17">17. Quantas tentativas devo fazer antes de desistir de um lead?</option>
+                        <option value="18">18. Quais perguntas levam o lead para o fechamento?</option>
+                        <option value="19">19. Quais perguntas criam rapport com o decisor B2B?</option>
+                        <option value="20">20. Perguntas extras por etapa do funil (específico pra WS Cobrança)</option>
+                        <option value="21">21. Como gerar urgência sem parecer agressivo?</option>
+                        <option value="22">22. Como lidar com o ‘vou pensar’?</option>
+                        <option value="23">23. Como vencer a objeção do ‘já tenho uma empresa que faz isso’?</option>
+                        <option value="24">24. Como transformar um case em fechamento?</option>
+                        <option value="25">25. Como reativar um lead que esfriou?</option>
                     </optgroup>
                 </select>
                 <div class="faq-answer-container" id="faqAnswerContainer">
@@ -737,6 +700,13 @@
             }
         });
 
+        // Check logo loading
+        document.addEventListener('DOMContentLoaded', function() {
+            const logo = document.querySelector('.login-logo');
+            fetch(logo.src)
+                .catch(() => console.error('Failed to load logo from primary source'));
+        });
+
         const faqData = {
             "1": { answer: "Perfeito. Isso mostra que você valoriza o recebimento. Agora, deixa eu te provocar: se sua equipe fosse 100% eficaz, a inadimplência estaria zerada. O que a WS faz não é substituir, é complementar. A gente atua onde seu time não consegue escalar — com volume, técnica e foco absoluto em recuperar. E o melhor: sem custo fixo pra você.", category: "Quebra de Objeções" },
             "2": { answer: "Você está certo em se preocupar com sua reputação. Mas te digo: cobrança não precisa ser agressiva, precisa ser inteligente. A WS atua com abordagem humanizada, orientada à solução. Seu cliente se sente ouvido, não coagido — e o melhor, você recebe.", category: "Quebra de Objeções" },
@@ -753,51 +723,16 @@
             "13": { answer: "Justo. Posso te mostrar cases documentados em segmentos similares ao seu — com dados de recuperação, ticket médio, tempo médio de recebimento e feedback dos clientes. Nada genérico. Inclusive, posso te conectar com clientes ativos da WS, se quiser ouvir deles direto. A gente joga limpo e entrega o que fala.", category: "Quebra de Objeções" },
             "14": { answer: "Tempo é importante — mas vale lembrar que inadimplência não espera. Cada dia que passa, o valor recuperável cai. Por isso, minha sugestão: vamos rodar um piloto pequeno, de teste controlado. Sem compromisso de longo prazo. Você analisa com dados reais da sua operação, e decide com segurança — e não só com suposição.", category: "Quebra de Objeções" },
             "15": { answer: "Essa é uma preocupação legítima, mas na prática é o contrário que acontece. Nossos clientes relatam que o devedor respeita mais quando há um processo profissional de cobrança. Isso demonstra seriedade e maturidade da sua empresa. E mais: se o cliente realmente abandona por estar sendo cobrado de forma justa, ele já não era um bom cliente. A WS ajuda a filtrar e fortalecer sua base.", category: "Quebra de Objeções" },
-            "16": { answer: "É uma corte para ações de até 40 salários mínimos, com processo simplificado.", category: "Cobrança Judicializada" },
-            "17": { answer: "Acima de 40 salários mínimos (aprox. R$ 54.000 em 2025).", category: "Cobrança Judicializada" },
-            "18": { answer: "Depende do caso, mas geralmente de 6 a 12 meses.", category: "Cobrança Judicializada" },
-            "19": { answer: "Não, o Juizado Especial tem limite de 40 salários mínimos.", category: "Cobrança Judicializada" },
-            "20": { answer: "Para valores até 20 salários, não é obrigatório no Juizado Especial.", category: "Cobrança Judicializada" },
-            "21": { answer: "Enviamos um relatório ao cliente propondo a judicialização.", category: "Cobrança Judicializada" },
-            "22": { answer: "Somente taxas judiciais, que variam por estado.", category: "Cobrança Judicializada" },
-            "23": { answer: "Sim, fornecemos atualizações regulares via relatório.", category: "Cobrança Judicializada" },
-            "24": { answer: "Não, depende da documentação e da defesa do devedor.", category: "Cobrança Judicializada" },
-            "25": { answer: "Fornecemos um checklist e orientamos a coleta.", category: "Cobrança Judicializada" },
-            "26": { answer: "É recomendável tentar antes, mas não é obrigatório.", category: "Cobrança Judicializada" },
-            "27": { answer: "Podemos iniciar a execução judicial após sentença.", category: "Cobrança Judicializada" },
-            "28": { answer: "Sim, se a documentação for insuficiente ou o devedor provar defesa.", category: "Cobrança Judicializada" },
-            "29": { answer: "Sim, a qualquer momento, mas há custos já incorridos.", category: "Cobrança Judicializada" },
-            "30": { answer: "Analisamos o valor e a viabilidade com você.", category: "Cobrança Judicializada" },
-            "31": { answer: "É a Lei Geral de Proteção de Dados, exigindo consentimento para uso de dados pessoais.", category: "Operacional" },
-            "32": { answer: "Usamos políticas de privacidade e treinamos a equipe.", category: "Operacional" },
-            "33": { answer: "Sim, seguimos normas da Anatel e do Procon.", category: "Operacional" },
-            "34": { answer: "Abordagem amigável para alunos inadimplentes, com planos de pagamento.", category: "Operacional" },
-            "35": { answer: "Foco em negociar com síndicos e oferecer acordos.", category: "Operacional" },
-            "36": { answer: "É mais personalizada, com foco em clientes individuais.", category: "Operacional" },
-            "37": { answer: "Sim, com consentimento prévio do cliente, conforme LGPD.", category: "Operacional" },
-            "38": { answer: "Até 5 tentativas por canal, respeitando limites legais.", category: "Operacional" },
-            "39": { answer: "Com treinamentos regulares em LGPD e técnicas de negociação.", category: "Operacional" },
-            "40": { answer: "Sim, enviados mensalmente com KPIs.", category: "Operacional" },
-            "41": { answer: "Sim, adaptamos ao perfil do cliente.", category: "Operacional" },
-            "42": { answer: "Entre 30 e 90 dias, dependendo do caso.", category: "Operacional" },
-            "43": { answer: "Não, mas oferecemos suporte em horário comercial.", category: "Operacional" },
-            "44": { answer: "Registramos e resolvemos em até 48 horas.", category: "Operacional" },
-            "45": { answer: "Sim, com API ou exportação de dados.", category: "Operacional" },
-            "46": { answer: "Sim, temos modelos disponíveis (veja abaixo).", category: "Scripts" },
-            "47": { answer: "Focamos em Situação, Problema, Implicação e Necessidade.", category: "Scripts" },
-            "48": { answer: "Sim, adaptamos para educacional, condominial e varejo.", category: "Scripts" },
-            "49": { answer: "Sim, com nosso suporte para alinhamento.", category: "Scripts" },
-            "50": { answer: "Oferecemos workshops práticos.", category: "Scripts" },
-            "51": { answer: "Olá [Nome], sou [Seu Nome] da [Empresa]. Você já enfrentou dificuldades com inadimplência? [Situação] Muitos clientes relatam perda de receita por falta de pagamento. [Problema] Isso pode impactar o fluxo de caixa e até a operação. [Implicação] Queremos oferecer uma solução que recupere esses valores rapidamente. [Necessidade] Podemos analisar seu caso sem custo?", category: "Scripts" },
-            "52": { answer: "[Nome], percebemos que a inadimplência está afetando seus resultados. Nossa solução já recuperou R$ 1M para clientes como você, com taxa de sucesso de 85%. Que tal começarmos com um piloto de 30 dias?", category: "Scripts" },
-            "53": { answer: "Entendo sua preocupação com o custo, [Nome]. Nosso serviço é baseado em resultados: só cobramos uma taxa se recuperarmos o valor. Vale o investimento para recuperar o que já perdeu?", category: "Scripts" },
-            "54": { answer: "Olá [Nome], sou [Seu Nome]. Sabia que a inadimplência pode ser reduzida com uma abordagem educacional? Posso mostrar como ajudamos escolas a recuperar 70% dos débitos em 60 dias?", category: "Scripts" },
-            "55": { answer: "[Nome], 9 em 10 empresas perdem receita por não agir rápido na cobrança. Clientes como [Exemplo] recuperaram 90% com nossa ajuda em 45 dias. Vamos agir agora?", category: "Scripts" },
-            "56": { answer: "Com 30 dias de antecedência por escrito.", category: "Outras Dúvidas" },
-            "57": { answer: "Oferecemos suporte, mas resultados dependem do caso.", category: "Outras Dúvidas" },
-            "58": { answer: "Sim, com análise e ajuste contratual.", category: "Outras Dúvidas" },
-            "59": { answer: "Chat, email e telefone durante o horário comercial.", category: "Outras Dúvidas" },
-            "60": { answer: "Por email, mensalmente ou sob demanda.", category: "Outras Dúvidas" }
+            "16": { answer: "Você tá falando com gestores que têm meta, pressão, agenda cheia e medo de se queimar com o cliente final.\n\nSeja objetivo: 30 a 40 minutos.\n- 15 min pra entender o cenário\n- 15 min pra apresentar solução\n- 10 min pra alinhar próximos passos e apertar o gatilho\n\nAmigo(a), quem faz reunião de mais de 1h pra falar de cobrança não tá vendendo performance. Tá vendendo PowerPoint.", category: "Operacional" },
+            "17": { answer: "Cobrança é tema sensível. Você precisa insistir, mas com inteligência.\n\n8 a 12 tentativas em multicanal (Whats, ligação, e-mail, LinkedIn). Cada tentativa deve agregar contexto:\n\n* Tentativa 1: Vi que vocês têm uma inadimplência média de X% no setor.\n* Tentativa 4: Queria mostrar como recuperamos 58% em 90 dias pra (escola, condomínio, empresa, loja...) com cenário similar ao seu.\n* Tentativa 7: Se não for prioridade agora, posso te mandar só o case de ROI?\n\nNão desista de um lead que ainda não entendeu o que pode ganhar com você.", category: "Operacional" },
+            "18": { answer: "Vendas é sobre mostrar o custo de não agir. Você vende alívio com perguntas que tocam na dor:\n\n* Se vocês continuarem com esse índice de inadimplência nos próximos 6 meses, o que acontece com o caixa?\n* O que mais te preocupa: não receber ou perder o cliente final no processo?\n* Se eu mostrar que a cobrança pode ser feita com respeito, resultado e custo zero, a gente avança?\n* Se eu te entrego recuperação de X% sem atrito com o aluno/inquilino/morador, qual seria o impeditivo hoje?\n* O que tá te impedindo de delegar isso agora e parar de apagar incêndio?", category: "Operacional" },
+            "19": { answer: "Rapport é mostrar que você entende a dor e o medo de parecer agressivo:\n\n* Qual foi o maior desafio de cobrança que vocês enfrentaram esse ano?\n* Como vocês lidam quando um cliente importante atrasa?\n* Você prefere manter a cobrança interna por controle ou por cultura?\n* Você já tentou terceirizar? O que te fez voltar atrás?\n* Como você mede sucesso numa operação de cobrança hoje? É só pelo % recuperado?\n\nConexão real abre portas. Quem se abre, compra.", category: "Operacional" },
+            "20": { answer: "Perguntas por etapa do funil para WS Cobrança:\n\n**Prospecção (SDR):**\n* Vocês têm um time interno de cobrança ou hoje isso tá diluído?\n* Hoje vocês perdem mais por inadimplência ou por desgaste com cliente?\n* Quer que eu levante um diagnóstico simples de oportunidades e gargalos, sem compromisso?\n\n**Diagnóstico (Closer):**\n* Qual o valor total em aberto nos últimos 12 meses?\n* Se recuperássemos 40% disso em até 90 dias, quanto entraria no caixa?\n* Qual o impacto da inadimplência no seu planejamento financeiro anual?\n* Vocês já calculam o CAC de cada cliente perdido por dívida?\n\n**Negociação / Proposta:**\n* Se o custo é zero e o risco é nosso, o que falta pra gente começar?\n* Se a gente recuperar em 30 dias o que seu time não recuperou em 6 meses, vale o teste?\n* Quer começar com um lote piloto e medir junto com você?", category: "Operacional" },
+            "21": { answer: "Urgência vem do impacto real da demora, não de desespero.\n\nFrases que aceleram a decisão:\n* Cada semana que passa, o valor em aberto cresce. Já parou pra ver quanto custa esperar mais 30 dias?\n* Se a gente tivesse começado quando falamos da outra vez, talvez você já tivesse dinheiro em caixa.\n* O tempo tá jogando contra você ou a seu favor nesse cenário?\n\nA urgência que funciona conecta com a dor real e o desejo de alívio. Não empurra, desperta.", category: "Operacional" },
+            "22": { answer: "90% dos ‘vou pensar’ são só uma forma educada de dizer ‘não confio ainda ou não vi valor’.\n\nCava o motivo com:\n* Legal. Só pra eu entender: o que exatamente você quer avaliar antes de seguir?\n* É uma dúvida sobre o modelo, sobre a entrega ou sobre se é a hora certa?\n* Vamos fazer o seguinte: me diz o que te impede de testar por 30 dias. Se não for bom, você me tira no piloto.\n\nO segredo é eliminar o talvez, não forçar o sim.", category: "Operacional" },
+            "23": { answer: "Não fale mal da empresa atual. Posicione-se como upgrade:\n\n* Perfeito! Isso mostra que vocês já entenderam o valor de cobrar bem. Agora a pergunta é: estão satisfeitos com os resultados?\n* Vocês medem hoje a recuperação líquida? Posso te mostrar como aumentamos isso mesmo com empresas que já tinham um parceiro.\n* Posso fazer um comparativo sem compromisso? Só pra ver se tem gordura pra recuperar mais.\n\nO ‘já tenho’ é o começo da comparação, não o fim.", category: "Operacional" },
+            "24": { answer: "Case com semelhança vira espelho, não só história:\n\n* Deixa eu te contar o que aconteceu com uma empresa igualzinha à sua, no mesmo setor.\n* Eles também tinham medo de parecer agressivos. A gente entrou com uma abordagem leve, e em 60 dias, R$ X mil voltaram pro caixa.\n* Posso te mostrar esse case em 5 min. Se fizer sentido, a gente replica com o nome de vocês no próximo.\n\nGente não compra dados. Compra transformação parecida.", category: "Operacional" },
+            "25": { answer: "Lead frio não é morto. É mal nutrido.\n\nRetome com:\n* Falei com você há 60 dias. Se tivesse começado naquela época, já teria R$ X mil recuperados. Ainda faz sentido pra você?\n* Tem uma atualização que pode te interessar: novos dados do setor mostram que a inadimplência subiu X%. Quer olhar juntos?\n* Voltei porque lembrei da sua meta de reduzir inadimplência até o segundo semestre. Ainda é prioridade?\n\nReapareça com timing, dado novo e sem parecer desesperado.", category: "Operacional" }
         };
 
         function showAnswer() {
@@ -840,58 +775,17 @@
                     <option value="14">14. Preciso de mais tempo pra analisar com calma.</option>
                     <option value="15">15. E se meu cliente se sentir ofendido ou sair por conta da cobrança?</option>
                 </optgroup>
-                <optgroup label="Cobrança Judicializada">
-                    <option value="16">16. O que é o Juizado Especial?</option>
-                    <option value="17">17. Qual o valor mínimo para judicializar?</option>
-                    <option value="18">18. Quanto tempo leva uma cobrança judicial?</option>
-                    <option value="19">19. Posso judicializar débitos menores?</option>
-                    <option value="20">20. É necessário advogado?</option>
-                    <option value="21">21. O que acontece após 90 dias?</option>
-                    <option value="22">22. Há custos adicionais na judicialização?</option>
-                    <option value="23">23. Posso acompanhar o processo?</option>
-                    <option value="24">24. É garantido que ganhe o processo?</option>
-                    <option value="25">25. Como preparo os documentos?</option>
-                    <option value="26">26. Posso judicializar sem tentativa extrajudicial?</option>
-                    <option value="27">27. O que fazer se o devedor não pagar?</option>
-                    <option value="28">28. Há risco de perder o caso?</option>
-                    <option value="29">29. Posso cancelar a judicialização?</option>
-                    <option value="30">30. Como sei se vale a pena judicializar?</option>
-                </optgroup>
                 <optgroup label="Operacional">
-                    <option value="31">31. O que é LGPD e como afeta a cobrança?</option>
-                    <option value="32">32. Como garantimos conformidade com a LGPD?</option>
-                    <option value="33">33. Há regulamentação para call centers?</option>
-                    <option value="34">34. Como funciona a cobrança educacional?</option>
-                    <option value="35">35. E a cobrança condominial?</option>
-                    <option value="36">36. Qual a diferença na cobrança de varejo?</option>
-                    <option value="37">37. Posso gravar as chamadas?</option>
-                    <option value="38">38. Quantas tentativas de contato são feitas?</option>
-                    <option value="39">39. Como treina a equipe?</option>
-                    <option value="40">40. Há relatórios de desempenho?</option>
-                    <option value="41">41. Posso personalizar a abordagem?</option>
-                    <option value="42">42. Qual o tempo médio de recuperação?</option>
-                    <option value="43">43. Há suporte 24/7?</option>
-                    <option value="44">44. Como lidamos com reclamações?</option>
-                    <option value="45">45. Posso integrar com meu CRM?</option>
-                </optgroup>
-                <optgroup label="Scripts">
-                    <option value="46">46. Posso ver exemplos de scripts?</option>
-                    <option value="47">47. Como usar SPIN Selling no script?</option>
-                    <option value="48">48. Há scripts para diferentes setores?</option>
-                    <option value="49">49. Posso criar meu próprio script?</option>
-                    <option value="50">50. Como treinar a equipe com scripts?</option>
-                    <option value="51">51. Script 1 - Abordagem Inicial (SPIN)</option>
-                    <option value="52">52. Script 2 - Fechamento com Benefícios</option>
-                    <option value="53">53. Script 3 - Objeção de Custo</option>
-                    <option value="54">54. Script 4 - Abordagem Educacional</option>
-                    <option value="55">55. Script 5 - Urgência com Prova Social</option>
-                </optgroup>
-                <optgroup label="Outras Dúvidas">
-                    <option value="56">56. Como cancelo o serviço?</option>
-                    <option value="57">57. Há garantia de resultados?</option>
-                    <option value="58">58. Posso mudar o plano?</option>
-                    <option value="59">59. Qual o suporte oferecido?</option>
-                    <option value="60">60. Como recebo os relatórios?</option>
+                    <option value="16">16. Quanto tempo deve durar uma call de vendas?</option>
+                    <option value="17">17. Quantas tentativas devo fazer antes de desistir de um lead?</option>
+                    <option value="18">18. Quais perguntas levam o lead para o fechamento?</option>
+                    <option value="19">19. Quais perguntas criam rapport com o decisor B2B?</option>
+                    <option value="20">20. Perguntas extras por etapa do funil (específico pra WS Cobrança)</option>
+                    <option value="21">21. Como gerar urgência sem parecer agressivo?</option>
+                    <option value="22">22. Como lidar com o ‘vou pensar’?</option>
+                    <option value="23">23. Como vencer a objeção do ‘já tenho uma empresa que faz isso’?</option>
+                    <option value="24">24. Como transformar um case em fechamento?</option>
+                    <option value="25">25. Como reativar um lead que esfriou?</option>
                 </optgroup>
             `;
             select.addEventListener('change', showAnswer);
