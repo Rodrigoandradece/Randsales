@@ -369,13 +369,17 @@
             font-size: 0.95rem;
             line-height: 1.5;
             max-height: 300px;
-            overflow: hidden;
+            overflow: auto;
             opacity: 0;
             transform: translateY(-20px);
             animation: slideUpFadeIn 0.5s ease forwards;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
             transition: max-height 0.5s ease, opacity 0.5s ease, transform 0.5s ease;
-            white-space: pre-wrap; /* Preserve line breaks and spacing */
+            white-space: pre-wrap;
+        }
+
+        .faq-answer li {
+            margin-bottom: 0.75rem;
         }
 
         @keyframes slideUpFadeIn {
@@ -497,7 +501,18 @@
             .calendar-box p { font-size: 0.8rem; }
             .metric-explanation { padding: 1rem; }
             .faq-category-title { font-size: 1rem; }
-            .faq-answer { font-size: 0.85rem; }
+            .faq-answer {
+                font-size: 0.8rem;
+                line-height: 1.4;
+                padding: 0.8rem;
+                max-height: 400px;
+            }
+            .faq-answer li {
+                margin-bottom: 0.5rem;
+            }
+            .faq-answer-container {
+                padding: 0 0.5rem;
+            }
         }
     </style>
 </head>
@@ -747,9 +762,15 @@
                 categoryTitleDiv.style.display = 'block';
                 answerDiv.textContent = data.answer;
                 answerDiv.classList.add('active');
+                // Apply mobile-specific class if screen width <= 600px
+                if (window.innerWidth <= 600) {
+                    answerDiv.classList.add('mobile-faq');
+                } else {
+                    answerDiv.classList.remove('mobile-faq');
+                }
             } else {
                 categoryTitleDiv.style.display = 'none';
-                answerDiv.classList.remove('active');
+                answerDiv.classList.remove('active', 'mobile-faq');
             }
         }
 
@@ -794,6 +815,15 @@
         document.addEventListener('DOMContentLoaded', function() {
             const select = document.getElementById('faqSelect');
             select.addEventListener('change', showAnswer);
+            // Re-apply mobile styling on window resize
+            window.addEventListener('resize', function() {
+                const answerDiv = document.getElementById('faqAnswer');
+                if (window.innerWidth <= 600 && answerDiv.classList.contains('active')) {
+                    answerDiv.classList.add('mobile-faq');
+                } else {
+                    answerDiv.classList.remove('mobile-faq');
+                }
+            });
         });
     </script>
 </body>
