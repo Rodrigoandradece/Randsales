@@ -550,11 +550,23 @@
                <i class="fas fa-user-plus"></i>
                <span>Lead's Welliana</span>
             </a>
-            <a href="https://docs.google.com/forms/d/e/1FAIpQLSctISw1hCPXCAv_3579rVMAEgEoTdf8_FNks3ev1gE9NJpB2g/viewform?usp=preview" 
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSctISw1hCPXCAv_3579rVMAEgEoTdf8_FNks3ev1gE9NJpB2g/viewform?usp=preview " 
                target="_blank" 
                class="sidebar-button">
                <i class="fas fa-user-check"></i>
                <span>Relacionamento</span>
+            </a>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLScrTPmWv8VOCdMnqfvNBAu2l0kSgsAZsAVV_KTRUlNQMwW2_Q/viewform?usp=dialog" 
+               target="_blank" 
+               class="sidebar-button">
+               <i class="fas fa-calendar-week"></i>
+               <span>Semanal Rodrigo</span>
+            </a>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSfk0PPvO9Uep_etC5xw3i5MwrzrTcsfJ384cJ4tVAbPj3GYyw/viewform?usp=dialog" 
+               target="_blank" 
+               class="sidebar-button">
+               <i class="fas fa-calendar-week"></i>
+               <span>Semanal Welliana</span>
             </a>
             <button class="logout-button" onclick="logout()">
                 <i class="fas fa-sign-out-alt"></i>
@@ -569,7 +581,7 @@
                 <p>2025</p>
             </div>
             <div class="highlight-buttons">
-                <a href="https://docs.google.com/spreadsheets/d/1UN--ziVuBOQUX-3GX3XozhZ1AmpTd-md/edit?gid=2124283496#gid=2124283496" 
+                <a href="https://docs.google.com/spreadsheets/d/1ZzOnoUeqUGfFxRwg_VBpn8jQ-0kPljGnntL6z0qPllk/edit?gid=1564831870#gid=1564831870" 
                    target="_blank" 
                    class="highlight-button">
                    <i class="fas fa-chart-bar"></i> Analítico
@@ -651,7 +663,9 @@
                         <option value="20">20. Perguntas extras por etapa do funil (específico pra WS Cobrança)</option>
                         <option value="21">21. Como gerar urgência sem parecer agressivo?</option>
                         <option value="22">22. Como lidar com o ‘vou pensar’?</option>
-                        <option value="23">23. Como vencer a objeção do ‘já tenho uma empresa que faz isso’?</option>
+                        <option value="23">23. Como vencer a objeção do ‘já tenho uma empresa que faz –
+
+isto’?</option>
                         <option value="24">24. Como transformar um case em fechamento?</option>
                         <option value="25">25. Como reativar um lead que esfriou?</option>
                     </optgroup>
@@ -676,7 +690,8 @@
             const users = [
                 { username: 'rodrigo', password: 'rodrigo@2016' },
                 { username: 'welliana', password: 'WS2025' },
-                { username: 'wellington', password: 'WS2025' }
+                { username: 'wellington', password: 'WS2025' },
+                { username: 'marcos', password: 'WS2025' }
             ];
 
             const user = users.find(u => u.username === username && u.password === password);
@@ -746,8 +761,8 @@
             "21": { answer: "Urgência vem do impacto real da demora, não de desespero.\n\nFrases que aceleram a decisão:\n* Cada semana que passa, o valor em aberto cresce. Já parou pra ver quanto custa esperar mais 30 dias?\n* Se a gente tivesse começado quando falamos da outra vez, talvez você já tivesse dinheiro em caixa.\n* O tempo tá jogando contra você ou a seu favor nesse cenário?\n\nA urgência que funciona conecta com a dor real e o desejo de alívio. Não empurra, desperta.", category: "Operacional" },
             "22": { answer: "90% dos ‘vou pensar’ são só uma forma educada de dizer ‘não confio ainda ou não vi valor’.\n\nCava o motivo com:\n* Legal. Só pra eu entender: o que exatamente você quer avaliar antes de seguir?\n* É uma dúvida sobre o modelo, sobre a entrega ou sobre se é a hora certa?\n* Vamos fazer o seguinte: me diz o que te impede de testar por 30 dias. Se não for bom, você me tira no piloto.\n\nO segredo é eliminar o talvez, não forçar o sim.", category: "Operacional" },
             "23": { answer: "Não fale mal da empresa atual. Posicione-se como upgrade:\n\n* Perfeito! Isso mostra que vocês já entenderam o valor de cobrar bem. Agora a pergunta é: estão satisfeitos com os resultados?\n* Vocês medem hoje a recuperação líquida? Posso te mostrar como aumentamos isso mesmo com empresas que já tinham um parceiro.\n* Posso fazer um comparativo sem compromisso? Só pra ver se tem gordura pra recuperar mais.\n\nO ‘já tenho’ é o começo da comparação, não o fim.", category: "Operacional" },
-            "24": { answer: "Case com semelhança vira espelho, não só história:\n\n* Deixa eu te contar o que aconteceu com uma empresa igualzinha à sua, no mesmo setor.\n* Eles também tinham medo de parecer agressivos. A gente entrou com uma abordagem leve, e em 60 dias, R$ X mil voltaram pro caixa.\n* Posso te mostrar esse case em 5 min. Se fizer sentido, a gente replica com o nome de vocês no próximo.\n\nGente não compra dados. Compra transformação parecida.", category: "Operacional" },
-            "25": { answer: "Lead frio não é morto. É mal nutrido.\n\nRetome com:\n* Falei com você há 60 dias. Se tivesse começado naquela época, já teria R$ X mil recuperados. Ainda faz sentido pra você?\n* Tem uma atualização que pode te interessar: novos dados do setor mostram que a inadimplência subiu X%. Quer olhar juntos?\n* Voltei porque lembrei da sua meta de reduzir inadimplência até o segundo semestre. Ainda é prioridade?\n\nReapareça com timing, dado novo e sem parecer desesperado.", category: "Operacional" }
+            "24": { answer: "Case com semelhança vira espelho, não só história:\n\n* Deixa eu te contar o que aconteceu com uma empresa igualzinha à sua, no mesmo setor.\n* Eles também tinham medo de parecer agressivos. A gente entrou com uma abordagem leve, e em 60 dias, R$ X mil voltaram pro caixa.\n* Posso te mostrar esse case em 5 min. Se fazer sentido, a gente replica com o nome de vocês no próximo.\n\nGente não compra dados. Compra transformação parecida.", category: "Operacional" },
+            "25": { answer: "Lead frio não é morto. É mal nutrido.\n\nRetome com:\n* Falei com você há 60 dias. Se tivesse começado naquela época, já estaria com R$ X mil recuperados. Ainda faz sentido pra você?\n* Tem uma atualização que pode te interessar: novos dados do setor mostram que a inadimplência subiu X%. Quer olhar juntos?\n* Voltei porque lembrei da sua meta de reduzir inadimplência até o segundo semestre. Ainda é prioridade?\n\nReapareça com timing, dado novo e sem parecer desesperado.", category: "Operacional" }
         };
 
         function showAnswer() {
