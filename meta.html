@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Elevation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body {
             margin: 0;
@@ -78,7 +79,7 @@
         .sidebar {
             position: fixed;
             top: 0;
-            left: -250px; /* Inicialmente escondido */
+            left: -250px;
             width: 250px;
             height: 100%;
             background: rgba(28, 28, 30, 0.95);
@@ -89,7 +90,7 @@
         }
 
         .sidebar.active {
-            left: 0; /* Aparece quando ativo */
+            left: 0;
         }
 
         .sidebar.collapsed {
@@ -107,17 +108,25 @@
             font-size: 1.1rem;
             text-align: left;
             cursor: pointer;
-            transition: transform 0.2s ease, background 0.3s, color 0.3s;
+            transition: transform 0.3s ease, background 0.3s, color 0.3s;
         }
 
-        .sidebar button:hover {
+        .sidebar button i {
+            margin-right: 0.5rem;
+        }
+
+        .sidebar button:hover, .sidebar button:active {
             background: #2C2C2E;
             color: #34C759;
-            transform: scale(1.05);
+            transform: scale(1.03);
         }
 
         .sidebar.collapsed button span {
             display: none;
+        }
+
+        .sidebar.collapsed button i {
+            margin-right: 0;
         }
 
         /* Toggle menu button */
@@ -131,7 +140,7 @@
             font-size: 1.5rem;
             cursor: pointer;
             z-index: 1000;
-            display: none; /* Escondido até o login */
+            display: none;
         }
 
         .menu-toggle.active {
@@ -143,7 +152,7 @@
             margin-left: 0;
             transition: margin-left 0.3s ease;
             padding: 2rem;
-            display: none; /* Escondido até o login */
+            display: none;
         }
 
         .main-content.active {
@@ -158,18 +167,48 @@
             font-size: 1.2rem;
             color: #34C759;
             margin-bottom: 2rem;
+            text-align: center;
+            opacity: 0;
+            animation: fadeIn 0.5s forwards;
         }
 
-        /* Date display */
-        .date-display {
-            position: fixed;
-            top: 1rem;
-            right: 1rem;
-            background: rgba(44, 44, 46, 0.9);
-            padding: 0.5rem 1rem;
-            border-radius: 10px;
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        /* Central buttons */
+        .central-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .central-button {
+            background: #FF9BB8;
+            border: none;
+            border-radius: 15px;
+            padding: 1rem 1.5rem;
+            color: #fff;
             font-size: 1rem;
-            color: #34C759;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .central-button.alert {
+            background: #FF2D55;
+        }
+
+        .central-button:hover, .central-button:active {
+            background: #34C759;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(52, 199, 89, 0.2);
         }
 
         /* Stats cards */
@@ -189,15 +228,13 @@
             position: relative;
             overflow: hidden;
             cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
-        .stat-card:hover {
-            transform: scale(1.05);
+        .stat-card:hover, .stat-card:active {
+            transform: translateY(-2px);
             background: rgba(52, 199, 89, 0.1);
-        }
-
-        .stat-card:active {
-            transform: scale(0.98);
+            box-shadow: 0 4px 8px rgba(52, 199, 89, 0.2);
         }
 
         .stat-card .number {
@@ -223,6 +260,119 @@
             transform: translateY(20px);
             opacity: 0.8;
         }
+
+        /* Date display */
+        .date-display {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(44, 44, 46, 0.9);
+            padding: 0.5rem 1rem;
+            border-radius: 10px;
+            font-size: 1rem;
+            color: #34C759;
+            opacity: 0;
+            animation: slideIn 0.5s forwards 0.5s;
+        }
+
+        @keyframes slideIn {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Aniversariantes */
+        .birthday-section {
+            background: rgba(44, 44, 46, 0.9);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            opacity: 0;
+            animation: fadeIn 0.5s forwards 0.7s;
+        }
+
+        .birthday-section h3 {
+            color: #FF2D55;
+            margin-bottom: 1rem;
+        }
+
+        .birthday-section p {
+            margin: 0.5rem 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .birthday-section p::after {
+            content: " 🎉";
+        }
+
+        /* Devocional */
+        .devotional-section {
+            background: rgba(44, 44, 46, 0.9);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            opacity: 0;
+            animation: slideUp 0.5s forwards 0.9s;
+        }
+
+        @keyframes slideUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .devotional-section h3 {
+            color: #FF2D55;
+            margin-bottom: 1rem;
+        }
+
+        .devotional-section p {
+            margin: 0.5rem 0;
+            transition: opacity 0.3s ease;
+        }
+
+        /* Livro da Semana */
+        .book-section {
+            background: rgba(44, 44, 46, 0.9);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            opacity: 0;
+            animation: fadeIn 0.5s forwards 1.1s;
+        }
+
+        .book-section h3 {
+            color: #FF2D55;
+            margin-bottom: 1rem;
+        }
+
+        .book-section p {
+            margin: 0.5rem 0;
+            transition: opacity 0.3s ease;
+        }
+
+        /* Responsividade para mobile */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 200px;
+            }
+
+            .sidebar.collapsed {
+                width: 50px;
+            }
+
+            .main-content.collapsed {
+                margin-left: 50px;
+            }
+
+            .sidebar button:hover, .sidebar button:active {
+                transform: scale(1.02);
+            }
+
+            .central-button:hover, .central-button:active {
+                transform: scale(1.03);
+            }
+
+            .stat-card:hover, .stat-card:active {
+                transform: scale(1.03);
+            }
+        }
     </style>
 </head>
 <body>
@@ -238,33 +388,52 @@
 
     <div class="sidebar" id="sidebar">
         <button onclick="window.location.href='https://docs.google.com/forms/d/e/1FAIpQLSfztWfjLuQGccts4T1LSE2omoKp5MioUHhUoGyiXe-GpSgY5A/viewform?usp=dialog'">
-            <span>Frequência Liderança</span>
+            <i class="fas fa-users"></i><span>Frequência Liderança</span>
         </button>
         <button onclick="window.location.href='https://docs.google.com/forms/d/e/1FAIpQLSfsxOAPy72TjytzJtto0UJlM3hwsmtJ9NIJiOzSc95eiVeT7Q/viewform?usp=dialog'">
-            <span>Frequência Elevation</span>
+            <i class="fas fa-church"></i><span>Frequência Elevation</span>
         </button>
         <button onclick="window.location.href='https://docs.google.com/forms/d/e/1FAIpQLScqGm7c0dULDwmnFhwJGMfFFCkt_t4STWg-aHLpCSGbIdmTkg/viewform?usp=dialog'">
-            <span>Compras</span>
+            <i class="fas fa-shopping-cart"></i><span>Compras</span>
         </button>
         <button onclick="window.location.href='https://docs.google.com/forms/d/e/1FAIpQLSeupD3jOejLI5eO7iV1QkyPDPzW25Qqjm-u0viZB-NV_Ooi_A/viewform?usp=dialog'">
-            <span>Connect</span>
+            <i class="fas fa-handshake"></i><span>Connect</span>
         </button>
         <button onclick="loadPage('sugestoes')">
-            <span>Sugestões</span>
+            <i class="fas fa-lightbulb"></i><span>Sugestões</span>
         </button>
         <button onclick="window.location.href='https://docs.google.com/forms/d/e/1FAIpQLSdzEJueL_mAEsrE6MldU-R6fXPwFXk2WW4fohIkl_YU5Dn6pA/viewform?usp=dialog'">
-            <span>Agendamento MIP</span>
+            <i class="fas fa-calendar-alt"></i><span>Agendamento MIP</span>
         </button>
         <button onclick="loadPage('acao-social')">
-            <span>Ação Social</span>
+            <i class="fas fa-hands-helping"></i><span>Ação Social</span>
         </button>
         <button onclick="logout()">
-            <span>Sair</span>
+            <i class="fas fa-sign-out-alt"></i><span>Sair</span>
         </button>
     </div>
 
     <div class="main-content" id="mainContent">
         <div class="welcome-message" id="welcomeMessage"></div>
+
+        <div class="central-buttons">
+            <button class="central-button" onclick="loadPage('gerencial')">
+                <i class="fas fa-chart-line"></i> Gerencial
+            </button>
+            <button class="central-button" onclick="loadPage('liturgia')">
+                <i class="fas fa-book-open"></i> Liturgia
+            </button>
+            <button class="central-button" onclick="loadPage('frequencia')">
+                <i class="fas fa-user-check"></i> Frequência
+            </button>
+            <button class="central-button" onclick="loadPage('materias')">
+                <i class="fas fa-file-alt"></i> Matérias
+            </button>
+            <button class="central-button alert" onclick="loadPage('alerta')">
+                <i class="fas fa-exclamation-circle"></i> Alerta
+            </button>
+        </div>
+
         <div class="stats-container">
             <div class="stat-card">
                 <div class="number">68</div>
@@ -290,6 +459,24 @@
                 <div class="number">76%</div>
                 <div class="label">% Líderes no MIP (mês)</div>
             </div>
+        </div>
+
+        <div class="birthday-section">
+            <h3>Aniversariantes 🎈 (Maio)</h3>
+            <p>João Silva</p>
+            <p>Maria Oliveira</p>
+            <p>Pedro Santos</p>
+        </div>
+
+        <div class="devotional-section">
+            <h3>Devocional (Maio) 📖</h3>
+            <p><strong>Deuteronômio</strong></p>
+            <p>Reflita sobre as leis e promessas de Deus.</p>
+        </div>
+
+        <div class="book-section">
+            <h3>Livro da Semana 📚</h3>
+            <p><strong>A Vida com Propósito</strong></p>
         </div>
     </div>
 
