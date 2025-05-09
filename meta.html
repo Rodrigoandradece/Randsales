@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -54,7 +53,7 @@
         .particle {
             position: absolute;
             background: rgba(255, 255, 255, 0.3);
-            border-radius: 50 fö0%;
+            border-radius: 50%;
             pointer-events: none;
             animation: float 20s infinite linear;
         }
@@ -75,27 +74,16 @@
             left: 50%;
             transform: translate(-50%, -50%);
             background: rgba(44, 44, 46, 0.85);
-            padding: 2.5rem;
+            padding: 2rem;
             border-radius: 24px;
             box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
             z-index: 1001;
             text-align: center;
             width: 90%;
-            max-width: 360px;
+            max-width: 320px;
             backdrop-filter: blur(15px);
             border: 1px solid rgba(255, 255, 255, 0.15);
             overflow: hidden;
-        }
-
-        .login-container h2 {
-            color: #34C759;
-            margin-bottom: 2rem;
-            font-size: 1.8rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-            animation: fadeIn 0.5s forwards;
         }
 
         .input-wrapper {
@@ -105,12 +93,12 @@
 
         .login-container input {
             width: 100%;
-            padding: 1rem 1rem 1rem 2.5rem;
+            padding: 0.9rem 0.9rem 0.9rem 2.5rem;
             border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 12px;
             background: rgba(255, 255, 255, 0.1);
             color: #fff;
-            font-size: 1.1rem;
+            font-size: 1rem;
             box-sizing: border-box;
             transition: border 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
         }
@@ -144,14 +132,14 @@
 
         .login-container button {
             width: 100%;
-            padding: 1rem;
-            margin-top: 1.5rem;
+            padding: 0.9rem;
+            margin-top: 1.2rem;
             border: none;
             border-radius: 12px;
             background: linear-gradient(135deg, #34C759 0%, #2eb34f 100%);
             color: #1a1a1a;
             font-weight: 600;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             cursor: pointer;
             transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
             box-shadow: 0 4px 15px rgba(52, 199, 89, 0.3);
@@ -169,8 +157,8 @@
 
         .error-message {
             color: #FF2D55;
-            font-size: 0.95rem;
-            margin-top: 1.2rem;
+            font-size: 0.9rem;
+            margin-top: 1rem;
             display: none;
             animation: shake 0.5s ease;
         }
@@ -185,12 +173,13 @@
         .sidebar {
             position: fixed;
             top: 0;
-            left: -250px;
-            width: 250px;
+            left: -100%;
+            width: 100%;
+            max-width: 280px;
             height: 100%;
             background: rgba(28, 28, 30, 0.95);
-            padding-top: 4rem;
-            transition: left 0.3s ease, width 0.3s ease;
+            padding-top: 3.5rem;
+            transition: left 0.3s ease;
             z-index: 999;
             border-right: 1px solid rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
@@ -202,10 +191,6 @@
             display: block;
         }
 
-        .sidebar.collapsed {
-            width: 60px;
-        }
-
         .sidebar button {
             display: flex;
             align-items: center;
@@ -214,7 +199,7 @@
             border: none;
             background: transparent;
             color: #fff;
-            font-size: 1.1rem;
+            font-size: 1rem;
             text-align: left;
             cursor: pointer;
             transition: background 0.3s, color 0.3s;
@@ -243,27 +228,19 @@
             fill: #34C759;
         }
 
-        .sidebar.collapsed button span {
-            display: none;
-        }
-
-        .sidebar.collapsed button .icon {
-            margin-right: 0;
-        }
-
         /* Toggle Menu */
         .menu-toggle {
             position: fixed;
-            top: 1.2rem;
-            left: 1.2rem;
+            top: 1rem;
+            left: 1rem;
             background: rgba(44, 44, 46, 0.9);
             border: none;
             border-radius: 8px;
             color: #34C759;
-            font-size: 1.6rem;
+            font-size: 1.4rem;
             cursor: pointer;
             z-index: 1000;
-            padding: 0.6rem;
+            padding: 0.5rem;
             transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.3s ease;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
             display: none;
@@ -283,7 +260,7 @@
         .main-content {
             margin-left: 0;
             transition: margin-left 0.3s ease;
-            padding: 2.5rem;
+            padding: 1.5rem;
             display: none;
         }
 
@@ -291,14 +268,10 @@
             display: block;
         }
 
-        .main-content.collapsed {
-            margin-left: 60px;
-        }
-
         .welcome-message {
-            font-size: 1.4rem;
+            font-size: 1.2rem;
             color: #34C759;
-            margin-bottom: 2.5rem;
+            margin-bottom: 2rem;
             text-align: center;
             opacity: 0;
             animation: fadeIn 0.5s forwards 0.3s;
@@ -315,21 +288,21 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 1.5rem;
-            margin-bottom: 2.5rem;
+            gap: 1rem;
+            margin-bottom: 2rem;
         }
 
         .central-button {
             background: linear-gradient(135deg, #FF9BB8 0%, #FF6F91 100%);
             border: none;
-            border-radius: 16px;
-            padding: 1.1rem 1.8rem;
+            border-radius: 12px;
+            padding: 0.9rem 1.4rem;
             color: #fff;
-            font-size: 1.1rem;
+            font-size: 0.95rem;
             font-weight: 500;
             display: flex;
             align-items: center;
-            gap: 0.6rem;
+            gap: 0.5rem;
             cursor: pointer;
             transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.3s ease, box-shadow 0.3s ease;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
@@ -351,8 +324,8 @@
         }
 
         .central-button .icon {
-            width: 1.2rem;
-            height: 1.2rem;
+            width: 1.1rem;
+            height: 1.1rem;
             fill: #fff;
         }
 
@@ -360,15 +333,15 @@
         .stats-container {
             display: flex;
             flex-wrap: wrap;
-            gap: 1.8rem;
-            margin-top: 2.5rem;
+            gap: 1.2rem;
+            margin-top: 2rem;
             justify-content: center;
         }
 
         .stat-card {
             background: linear-gradient(135deg, rgba(44, 44, 46, 0.95) 0%, rgba(60, 60, 62, 0.95) 100%);
-            border-radius: 16px;
-            padding: 1.8rem;
+            border-radius: 12px;
+            padding: 1.2rem;
             text-align: center;
             transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease, background 0.3s ease;
             position: relative;
@@ -377,8 +350,8 @@
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
             backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.05);
-            flex: 1 1 220px;
-            max-width: 300px;
+            flex: 1 1 160px;
+            max-width: 260px;
         }
 
         .stat-card:hover, .stat-card:focus {
@@ -393,7 +366,7 @@
         }
 
         .stat-card .number {
-            font-size: 2.4rem;
+            font-size: 2rem;
             font-weight: 700;
             color: #34C759;
             transition: font-size 0.3s ease, transform 0.3s ease, color 0.3s ease;
@@ -401,21 +374,21 @@
         }
 
         .stat-card .label {
-            font-size: 1rem;
+            font-size: 0.9rem;
             color: rgba(255, 255, 255, 0.9);
-            margin-top: 0.6rem;
+            margin-top: 0.5rem;
             transition: transform 0.3s ease, opacity 0.3s ease, color 0.3s ease;
             text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
         }
 
         .stat-card:hover .number, .stat-card:focus .number {
-            font-size: 3.2rem;
-            transform: translateY(-12px);
+            font-size: 2.6rem;
+            transform: translateY(-10px);
             color: #FFFFFF;
         }
 
         .stat-card:hover .label, .stat-card:focus .label {
-            transform: translateY(22px);
+            transform: translateY(20px);
             opacity: 0.9;
             color: #E5E5E5;
         }
@@ -426,33 +399,12 @@
             100% { opacity: 1; transform: translateY(0); }
         }
 
-        /* Date Display */
-        .date-display {
-            position: fixed;
-            top: 1.2rem;
-            right: 1.2rem;
-            background: rgba(44, 44, 46, 0.9);
-            padding: 0.6rem 1.2rem;
-            border-radius: 12px;
-            font-size: 1.1rem;
-            color: #34C759;
-            opacity: 0;
-            animation: slideIn 0.5s forwards 0.5s;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            font-weight: 500;
-            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
-        }
-
-        @keyframes slideIn {
-            to { opacity: 1; transform: translateY(0); }
-        }
-
         /* Aniversariantes */
         .birthday-section {
             background: linear-gradient(135deg, #FF6F91 0%, #FF2D55 100%);
-            border-radius: 16px;
-            padding: 1.8rem;
-            margin: 2rem 0;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
             position: relative;
             opacity: 0;
             animation: fadeInWithBounce 0.7s forwards 0.7s;
@@ -462,8 +414,8 @@
 
         .birthday-section h3 {
             color: #fff;
-            margin-bottom: 1.2rem;
-            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
             font-weight: 700;
             position: relative;
             z-index: 1;
@@ -471,8 +423,8 @@
         }
 
         .birthday-section p {
-            margin: 0.6rem 0;
-            font-size: 1.2rem;
+            margin: 0.5rem 0;
+            font-size: 1rem;
             color: #fff;
             position: relative;
             z-index: 1;
@@ -481,7 +433,7 @@
         }
 
         .birthday-section p:hover, .birthday-section p:focus {
-            transform: translateX(12px) scale(1.06);
+            transform: translateX(10px) scale(1.05);
             opacity: 0.95;
         }
 
@@ -497,9 +449,9 @@
         /* Devocional e Leitura Que Constrói */
         .devotional-section, .book-section {
             background: linear-gradient(135deg, #34C759 0%, #2eb34f 100%);
-            border-radius: 16px;
-            padding: 2rem;
-            margin: 2.5rem 0;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
             position: relative;
             opacity: 0;
             animation: slideUpWithFade 0.7s forwards 0.9s;
@@ -515,8 +467,8 @@
 
         .devotional-section h3, .book-section h3 {
             color: #fff;
-            margin-bottom: 1.5rem;
-            font-size: 1.6rem;
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
             font-weight: 700;
             position: relative;
             z-index: 1;
@@ -530,9 +482,9 @@
             background: rgba(0, 0, 0, 0.3);
             border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 8px;
-            padding: 0.5rem;
+            padding: 0.4rem;
             color: #f0f0f0;
-            font-size: 1rem;
+            font-size: 0.9rem;
             cursor: pointer;
             transition: background 0.3s ease, border 0.3s ease, color 0.3s ease;
         }
@@ -549,8 +501,8 @@
         }
 
         .devotional-section p.book-title, .book-section p.title {
-            margin: 0.8rem 0;
-            font-size: 1.4rem;
+            margin: 0.6rem 0;
+            font-size: 1.2rem;
             color: #fff;
             position: relative;
             z-index: 1;
@@ -561,8 +513,8 @@
         }
 
         .devotional-section p.quote, .book-section p.quote {
-            margin: 0.8rem 0;
-            font-size: 1rem;
+            margin: 0.6rem 0;
+            font-size: 0.9rem;
             color: rgba(255, 255, 255, 0.95);
             position: relative;
             z-index: 1;
@@ -573,8 +525,8 @@
         }
 
         .devotional-section p.author, .book-section p.author {
-            margin: 0.4rem 0;
-            font-size: 0.95rem;
+            margin: 0.3rem 0;
+            font-size: 0.85rem;
             color: rgba(255, 255, 255, 0.9);
             position: relative;
             z-index: 1;
@@ -584,8 +536,8 @@
         }
 
         .devotional-section p.question-label {
-            margin: 0.8rem 0 0.2rem;
-            font-size: 1rem;
+            margin: 0.6rem 0 0.2rem;
+            font-size: 0.9rem;
             color: #fff;
             position: relative;
             z-index: 1;
@@ -595,14 +547,14 @@
         }
 
         .devotional-section p.question {
-            margin: 0.4rem 0;
-            font-size: 1rem;
+            margin: 0.3rem 0;
+            font-size: 0.9rem;
             color: rgba(255, 255, 255, 0.95);
             position: relative;
             z-index: 1;
             animation: slideUpText 0.5s forwards 1.3s;
             transition: transform 0.3s ease, color 0.3s ease;
-            text-shadow: 0 1px 3px rgba(0, 0, 0, 007, 0.5);
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
         }
 
         .devotional-section p.question:hover, .devotional-section p.question:focus {
@@ -616,8 +568,8 @@
         }
 
         .book-section p.category {
-            margin: 0.8rem 0 0.4rem;
-            font-size: 1.1rem;
+            margin: 0.6rem 0 0.3rem;
+            font-size: 1rem;
             color: #fff;
             position: relative;
             z-index: 1;
@@ -627,8 +579,8 @@
         }
 
         .book-section p.book {
-            margin: 0.6rem 0;
-            font-size: 1.2rem;
+            margin: 0.5rem 0;
+            font-size: 1rem;
             color: #fff;
             position: relative;
             z-index: 1;
@@ -651,11 +603,11 @@
             background: rgba(255, 255, 255, 0.1);
             border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 8px;
-            padding: 0.5rem 1rem;
+            padding: 0.4rem 0.8rem;
             color: #fff;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             cursor: pointer;
-            margin-top: 1rem;
+            margin-top: 0.8rem;
             transition: background 0.3s ease, border 0.3s ease;
             display: inline-flex;
             align-items: center;
@@ -691,122 +643,38 @@
         /* Responsividade */
         @media (max-width: 768px) {
             .sidebar {
-                width: 200px;
+                max-width: 240px;
             }
 
-            .sidebar.collapsed {
-                width: 50px;
-            }
-
-            .main-content.collapsed {
-                margin-left: 50px;
-                padding: 1.5rem;
+            .main-content {
+                padding: 1.2rem;
             }
 
             .stats-container {
-                gap: 1.2rem;
-            }
-
-            .stat-card {
-                padding: 1.2rem;
-                flex: 1 1 180px;
-            }
-
-            .stat-card .number {
-                font-size: 1.8rem;
-            }
-
-            .stat-card:hover .number, .stat-card:focus .number {
-                font-size: 2.4rem;
-            }
-
-            .central-button {
-                padding: 0.9rem 1.4rem;
-                font-size: 1rem;
-            }
-
-            .login-container {
-                padding: 2rem;
-                max-width: 300px;
-            }
-
-            .login-container h2 {
-                font-size: 1.6rem;
-            }
-
-            .login-container input {
-                padding: 0.9rem 0.9rem 0.9rem 2.8rem;
-                font-size: 1rem;
-            }
-
-            .login-container button {
-                padding: 0.9rem;
-                font-size: 1.1rem;
-            }
-
-            .menu-toggle {
-                top: 1rem;
-                left: 1rem;
-                font-size: 1.4rem;
-            }
-
-            .devotional-section p.quote,
-            .devotional-section p.question,
-            .book-section p.quote,
-            .book-section p.book {
-                font-size: 0.95rem;
-            }
-
-            .devotional-section p.book-title,
-            .book-section p.title {
-                font-size: 1.2rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .sidebar {
-                width: 100%;
-                left: -100%;
-                padding-top: 3rem;
-            }
-
-            .sidebar.collapsed {
-                width: 0;
-                left: 0;
-            }
-
-            .main-content.collapsed {
-                margin-left: 0;
-            }
-
-            .menu-toggle {
-                top: 1rem;
-                left: 1rem;
-                font-size: 1.2rem;
-                padding: 0.5rem;
-            }
-
-            .central-buttons {
                 gap: 1rem;
             }
 
-            .welcome-message {
-                font-size: 1.2rem;
+            .stat-card {
+                padding: 1rem;
+                flex: 1 1 140px;
             }
 
-            .date-display {
-                top: 1rem;
-                right: 1rem;
-                font-size: 1rem;
+            .stat-card .number {
+                font-size: 1.6rem;
+            }
+
+            .stat-card:hover .number, .stat-card:focus .number {
+                font-size: 2.2rem;
+            }
+
+            .central-button {
+                padding: 0.8rem 1.2rem;
+                font-size: 0.9rem;
             }
 
             .login-container {
                 padding: 1.5rem;
-                max-width: 280px;
-            }
-
-            .login-container h2 {
-                font-size: 1.4rem;
+                max-width: 300px;
             }
 
             .login-container input {
@@ -819,26 +687,52 @@
                 font-size: 1rem;
             }
 
-            .devotional-section p.quote,
-            .devotional-section p.question,
-            .book-section p.quote,
-            .book-section p.book {
-                font-size: 0.9rem;
+            .menu-toggle {
+                top: 0.8rem;
+                left: 0.8rem;
+                font-size: 1.3rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .sidebar {
+                max-width: 100%;
+                left: -100%;
             }
 
-            .devotional-section p.book-title,
-            .book-section p.title {
+            .sidebar.active {
+                left: 0;
+            }
+
+            .menu-toggle {
+                top: 0.8rem;
+                left: 0.8rem;
+                font-size: 1.2rem;
+                padding: 0.4rem;
+                display: block;
+            }
+
+            .central-buttons {
+                gap: 0.8rem;
+            }
+
+            .welcome-message {
                 font-size: 1.1rem;
             }
 
-            .month-selector {
-                font-size: 0.9rem;
-                padding: 0.4rem;
+            .login-container {
+                padding: 1.2rem;
+                max-width: 280px;
             }
 
-            .share-button {
+            .login-container input {
+                padding: 0.7rem 0.7rem 0.7rem 2.3rem;
                 font-size: 0.9rem;
-                padding: 0.4rem 0.8rem;
+            }
+
+            .login-container button {
+                padding: 0.7rem;
+                font-size: 0.95rem;
             }
         }
     </style>
@@ -847,7 +741,6 @@
     <div class="particles-bg" id="particles-bg"></div>
 
     <div class="login-container" id="login">
-        <h2>Entrar na sua conta</h2>
         <div class="input-wrapper">
             <input type="text" id="username" placeholder="Usuário" required aria-label="Digite seu nome de usuário">
             <svg class="input-icon" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
@@ -892,7 +785,7 @@
             <span>Ação Social</span>
         </button>
         <button onclick="logout()" aria-label="Sair do sistema">
-            <svg class="icon" viewBox="0 0 24 24"><path d="M10.09 15.59L11.5 17l5-5-5-5-1.41 1.41L12.67 11H3v2h9.67l-2.58 2.59zM19 3H5c-1.1 0-2 .9-2 2v4h2V5h14v14H5v-4H3v4c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"/></svg>
+            <svg class="icon" viewBox="0 0 24 24"><path d="M10.09 15.59L11.5 17l5-5-5-5-1.41 1.41L12.67 11H3v2h9.67l-2.58 2.59zM19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"/></svg>
             <span>Sair</span>
         </button>
     </div>
@@ -910,7 +803,7 @@
                 Liturgia
             </button>
             <button class="central-button" onclick="loadPage('frequencia')" title="Veja a frequência dos cultos e eventos" aria-label="Acessar página de frequência">
-                <svg class="icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm3.88-11.71L10 14.17l-1.88-1.88a.996.996 0 00-1.41 0c-.39.39-.39 1.02 0 1.41l2.59 2.59c.39.39 1.02.39 1.41 0L17.3 9.7a.996.996 0 000-1.41c-.39-.39-1.03-.39-1.42 0z"/></svg>
+                <svg class="icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
                 Frequência
             </button>
             <button class="central-button" onclick="loadPage('materias')" title="Acesse materiais e documentos" aria-label="Acessar página de materiais">
@@ -1012,8 +905,6 @@
         </div>
     </div>
 
-    <div class="date-display" id="dateDisplay"></div>
-
     <script>
         let loginAttempts = 3;
         let currentUser = '';
@@ -1048,8 +939,7 @@
             { month: 'Outubro', emoji: '🎃', title: 'Igreja em Movimento 🕊', spiritualBook: 'O Espírito Santo – Billy Graham 📖', spiritualQuote: '“O Espírito Santo não é uma reserva espiritual. Ele é o poder para o agora.”', spiritualAuthor: '— Billy Graham 🌍', personalBook: 'A Única Coisa – Gary Keller e Jay Papasan 📚', personalQuote: '“O sucesso é construído sobre fazer uma coisa de cada vez extraordinariamente bem.”', personalAuthor: '— Gary Keller e Jay Papasan 💡' },
             { month: 'Novembro', emoji: '🍁', title: 'Doutrina e Vida 📘', spiritualBook: 'Ortodoxia – G. K. Chesterton 📖', spiritualQuote: '“A fé cristã é a única que ousa fazer da alegria a matéria séria da filosofia.”', spiritualAuthor: '— G. K. Chesterton 🎶', personalBook: 'Como Fazer Amigos e Influenciar Pessoas – Dale Carnegie 📚', personalQuote: '“Você pode fazer mais amigos em dois meses ao se interessar genuinamente pelos outros do que em dois anos tentando fazer com que os outros se interessem por você.”', personalAuthor: '— Dale Carnegie 💡' },
             { month: 'Dezembro', emoji: '🎄', title: 'Esperança e Eternidade 🌠', spiritualBook: 'O Céu – Randy Alcorn 📖', spiritualQuote: '“A eternidade não é um conceito abstrato; é a realidade para a qual fomos criados.”', spiritualAuthor: '— Randy Alcorn ✨', personalBook: 'Grit – Angela Duckworth 📚', personalQuote: '“A paixão e a perseverança por metas de longo prazo são o que diferenciam quem chega lá.”', personalAuthor: '— Angela Duckworth 💡' }
-
-  ];
+        ];
 
         // Função para verificar login
         function checkLogin() {
@@ -1071,8 +961,7 @@
                 document.getElementById('sidebar').style.display = 'block';
                 document.getElementById('menuToggle').style.display = 'block';
                 document.getElementById('welcomeMessage').textContent = `Bem-vindo, ${username.charAt(0).toUpperCase() + username.slice(1)}!`;
-                updateDate();
-                setTimeout(createParticles, 0); // Criar partículas após renderização inicial
+                setTimeout(createParticles, 0);
             } else {
                 loginAttempts--;
                 errorMessage.style.display = 'block';
@@ -1087,12 +976,8 @@
         function toggleMenu() {
             const sidebar = document.getElementById('sidebar');
             const menuToggle = document.getElementById('menuToggle');
-            const mainContent = document.getElementById('mainContent');
 
             sidebar.classList.toggle('active');
-            sidebar.classList.toggle('collapsed');
-            mainContent.classList.toggle('collapsed');
-
             menuToggle.textContent = sidebar.classList.contains('active') ? '✖' : '☰';
         }
 
@@ -1123,28 +1008,20 @@
         function createParticles() {
             const particlesBg = document.getElementById('particles-bg');
             const fragment = document.createDocumentFragment();
-            const particleCount = 20; // Reduzido para melhor performance
+            const particleCount = 15;
 
             for (let i = 0; i < particleCount; i++) {
                 const particle = document.createElement('div');
                 particle.className = 'particle' + (i % 2 === 0 ? ' green' : '');
-                particle.style.width = `${Math.random() * 6 + 2}px`;
+                particle.style.width = `${Math.random() * 5 + 2}px`;
                 particle.style.height = particle.style.width;
                 particle.style.left = `${Math.random() * 100}vw`;
-                particle.style.animationDuration = `${Math.random() * 10 + 10}s`;
-                particle.style.animationDelay = `${Math.random() * 5}s`;
+                particle.style.animationDuration = `${Math.random() * 8 + 8}s`;
+                particle.style.animationDelay = `${Math.random() * 4}s`;
                 fragment.appendChild(particle);
             }
 
             particlesBg.appendChild(fragment);
-        }
-
-        // Função para atualizar a data
-        function updateDate() {
-            const dateDisplay = document.getElementById('dateDisplay');
-            const now = new Date();
-            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-            dateDisplay.textContent = now.toLocaleDateString('pt-BR', options);
         }
 
         // Função para carregar página (placeholder)
@@ -1159,19 +1036,22 @@
 
         // Inicialização
         document.addEventListener('DOMContentLoaded', () => {
-            updateDevotional(4); // Inicia com Maio
-            updateReading(4);    // Inicia com Maio
+            updateDevotional(4);
+            updateReading(4);
 
-            // Adicionar evento de tecla Enter para login
             const usernameInput = document.getElementById('username');
             const passwordInput = document.getElementById('password');
 
-            usernameInput.addEventListener('keydown', (e) => {
-                if (e.key === 'Enter') checkLogin();
+            usernameInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    passwordInput.focus();
+                }
             });
 
-            passwordInput.addEventListener('keydown', (e) => {
-                if (e.key === 'Enter') checkLogin();
+            passwordInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    checkLogin();
+                }
             });
         });
     </script>
