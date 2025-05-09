@@ -1,81 +1,187 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="Dashboard Elevation: Gerencie cultos, conecte-se com a comunidade e acompanhe métricas espirituais com um design moderno e responsivo.">
+    <meta name="keywords" content="dashboard, igreja, espiritualidade, métricas, devocional, responsivo, design">
+    <meta name="theme-color" content="#1C2526">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Dashboard Elevation</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        body {
+        /* Reset e Estilo Base */
+        *, *:before, *:after {
+            box-sizing: border-box;
             margin: 0;
+            padding: 0;
+        }
+
+        body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-            background: #1C2526;
+            background: linear-gradient(135deg, #1C2526 0%, #2A3439 100%);
             color: #fff;
             overflow-x: hidden;
             overflow-y: auto;
+            position: relative;
+            line-height: 1.6;
+            min-height: 100vh;
         }
 
-        /* Estilo do login */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.08) 0%, transparent 70%);
+            z-index: -1;
+        }
+
+        /* Partículas de Fundo */
+        .particles-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #1C2526 0%, #2A3439 100%);
+            overflow: hidden;
+            z-index: -2;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50 fö0%;
+            pointer-events: none;
+            animation: float 20s infinite linear;
+        }
+
+        .particle.green {
+            background: rgba(52, 199, 89, 0.4);
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh); }
+            100% { transform: translateY(-100vh); }
+        }
+
+        /* Estilo do Login */
         .login-container {
             position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background: rgba(44, 44, 46, 0.9);
-            padding: 1.5rem;
-            border-radius: 20px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            background: rgba(44, 44, 46, 0.85);
+            padding: 2.5rem;
+            border-radius: 24px;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
             z-index: 1001;
             text-align: center;
             width: 90%;
-            max-width: 300px;
+            max-width: 360px;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            overflow: hidden;
         }
 
         .login-container h2 {
             color: #34C759;
-            margin-bottom: 1.5rem;
-            font-size: 1.5rem;
-            font-weight: 600;
+            margin-bottom: 2rem;
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 0.5s forwards;
+        }
+
+        .input-wrapper {
+            position: relative;
+            margin: 0.8rem 0;
         }
 
         .login-container input {
             width: 100%;
-            padding: 0.8rem;
-            margin: 0.5rem 0;
-            border: 1px solid #3C3C3E;
-            border-radius: 10px;
-            background: #2C2C2E;
+            padding: 1rem 1rem 1rem 2.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.1);
             color: #fff;
-            font-size: 1rem;
+            font-size: 1.1rem;
             box-sizing: border-box;
+            transition: border 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .login-container input:focus {
+            border: 1px solid #34C759;
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 10px rgba(52, 199, 89, 0.3);
+            outline: none;
+        }
+
+        .login-container input:focus-visible {
+            outline: 2px solid #34C759;
+            outline-offset: 2px;
+        }
+
+        .login-container .input-icon {
+            position: absolute;
+            top: 50%;
+            left: 1rem;
+            transform: translateY(-50%);
+            width: 1.2rem;
+            height: 1.2rem;
+            fill: rgba(255, 255, 255, 0.5);
+            transition: fill 0.3s ease;
+        }
+
+        .login-container input:focus + .input-icon {
+            fill: #34C759;
         }
 
         .login-container button {
             width: 100%;
-            padding: 0.8rem;
-            margin-top: 1rem;
+            padding: 1rem;
+            margin-top: 1.5rem;
             border: none;
-            border-radius: 10px;
-            background: #34C759;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #34C759 0%, #2eb34f 100%);
             color: #1a1a1a;
             font-weight: 600;
-            font-size: 1rem;
+            font-size: 1.2rem;
             cursor: pointer;
-            transition: background 0.3s;
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+            box-shadow: 0 4px 15px rgba(52, 199, 89, 0.3);
         }
 
-        .login-container button:hover {
-            background: #2eb34f;
+        .login-container button:hover, .login-container button:focus {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 6px 20px rgba(52, 199, 89, 0.5);
+        }
+
+        .login-container button:focus {
+            outline: 2px solid #34C759;
+            outline-offset: 2px;
         }
 
         .error-message {
-            color: #34C759;
-            font-size: 0.9rem;
-            margin-top: 1rem;
+            color: #FF2D55;
+            font-size: 0.95rem;
+            margin-top: 1.2rem;
             display: none;
+            animation: shake 0.5s ease;
         }
 
-        /* Menu lateral */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-10px); }
+            40%, 80% { transform: translateX(10px); }
+        }
+
+        /* Menu Lateral */
         .sidebar {
             position: fixed;
             top: 0;
@@ -86,11 +192,14 @@
             padding-top: 4rem;
             transition: left 0.3s ease, width 0.3s ease;
             z-index: 999;
-            border-right: 1px solid #3C3C3E;
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            display: none;
         }
 
         .sidebar.active {
             left: 0;
+            display: block;
         }
 
         .sidebar.collapsed {
@@ -108,50 +217,73 @@
             font-size: 1.1rem;
             text-align: left;
             cursor: pointer;
-            transition: transform 0.3s ease, background 0.3s, color 0.3s;
+            transition: background 0.3s, color 0.3s;
         }
 
-        .sidebar button i {
-            margin-right: 0.5rem;
-        }
-
-        .sidebar button:hover, .sidebar button:active {
-            background: #2C2C2E;
+        .sidebar button:hover, .sidebar button:focus {
+            background: rgba(255, 255, 255, 0.12);
             color: #34C759;
-            transform: scale(1.03);
+        }
+
+        .sidebar button:focus {
+            outline: 2px solid #34C759;
+            outline-offset: -2px;
+        }
+
+        .sidebar .icon {
+            margin-right: 0.8rem;
+            width: 1.2rem;
+            height: 1.2rem;
+            fill: #fff;
+            transition: transform 0.3s ease, fill 0.3s ease;
+        }
+
+        .sidebar button:hover .icon, .sidebar button:focus .icon {
+            transform: translateX(5px);
+            fill: #34C759;
         }
 
         .sidebar.collapsed button span {
             display: none;
         }
 
-        .sidebar.collapsed button i {
+        .sidebar.collapsed button .icon {
             margin-right: 0;
         }
 
-        /* Toggle menu button */
+        /* Toggle Menu */
         .menu-toggle {
             position: fixed;
-            top: 1rem;
-            left: 1rem;
-            background: transparent;
+            top: 1.2rem;
+            left: 1.2rem;
+            background: rgba(44, 44, 46, 0.9);
             border: none;
+            border-radius: 8px;
             color: #34C759;
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             cursor: pointer;
             z-index: 1000;
+            padding: 0.6rem;
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.3s ease;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
             display: none;
         }
 
-        .menu-toggle.active {
-            display: block;
+        .menu-toggle:hover, .menu-toggle:focus {
+            transform: rotate(90deg) scale(1.1);
+            background: rgba(52, 199, 89, 0.9);
         }
 
-        /* Main content */
+        .menu-toggle:focus {
+            outline: 2px solid #34C759;
+            outline-offset: 2px;
+        }
+
+        /* Main Content */
         .main-content {
             margin-left: 0;
             transition: margin-left 0.3s ease;
-            padding: 2rem;
+            padding: 2.5rem;
             display: none;
         }
 
@@ -164,115 +296,151 @@
         }
 
         .welcome-message {
-            font-size: 1.2rem;
+            font-size: 1.4rem;
             color: #34C759;
-            margin-bottom: 2rem;
+            margin-bottom: 2.5rem;
             text-align: center;
             opacity: 0;
-            animation: fadeIn 0.5s forwards;
+            animation: fadeIn 0.5s forwards 0.3s;
+            font-weight: 500;
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
         }
 
         @keyframes fadeIn {
             to { opacity: 1; }
         }
 
-        /* Central buttons */
+        /* Central Buttons */
         .central-buttons {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 1rem;
-            margin-bottom: 2rem;
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
         }
 
         .central-button {
-            background: #FF9BB8;
+            background: linear-gradient(135deg, #FF9BB8 0%, #FF6F91 100%);
             border: none;
-            border-radius: 15px;
-            padding: 1rem 1.5rem;
+            border-radius: 16px;
+            padding: 1.1rem 1.8rem;
             color: #fff;
-            font-size: 1rem;
+            font-size: 1.1rem;
             font-weight: 500;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.6rem;
             cursor: pointer;
-            transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
         }
 
         .central-button.alert {
-            background: #FF2D55;
+            background: linear-gradient(135deg, #FF2D55 0%, #FF4D6D 100%);
         }
 
-        .central-button:hover, .central-button:active {
+        .central-button:hover, .central-button:focus {
             background: #34C759;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(52, 199, 89, 0.2);
+            transform: translateY(-4px);
+            box-shadow: 0 6px 20px rgba(52, 199, 89, 0.4);
         }
 
-        /* Stats cards */
+        .central-button:focus {
+            outline: 2px solid #34C759;
+            outline-offset: 2px;
+        }
+
+        .central-button .icon {
+            width: 1.2rem;
+            height: 1.2rem;
+            fill: #fff;
+        }
+
+        /* Stats Cards */
         .stats-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin-top: 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.8rem;
+            margin-top: 2.5rem;
+            justify-content: center;
         }
 
         .stat-card {
-            background: rgba(44, 44, 46, 0.9);
-            border-radius: 15px;
-            padding: 1rem;
+            background: linear-gradient(135deg, rgba(44, 44, 46, 0.95) 0%, rgba(60, 60, 62, 0.95) 100%);
+            border-radius: 16px;
+            padding: 1.8rem;
             text-align: center;
-            transition: transform 0.3s ease, background 0.3s ease;
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease, background 0.3s ease;
             position: relative;
             overflow: hidden;
             cursor: pointer;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            flex: 1 1 220px;
+            max-width: 300px;
         }
 
-        .stat-card:hover, .stat-card:active {
-            transform: translateY(-2px);
-            background: rgba(52, 199, 89, 0.1);
-            box-shadow: 0 4px 8px rgba(52, 199, 89, 0.2);
+        .stat-card:hover, .stat-card:focus {
+            background: linear-gradient(135deg, #34C759 0%, #2eb34f 100%);
+            transform: translateY(-6px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(52, 199, 89, 0.4);
+        }
+
+        .stat-card:focus {
+            outline: 2px solid #34C759;
+            outline-offset: 2px;
         }
 
         .stat-card .number {
-            font-size: 2rem;
+            font-size: 2.4rem;
             font-weight: 700;
             color: #34C759;
-            transition: font-size 0.3s ease, transform 0.3s ease;
+            transition: font-size 0.3s ease, transform 0.3s ease, color 0.3s ease;
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
         }
 
         .stat-card .label {
-            font-size: 0.9rem;
-            color: #fff;
-            margin-top: 0.5rem;
-            transition: transform 0.3s ease, opacity 0.3s ease;
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-top: 0.6rem;
+            transition: transform 0.3s ease, opacity 0.3s ease, color 0.3s ease;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
         }
 
-        .stat-card:hover .number {
-            font-size: 3rem;
-            transform: translateY(-10px);
+        .stat-card:hover .number, .stat-card:focus .number {
+            font-size: 3.2rem;
+            transform: translateY(-12px);
+            color: #FFFFFF;
         }
 
-        .stat-card:hover .label {
-            transform: translateY(20px);
-            opacity: 0.8;
+        .stat-card:hover .label, .stat-card:focus .label {
+            transform: translateY(22px);
+            opacity: 0.9;
+            color: #E5E5E5;
         }
 
-        /* Date display */
+        @keyframes fadeInWithBounce {
+            0% { opacity: 0; transform: translateY(20px); }
+            60% { opacity: 1; transform: translateY(-6px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Date Display */
         .date-display {
             position: fixed;
-            top: 1rem;
-            right: 1rem;
+            top: 1.2rem;
+            right: 1.2rem;
             background: rgba(44, 44, 46, 0.9);
-            padding: 0.5rem 1rem;
-            border-radius: 10px;
-            font-size: 1rem;
+            padding: 0.6rem 1.2rem;
+            border-radius: 12px;
+            font-size: 1.1rem;
             color: #34C759;
             opacity: 0;
             animation: slideIn 0.5s forwards 0.5s;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            font-weight: 500;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
         }
 
         @keyframes slideIn {
@@ -281,73 +449,246 @@
 
         /* Aniversariantes */
         .birthday-section {
-            background: rgba(44, 44, 46, 0.9);
-            border-radius: 15px;
-            padding: 1.5rem;
-            margin: 1rem 0;
+            background: linear-gradient(135deg, #FF6F91 0%, #FF2D55 100%);
+            border-radius: 16px;
+            padding: 1.8rem;
+            margin: 2rem 0;
+            position: relative;
             opacity: 0;
-            animation: fadeIn 0.5s forwards 0.7s;
+            animation: fadeInWithBounce 0.7s forwards 0.7s;
+            box-shadow: 0 6px 20px rgba(255, 45, 85, 0.4);
+            overflow: hidden;
         }
 
         .birthday-section h3 {
-            color: #FF2D55;
-            margin-bottom: 1rem;
+            color: #fff;
+            margin-bottom: 1.2rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            position: relative;
+            z-index: 1;
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
         }
 
         .birthday-section p {
-            margin: 0.5rem 0;
-            transition: opacity 0.3s ease;
+            margin: 0.6rem 0;
+            font-size: 1.2rem;
+            color: #fff;
+            position: relative;
+            z-index: 1;
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        .birthday-section p:hover, .birthday-section p:focus {
+            transform: translateX(12px) scale(1.06);
+            opacity: 0.95;
+        }
+
+        .birthday-section p:focus {
+            outline: 1px solid #fff;
+            outline-offset: 2px;
         }
 
         .birthday-section p::after {
             content: " 🎉";
         }
 
-        /* Devocional */
-        .devotional-section {
-            background: rgba(44, 44, 46, 0.9);
-            border-radius: 15px;
-            padding: 1.5rem;
-            margin: 1rem 0;
+        /* Devocional e Leitura Que Constrói */
+        .devotional-section, .book-section {
+            background: linear-gradient(135deg, #34C759 0%, #2eb34f 100%);
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 2.5rem 0;
+            position: relative;
             opacity: 0;
-            animation: slideUp 0.5s forwards 0.9s;
+            animation: slideUpWithFade 0.7s forwards 0.9s;
+            box-shadow: 0 6px 20px rgba(52, 199, 89, 0.4);
+            overflow: hidden;
         }
 
-        @keyframes slideUp {
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .devotional-section h3 {
-            color: #FF2D55;
-            margin-bottom: 1rem;
-        }
-
-        .devotional-section p {
-            margin: 0.5rem 0;
-            transition: opacity 0.3s ease;
-        }
-
-        /* Livro da Semana */
         .book-section {
-            background: rgba(44, 44, 46, 0.9);
-            border-radius: 15px;
-            padding: 1.5rem;
-            margin: 1rem 0;
+            background: linear-gradient(135deg, #FF9BB8 0%, #FF6F91 100%);
+            animation-delay: 1.1s;
+            box-shadow: 0 6px 20px rgba(255, 155, 184, 0.4);
+        }
+
+        .devotional-section h3, .book-section h3 {
+            color: #fff;
+            margin-bottom: 1.5rem;
+            font-size: 1.6rem;
+            font-weight: 700;
+            position: relative;
+            z-index: 1;
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .month-selector {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            padding: 0.5rem;
+            color: #f0f0f0;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s ease, border 0.3s ease, color 0.3s ease;
+        }
+
+        .month-selector:hover, .month-selector:focus {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid #34C759;
+            color: #34C759;
+        }
+
+        .month-selector:focus {
+            outline: 2px solid #34C759;
+            outline-offset: 2px;
+        }
+
+        .devotional-section p.book-title, .book-section p.title {
+            margin: 0.8rem 0;
+            font-size: 1.4rem;
+            color: #fff;
+            position: relative;
+            z-index: 1;
             opacity: 0;
-            animation: fadeIn 0.5s forwards 1.1s;
+            animation: fadeInWithBounce 0.7s forwards 0.9s;
+            font-weight: 600;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
         }
 
-        .book-section h3 {
-            color: #FF2D55;
-            margin-bottom: 1rem;
+        .devotional-section p.quote, .book-section p.quote {
+            margin: 0.8rem 0;
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.95);
+            position: relative;
+            z-index: 1;
+            font-style: italic;
+            animation: slideUpText 0.5s forwards 1.0s;
+            line-height: 1.6;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
         }
 
-        .book-section p {
-            margin: 0.5rem 0;
-            transition: opacity 0.3s ease;
+        .devotional-section p.author, .book-section p.author {
+            margin: 0.4rem 0;
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.9);
+            position: relative;
+            z-index: 1;
+            animation: slideUpText 0.5s forwards 1.1s;
+            font-weight: 500;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
         }
 
-        /* Responsividade para mobile */
+        .devotional-section p.question-label {
+            margin: 0.8rem 0 0.2rem;
+            font-size: 1rem;
+            color: #fff;
+            position: relative;
+            z-index: 1;
+            font-weight: 600;
+            animation: slideUpText 0.5s forwards 1.2s;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        .devotional-section p.question {
+            margin: 0.4rem 0;
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.95);
+            position: relative;
+            z-index: 1;
+            animation: slideUpText 0.5s forwards 1.3s;
+            transition: transform 0.3s ease, color 0.3s ease;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 007, 0.5);
+        }
+
+        .devotional-section p.question:hover, .devotional-section p.question:focus {
+            transform: translateX(5px);
+            color: #fff;
+        }
+
+        .devotional-section p.question:focus {
+            outline: 1px solid #fff;
+            outline-offset: 2px;
+        }
+
+        .book-section p.category {
+            margin: 0.8rem 0 0.4rem;
+            font-size: 1.1rem;
+            color: #fff;
+            position: relative;
+            z-index: 1;
+            animation: slideUpText 0.5s forwards 1.2s;
+            font-weight: 600;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        .book-section p.book {
+            margin: 0.6rem 0;
+            font-size: 1.2rem;
+            color: #fff;
+            position: relative;
+            z-index: 1;
+            transition: transform 0.3s ease, color 0.3s ease;
+            font-weight: 600;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        .book-section p.book:hover, .book-section p.book:focus {
+            transform: translateX(5px);
+            color: #fff;
+        }
+
+        .book-section p.book:focus {
+            outline: 1px solid #fff;
+            outline-offset: 2px;
+        }
+
+        .share-button {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            padding: 0.5rem 1rem;
+            color: #fff;
+            font-size: 0.95rem;
+            cursor: pointer;
+            margin-top: 1rem;
+            transition: background 0.3s ease, border 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .share-button:hover, .share-button:focus {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid #34C759;
+        }
+
+        .share-button:focus {
+            outline: 2px solid #34C759;
+            outline-offset: 2px;
+        }
+
+        .share-button .icon {
+            width: 1rem;
+            height: 1rem;
+            fill: #fff;
+        }
+
+        @keyframes slideUpWithFade {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideUpText {
+            0% { opacity: 0; transform: translateY(10px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsividade */
         @media (max-width: 768px) {
             .sidebar {
                 width: 200px;
@@ -359,57 +700,200 @@
 
             .main-content.collapsed {
                 margin-left: 50px;
+                padding: 1.5rem;
             }
 
-            .sidebar button:hover, .sidebar button:active {
-                transform: scale(1.02);
+            .stats-container {
+                gap: 1.2rem;
             }
 
-            .central-button:hover, .central-button:active {
-                transform: scale(1.03);
+            .stat-card {
+                padding: 1.2rem;
+                flex: 1 1 180px;
             }
 
-            .stat-card:hover, .stat-card:active {
-                transform: scale(1.03);
+            .stat-card .number {
+                font-size: 1.8rem;
+            }
+
+            .stat-card:hover .number, .stat-card:focus .number {
+                font-size: 2.4rem;
+            }
+
+            .central-button {
+                padding: 0.9rem 1.4rem;
+                font-size: 1rem;
+            }
+
+            .login-container {
+                padding: 2rem;
+                max-width: 300px;
+            }
+
+            .login-container h2 {
+                font-size: 1.6rem;
+            }
+
+            .login-container input {
+                padding: 0.9rem 0.9rem 0.9rem 2.8rem;
+                font-size: 1rem;
+            }
+
+            .login-container button {
+                padding: 0.9rem;
+                font-size: 1.1rem;
+            }
+
+            .menu-toggle {
+                top: 1rem;
+                left: 1rem;
+                font-size: 1.4rem;
+            }
+
+            .devotional-section p.quote,
+            .devotional-section p.question,
+            .book-section p.quote,
+            .book-section p.book {
+                font-size: 0.95rem;
+            }
+
+            .devotional-section p.book-title,
+            .book-section p.title {
+                font-size: 1.2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .sidebar {
+                width: 100%;
+                left: -100%;
+                padding-top: 3rem;
+            }
+
+            .sidebar.collapsed {
+                width: 0;
+                left: 0;
+            }
+
+            .main-content.collapsed {
+                margin-left: 0;
+            }
+
+            .menu-toggle {
+                top: 1rem;
+                left: 1rem;
+                font-size: 1.2rem;
+                padding: 0.5rem;
+            }
+
+            .central-buttons {
+                gap: 1rem;
+            }
+
+            .welcome-message {
+                font-size: 1.2rem;
+            }
+
+            .date-display {
+                top: 1rem;
+                right: 1rem;
+                font-size: 1rem;
+            }
+
+            .login-container {
+                padding: 1.5rem;
+                max-width: 280px;
+            }
+
+            .login-container h2 {
+                font-size: 1.4rem;
+            }
+
+            .login-container input {
+                padding: 0.8rem 0.8rem 0.8rem 2.5rem;
+                font-size: 0.95rem;
+            }
+
+            .login-container button {
+                padding: 0.8rem;
+                font-size: 1rem;
+            }
+
+            .devotional-section p.quote,
+            .devotional-section p.question,
+            .book-section p.quote,
+            .book-section p.book {
+                font-size: 0.9rem;
+            }
+
+            .devotional-section p.book-title,
+            .book-section p.title {
+                font-size: 1.1rem;
+            }
+
+            .month-selector {
+                font-size: 0.9rem;
+                padding: 0.4rem;
+            }
+
+            .share-button {
+                font-size: 0.9rem;
+                padding: 0.4rem 0.8rem;
             }
         }
     </style>
 </head>
 <body>
+    <div class="particles-bg" id="particles-bg"></div>
+
     <div class="login-container" id="login">
         <h2>Entrar na sua conta</h2>
-        <input type="text" id="username" placeholder="Usuário" required>
-        <input type="password" id="password" placeholder="Senha" required>
-        <button onclick="checkLogin()">Entrar</button>
-        <div class="error-message" id="errorMessage">Ops, senha errada! 😅 Você tem 3 tentativas, ou esse dispositivo vai explodir 💣</div>
+        <div class="input-wrapper">
+            <input type="text" id="username" placeholder="Usuário" required aria-label="Digite seu nome de usuário">
+            <svg class="input-icon" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+        </div>
+        <div class="input-wrapper">
+            <input type="password" id="password" placeholder="Senha" required aria-label="Digite sua senha">
+            <svg class="input-icon" viewBox="0 0 24 24"><path d="M12 17c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm6-9h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zM8.9 6c0-1.71 1.39-3.1 3.1-3.1s3.1 1.39 3.1 3.1v2H8.9V6z"/></svg>
+        </div>
+        <button onclick="checkLogin()" aria-label="Entrar no sistema">Entrar</button>
+        <div class="error-message" id="errorMessage">Usuário ou senha incorretos. Tente novamente! 😊</div>
     </div>
 
-    <button class="menu-toggle" id="menuToggle" onclick="toggleMenu()">☰</button>
+    <button class="menu-toggle" id="menuToggle" onclick="toggleMenu()" aria-label="Abrir ou fechar o menu lateral">☰</button>
 
     <div class="sidebar" id="sidebar">
-        <button onclick="window.location.href='https://docs.google.com/forms/d/e/1FAIpQLSfztWfjLuQGccts4T1LSE2omoKp5MioUHhUoGyiXe-GpSgY5A/viewform?usp=dialog'">
-            <i class="fas fa-users"></i><span>Frequência Liderança</span>
+        <button onclick="window.location.href='https://docs.google.com/forms/d/e/1FAIpQLSfztWfjLuQGccts4T1LSE2omoKp5MioUHhUoGyiXe-GpSgY5A/viewform?usp=dialog'" aria-label="Acessar formulário de frequência da liderança">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+            <span>Frequência Liderança</span>
         </button>
-        <button onclick="window.location.href='https://docs.google.com/forms/d/e/1FAIpQLSfsxOAPy72TjytzJtto0UJlM3hwsmtJ9NIJiOzSc95eiVeT7Q/viewform?usp=dialog'">
-            <i class="fas fa-church"></i><span>Frequência Elevation</span>
+        <button onclick="window.location.href='https://docs.google.com/forms/d/e/1FAIpQLSfsxOAPy72TjytzJtto0UJlM3hwsmtJ9NIJiOzSc95eiVeT7Q/viewform?usp=dialog'" aria-label="Acessar formulário de frequência Elevation">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/></svg>
+            <span>Frequência Elevation</span>
         </button>
-        <button onclick="window.location.href='https://docs.google.com/forms/d/e/1FAIpQLScqGm7c0dULDwmnFhwJGMfFFCkt_t4STWg-aHLpCSGbIdmTkg/viewform?usp=dialog'">
-            <i class="fas fa-shopping-cart"></i><span>Compras</span>
+        <button onclick="window.location.href='https://docs.google.com/forms/d/e/1FAIpQLScqGm7c0dULDwmnFhwJGMfFFCkt_t4STWg-aHLpCSGbIdmTkg/viewform?usp=dialog'" aria-label="Acessar formulário de compras">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+            <span>Compras</span>
         </button>
-        <button onclick="window.location.href='https://docs.google.com/forms/d/e/1FAIpQLSeupD3jOejLI5eO7iV1QkyPDPzW25Qqjm-u0viZB-NV_Ooi_A/viewform?usp=dialog'">
-            <i class="fas fa-handshake"></i><span>Connect</span>
+        <button onclick="window.location.href='https://docs.google.com/forms/d/e/1FAIpQLSeupD3jOejLI5eO7iV1QkyPDPzW25Qqjm-u0viZB-NV_Ooi_A/viewform?usp=dialog'" aria-label="Acessar formulário de connect">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M9 11.75c-.69 0-1.25.56-1.25 1.25s.56 1.25 1.25 1.25 1.25-.56 1.25-1.25-.56-1.25-1.25-1.25zm6 0c-.69 0-1.25.56-1.25 1.25s.56 1.25 1.25 1.25 1.25-.56 1.25-1.25-.56-1.25-1.25-1.25zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm3.88-11.71L10 14.17l-1.88-1.88a.996.996 0 00-1.41 0c-.39.39-.39 1.02 0 1.41l2.59 2.59c.39.39 1.02.39 1.41 0L17.3 9.7a.996.996 0 000-1.41c-.39-.39-1.03-.39-1.42 0z"/></svg>
+            <span>Connect</span>
         </button>
-        <button onclick="loadPage('sugestoes')">
-            <i class="fas fa-lightbulb"></i><span>Sugestões</span>
+        <button onclick="loadPage('sugestoes')" aria-label="Acessar página de sugestões">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7zm2.85 11.1l-.85.6V16h-4v-2.3l-.85-.6C7.8 12.16 7 10.63 7 9c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.63-.8 3.16-2.15 4.1z"/></svg>
+            <span>Sugestões</span>
         </button>
-        <button onclick="window.location.href='https://docs.google.com/forms/d/e/1FAIpQLSdzEJueL_mAEsrE6MldU-R6fXPwFXk2WW4fohIkl_YU5Dn6pA/viewform?usp=dialog'">
-            <i class="fas fa-calendar-alt"></i><span>Agendamento MIP</span>
+        <button onclick="window.location.href='https://docs.google.com/forms/d/e/1FAIpQLSdzEJueL_mAEsrE6MldU-R6fXPwFXk2WW4fohIkl_YU5Dn6pA/viewform?usp=dialog'" aria-label="Acessar formulário de agendamento MIP">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"/></svg>
+            <span>Agendamento MIP</span>
         </button>
-        <button onclick="loadPage('acao-social')">
-            <i class="fas fa-hands-helping"></i><span>Ação Social</span>
+        <button onclick="loadPage('acao-social')" aria-label="Acessar página de ação social">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M16.5 13c-1.2 0-3.07.34-4.5 1-1.43-.67-3.3-1-4.5-1C5.33 13 1 14.08 1 16.25V19h22v-2.75c0-2.17-4.33-3.25-6.5-3.25zm-4 4.5h-10v-1.25c0-.54 2.56-1.75 5-1.75s5 1.21 5 1.75v1.25zm9 0H13.5v-1.25c0-.46-.2-1.06-.71-1.5 1.67-.67 3.83-1 5.21-1 2.44 0 5 1.21 5 1.75v1.25zM7.5 12c1.93 0 3.5-1.57 3.5-3.5S9.43 5 7.5 5 4 6.57 4 8.5 5.57 12 7.5 12zm0-5c.83 0 1.5.67 1.5 1.5S8.33 10 7.5 10 6 9.33 6 8.5 6.67 7 7.5 7zm9 5c1.93 0 3.5-1.57 3.5-3.5S18.43 5 16.5 5 13 6.57 13 8.5 14.57 12 16.5 12zm0-5c.83 0 1.5.67 1.5 1.5S17.33 10 16.5 10 15 9.33 15 8.5 15.67 7 16.5 7z"/></svg>
+            <span>Ação Social</span>
         </button>
-        <button onclick="logout()">
-            <i class="fas fa-sign-out-alt"></i><span>Sair</span>
+        <button onclick="logout()" aria-label="Sair do sistema">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M10.09 15.59L11.5 17l5-5-5-5-1.41 1.41L12.67 11H3v2h9.67l-2.58 2.59zM19 3H5c-1.1 0-2 .9-2 2v4h2V5h14v14H5v-4H3v4c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"/></svg>
+            <span>Sair</span>
         </button>
     </div>
 
@@ -417,45 +901,50 @@
         <div class="welcome-message" id="welcomeMessage"></div>
 
         <div class="central-buttons">
-            <button class="central-button" onclick="loadPage('gerencial')">
-                <i class="fas fa-chart-line"></i> Gerencial
+            <button class="central-button" onclick="loadPage('gerencial')" title="Visualize métricas e relatórios gerenciais" aria-label="Acessar página gerencial">
+                <svg class="icon" viewBox="0 0 24 24"><path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2v-2H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"/></svg>
+                Gerencial
             </button>
-            <button class="central-button" onclick="loadPage('liturgia')">
-                <i class="fas fa-book-open"></i> Liturgia
+            <button class="central-button" onclick="loadPage('liturgia')" title="Acesse a liturgia dos cultos" aria-label="Acessar página de liturgia">
+                <svg class="icon" viewBox="0 0 24 24"><path d="M3 9h14V7H3v2zm0 4h14v-2H3v2zm0 4h14v-2H3v2zm16 0h2v-2h-2v2zm0-10v2h2V7h-2zm0 6h2v-2h-2v2z"/></svg>
+                Liturgia
             </button>
-            <button class="central-button" onclick="loadPage('frequencia')">
-                <i class="fas fa-user-check"></i> Frequência
+            <button class="central-button" onclick="loadPage('frequencia')" title="Veja a frequência dos cultos e eventos" aria-label="Acessar página de frequência">
+                <svg class="icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm3.88-11.71L10 14.17l-1.88-1.88a.996.996 0 00-1.41 0c-.39.39-.39 1.02 0 1.41l2.59 2.59c.39.39 1.02.39 1.41 0L17.3 9.7a.996.996 0 000-1.41c-.39-.39-1.03-.39-1.42 0z"/></svg>
+                Frequência
             </button>
-            <button class="central-button" onclick="loadPage('materias')">
-                <i class="fas fa-file-alt"></i> Matérias
+            <button class="central-button" onclick="loadPage('materias')" title="Acesse materiais e documentos" aria-label="Acessar página de materiais">
+                <svg class="icon" viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+                Matérias
             </button>
-            <button class="central-button alert" onclick="loadPage('alerta')">
-                <i class="fas fa-exclamation-circle"></i> Alerta
+            <button class="central-button alert" onclick="loadPage('alerta')" title="Veja alertas e notificações importantes" aria-label="Acessar página de alertas">
+                <svg class="icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+                Alerta
             </button>
         </div>
 
         <div class="stats-container">
-            <div class="stat-card">
+            <div class="stat-card" tabindex="0" aria-label="Média de 68 pessoas por culto no último mês">
                 <div class="number">68</div>
                 <div class="label">Média de pessoas por culto (mês)</div>
             </div>
-            <div class="stat-card">
+            <div class="stat-card" tabindex="0" aria-label="Média de 121 pessoas nos connect's no último mês">
                 <div class="number">121</div>
                 <div class="label">Média de pessoas nos connect's (mês)</div>
             </div>
-            <div class="stat-card">
+            <div class="stat-card" tabindex="0" aria-label="8 visitantes nos cultos no último mês">
                 <div class="number">8</div>
                 <div class="label">Visitantes nos cultos (mês)</div>
             </div>
-            <div class="stat-card">
+            <div class="stat-card" tabindex="0" aria-label="83% de frequência da liderança nos cultos no último mês">
                 <div class="number">83%</div>
                 <div class="label">Frequência da liderança culto (mês)</div>
             </div>
-            <div class="stat-card">
+            <div class="stat-card" tabindex="0" aria-label="15 connect's ativos no último mês">
                 <div class="number">15</div>
                 <div class="label">Connect Ativos (mês)</div>
             </div>
-            <div class="stat-card">
+            <div class="stat-card" tabindex="0" aria-label="76% dos líderes no MIP no último mês">
                 <div class="number">76%</div>
                 <div class="label">% Líderes no MIP (mês)</div>
             </div>
@@ -468,15 +957,58 @@
             <p>Pedro Santos</p>
         </div>
 
-        <div class="devotional-section">
-            <h3>Devocional (Maio) 📖</h3>
-            <p><strong>Deuteronômio</strong></p>
-            <p>Reflita sobre as leis e promessas de Deus.</p>
+        <div class="devotional-section" id="devotionalSection">
+            <h3>
+                <span id="devotionalTitle">Devocional 📖</span>
+                <select class="month-selector" id="devotionalMonthSelector" onchange="updateDevotional(this.value)" aria-label="Selecionar mês para o devocional">
+                    <option value="0">Janeiro</option>
+                    <option value="1">Fevereiro</option>
+                    <option value="2">Março</option>
+                    <option value="3">Abril</option>
+                    <option value="4" selected>Maio</option>
+                    <option value="5">Junho</option>
+                    <option value="6">Julho</option>
+                    <option value="7">Agosto</option>
+                    <option value="8">Setembro</option>
+                    <option value="9">Outubro</option>
+                    <option value="10">Novembro</option>
+                    <option value="11">Dezembro</option>
+                </select>
+            </h3>
+            <p class="book-title" id="devotionalBooks"></p>
+            <p class="quote" id="devotionalQuote"></p>
+            <p class="author" id="devotionalAuthor"></p>
+            <p class="question-label">Pergunta-chave:</p>
+            <p class="question" id="devotionalQuestion"></p>
         </div>
 
-        <div class="book-section">
-            <h3>Livro da Semana 📚</h3>
-            <p><strong>A Vida com Propósito</strong></p>
+        <div class="book-section" id="bookSection">
+            <h3>
+                <span id="bookTitle">Leitura Que Constrói 🌱</span>
+                <select class="month-selector" id="bookMonthSelector" onchange="updateReading(this.value)" aria-label="Selecionar mês para a leitura que constrói">
+                    <option value="0">Janeiro</option>
+                    <option value="1">Fevereiro</option>
+                    <option value="2">Março</option>
+                    <option value="3">Abril</option>
+                    <option value="4" selected>Maio</option>
+                    <option value="5">Junho</option>
+                    <option value="6">Julho</option>
+                    <option value="7">Agosto</option>
+                    <option value="8">Setembro</option>
+                    <option value="9">Outubro</option>
+                    <option value="10">Novembro</option>
+                    <option value="11">Dezembro</option>
+                </select>
+            </h3>
+            <p class="title" id="bookMonthTitle"></p>
+            <p class="category" id="bookSpiritualCategory">🔹 Livro Espiritual:</p>
+            <p class="book" id="bookSpiritual"></p>
+            <p class="quote" id="bookSpiritualQuote"></p>
+            <p class="author" id="bookSpiritualAuthor"></p>
+            <p class="category" id="bookPersonalCategory">🔹 Livro Pessoal:</p>
+            <p class="book" id="bookPersonal"></p>
+            <p class="quote" id="bookPersonalQuote"></p>
+            <p class="author" id="bookPersonalAuthor"></p>
         </div>
     </div>
 
@@ -486,66 +1018,162 @@
         let loginAttempts = 3;
         let currentUser = '';
 
-        // Login validation
-        function checkLogin() {
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-            const validUsers = {
-                'rodrigo': 'rodrigo@2016',
-                'vitoria': 'vi2025',
-                'visitante': 'visitante7'
-            };
+        // Dados do Devocional
+        const devotionals = [
+            { month: 'Janeiro', emoji: '❄', books: 'Gênesis e Êxodo: Fundamentos e Libertação 🌍', quote: '“Em Gênesis, você vê a mão de Deus criando ordem no caos. Em Êxodo, você encontra a graça que liberta. Esses dois livros são o alicerce da sua fé. Você só entenderá quem é em Cristo quando entender quem Deus é desde o princípio. O que Deus começou no Éden, Ele termina no Calvário. Leia com olhos espirituais.”', author: '— A. W. Tozer 🙏', question: '➡ Em que áreas da sua vida você precisa que Deus traga ordem e libertação hoje? 🕊' },
+            { month: 'Fevereiro', emoji: '💖', books: 'Levítico, Números e Deuteronômio: Santidade e Obediência 📜', quote: '“Não há fogo sem altar. Não há vitória sem deserto. A Lei não foi dada para nos oprimir, mas para mostrar a beleza de um coração separado para Deus. Esses livros revelam o quanto Deus se importa com os detalhes da sua vida. Santidade é mais que comportamento — é relacionamento.”', author: '— John Wesley 🔥', question: '➡ Você tem tratado a obediência como um peso ou como uma resposta de amor? ❤️' },
+            { month: 'Março', emoji: '🌸', books: 'Josué, Juízes e Rute: Conquista, Crise e Redenção ⚔', quote: '“Josué nos inspira a avançar, Juízes nos alerta contra a distração, e Rute nos lembra que mesmo em tempos sombrios, Deus está escrevendo histórias de esperança. Não importa onde você esteja, Deus ainda pode transformar a sua história em um testemunho.”', author: '— Liz Curtis Higgs 🌟', question: '➡ Você está mais preso ao que perdeu ou disposto a confiar no que Deus ainda vai construir? 🛠' },
+            { month: 'Abril', emoji: '🌷', books: '1 Samuel a 2 Crônicas: Reino e Coração 👑', quote: '“O sucesso verdadeiro começa com integridade. O que separou Davi de Saul não foi talento, mas coração. Nesses livros, Deus mostra que Ele não busca perfeição, mas rendição. Quem governa bem a si mesmo, está pronto para liderar outros.”', author: '— John C. Maxwell 💡', question: '➡ Você está cuidando mais da sua imagem ou do seu caráter? 💭' },
+            { month: 'Maio', emoji: '🌞', books: 'Esdras, Neemias e Ester: Reconstrução e Propósito 🏰', quote: '“Esses livros são um chamado à ação. Deus ainda levanta intercessores como Esdras, líderes como Neemias e corajosos como Ester. Você não está lendo apenas história — está recebendo uma convocação para reconstruir o que está em ruínas.”', author: '— Hernandes Dias Lopes 🛠', question: '➡ Qual muro da sua vida precisa ser reconstruído com oração e coragem? 🙏' },
+            { month: 'Junho', emoji: '🌈', books: 'Jó, Salmos, Provérbios, Eclesiastes e Cantares: Sabedoria e Emoções 🎶', quote: '“A Bíblia não esconde lágrimas. Jó gritou. Davi cantou e gemeu. Salomão filosofou e amou. Deus quer entrar até nos seus sentimentos mais profundos. Ele não te quer robô — te quer inteiro. Com suas dúvidas, dores e sonhos.”', author: '— Max Lucado 💖', question: '➡ Você tem entregado suas emoções a Deus ou tem fingido estar bem diante d’Ele? 😢' },
+            { month: 'Julho', emoji: '☀', books: 'Isaías a Daniel: Profetas e Promessas 🕊', quote: '“Os profetas não eram adivinhos — eram vozes ousadas de Deus em tempos difíceis. Isaías viu a glória. Jeremias chorou. Daniel permaneceu firme em meio ao sistema. Eles são lembretes vivos de que, em qualquer geração, Deus levanta sentinelas.”', author: '— Charles Spurgeon 📣', question: '➡ Você está disposto a ser uma voz de Deus, mesmo que isso te custe conforto? 🎙' },
+            { month: 'Agosto', emoji: '🔥', books: 'Oséias a Malaquias: Chamado ao Avivamento 🔔', quote: '“Esses livros são trombetas espirituais. Oséias nos chama de volta ao amor. Joel nos chama ao arrependimento. Malaquias nos lembra da aliança. Avivamento começa quando o povo de Deus volta para Deus. Sem lágrimas, não há fogo.”', author: '— Leonard Ravenhill 🔥', question: '➡ Você está satisfeito com um cristianismo morno ou deseja ver o fogo do céu na sua vida? 🌩' },
+            { month: 'Setembro', emoji: '🍂', books: 'Mateus a João: Jesus, o Verbo Vivo ✝', quote: '“Jesus não veio apenas ensinar, Ele veio substituir você na cruz. Cada milagre, cada palavra, cada passo Dele é o evangelho vivo. Ele não apenas apontou o caminho — Ele é o caminho. O que você vai fazer com isso?”', author: '— Timothy Keller 🌟', question: '➡ Sua fé está centrada em quem Jesus é ou no que você quer que Ele faça? 🙌' },
+            { month: 'Outubro', emoji: '🎃', books: 'Atos: A Igreja em Movimento 🕊', quote: '“O livro de Atos é o manual da igreja viva. Não há estratégia sem oração, nem avanço sem poder. A igreja não é um prédio, é um povo cheio do Espírito, em missão. Esse mesmo Espírito está disponível para você — hoje.”', author: '— Billy Graham 🌍', question: '➡ Você está sendo apenas espectador da fé ou participante da missão? 🚀' },
+            { month: 'Novembro', emoji: '🍁', books: 'Romanos a Filemom: Doutrina e Vida 📘', quote: '“A verdade do evangelho é como uma explosão dentro da alma. Não é apenas lógica — é vida. Romanos nos coloca de joelhos, Efésios nos coloca de pé e Filipenses nos ensina a cantar no meio das lutas. A doutrina nos sustenta quando a emoção falha.”', author: '— C. S. Lewis 🎶', question: '➡ Sua vida reflete a doutrina que você diz crer? 💡' },
+            { month: 'Dezembro', emoji: '🎄', books: 'Hebreus a Apocalipse: Esperança e Eternidade 🌠', quote: '“A eternidade não é uma ideia distante — é o destino real de todo ser humano. Hebreus aponta para o Sumo Sacerdote eterno. Apocalipse revela o Cordeiro vencedor. Esse mundo vai passar. A pergunta é: você está vivendo com os olhos na eternidade?”', author: '— Randy Alcorn ✨', question: '➡ Suas decisões hoje têm mais a ver com o presente ou com o que é eterno? 🌟' }
+        ];
 
-            if (validUsers[username] === password) {
+        // Dados da Leitura Que Constrói
+        const readings = [
+            { month: 'Janeiro', emoji: '❄', title: 'Fundamentos e Libertação 🌍', spiritualBook: 'O Conhecimento do Santo – A. W. Tozer 📖', spiritualQuote: '“O que vem à mente quando pensamos em Deus é a coisa mais importante sobre nós.”', spiritualAuthor: '— A. W. Tozer 🙏', personalBook: 'O Poder do Hábito – Charles Duhigg 📚', personalQuote: '“A verdadeira mudança acontece quando você transforma pequenas escolhas em hábitos consistentes.”', personalAuthor: '— Charles Duhigg 💡' },
+            { month: 'Fevereiro', emoji: '💖', title: 'Santidade e Obediência 📜', spiritualBook: 'A Vida Cristã Normal – Watchman Nee 📖', spiritualQuote: '“Deus não nos pede para nos esforçarmos por viver como cristãos. Ele nos pede para crer que Cristo vive em nós.”', spiritualAuthor: '— Watchman Nee 🔥', personalBook: 'Essencialismo – Greg McKeown 📚', personalQuote: '“Se não decidirmos onde colocar nosso foco e energia, outros decidirão por nós.”', personalAuthor: '— Greg McKeown 💡' },
+            { month: 'Março', emoji: '🌸', title: 'Conquista, Crise e Redenção ⚔', spiritualBook: 'Rute – Uma História de Redenção – John Piper 📖', spiritualQuote: '“A soberania de Deus não elimina nossa dor, mas garante que ela nunca será em vão.”', spiritualAuthor: '— John Piper 🌟', personalBook: 'A Coragem de Ser Imperfeito – Brené Brown 📚', personalQuote: '“A vulnerabilidade é o berço da inovação, da criatividade e da mudança.”', personalAuthor: '— Brené Brown 💖' },
+            { month: 'Abril', emoji: '🌷', title: 'Reino e Coração 👑', spiritualBook: 'O Desafio de Liderar – John C. Maxwell 📖', spiritualQuote: '“As pessoas compram o líder antes de comprar a visão.”', spiritualAuthor: '— John C. Maxwell 💡', personalBook: 'As 21 Irrefutáveis Leis da Liderança – John C. Maxwell 📚', personalQuote: '“A verdadeira medida da liderança é a influência — nada mais, nada menos.”', personalAuthor: '— John C. Maxwell 🌟' },
+            { month: 'Maio', emoji: '🌞', title: 'Reconstrução e Propósito 🏰', spiritualBook: 'Liderança com Propósito – Rick Warren 📖', spiritualQuote: '“Você nunca foi chamado para fazer tudo, mas foi criado para fazer algo com excelência.”', spiritualAuthor: '— Rick Warren 🙏', personalBook: 'Comece pelo Porquê – Simon Sinek 📚', personalQuote: '“As pessoas não compram o que você faz, elas compram o porquê você faz.”', personalAuthor: '— Simon Sinek 💡' },
+            { month: 'Junho', emoji: '🌈', title: 'Sabedoria e Emoções 🎶', spiritualBook: 'Emoções – Uma Anatomia da Alma – Augusto Cury 📖', spiritualQuote: '“Quem vence sem riscos triunfa sem glória.”', spiritualAuthor: '— Augusto Cury 💖', personalBook: 'Inteligência Emocional – Daniel Goleman 📚', personalQuote: '“Pessoas que conseguem controlar bem suas emoções são mais eficazes em tudo que fazem.”', personalAuthor: '— Daniel Goleman 💡' },
+            { month: 'Julho', emoji: '☀', title: 'Profetas e Promessas 🕊', spiritualBook: 'Jeremias – Um Coração Solitário por Deus – Eugene Peterson 📖', spiritualQuote: '“Obediência a Deus não é uma escada de sucesso, mas uma trilha de fidelidade.”', spiritualAuthor: '— Eugene Peterson 📣', personalBook: 'Antifrágil – Nassim Taleb 📚', personalQuote: '“Algumas coisas se beneficiam com choques; prosperam e crescem quando expostas ao caos.”', personalAuthor: '— Nassim Taleb 💡' },
+            { month: 'Agosto', emoji: '🔥', title: 'Avivamento e Chamado 🔔', spiritualBook: 'Por Que Tarda o Pleno Avivamento? – Leonard Ravenhill 📖', spiritualQuote: '“O mundo não está faminto de uma nova definição do cristianismo. Está faminto de uma demonstração real dele.”', spiritualAuthor: '— Leonard Ravenhill 🔥', personalBook: 'Desperte Seu Gigante Interior – Tony Robbins 📚', personalQuote: '“É nos momentos de decisão que seu destino é traçado.”', personalAuthor: '— Tony Robbins 💡' },
+            { month: 'Setembro', emoji: '🍂', title: 'Jesus, o Verbo Vivo ✝', spiritualBook: 'Cristianismo Puro e Simples – C. S. Lewis 📖', spiritualQuote: '“Jesus não nos deu conselhos para serem seguidos, mas uma vida para ser vivida n’Ele.”', spiritualAuthor: '— C. S. Lewis 🌟', personalBook: 'Mindset – Carol S. Dweck 📚', personalQuote: '“A paixão pelo aprendizado é a marca registrada de um mindset de crescimento.”', personalAuthor: '— Carol S. Dweck 💡' },
+            { month: 'Outubro', emoji: '🎃', title: 'Igreja em Movimento 🕊', spiritualBook: 'O Espírito Santo – Billy Graham 📖', spiritualQuote: '“O Espírito Santo não é uma reserva espiritual. Ele é o poder para o agora.”', spiritualAuthor: '— Billy Graham 🌍', personalBook: 'A Única Coisa – Gary Keller e Jay Papasan 📚', personalQuote: '“O sucesso é construído sobre fazer uma coisa de cada vez extraordinariamente bem.”', personalAuthor: '— Gary Keller e Jay Papasan 💡' },
+            { month: 'Novembro', emoji: '🍁', title: 'Doutrina e Vida 📘', spiritualBook: 'Ortodoxia – G. K. Chesterton 📖', spiritualQuote: '“A fé cristã é a única que ousa fazer da alegria a matéria séria da filosofia.”', spiritualAuthor: '— G. K. Chesterton 🎶', personalBook: 'Como Fazer Amigos e Influenciar Pessoas – Dale Carnegie 📚', personalQuote: '“Você pode fazer mais amigos em dois meses ao se interessar genuinamente pelos outros do que em dois anos tentando fazer com que os outros se interessem por você.”', personalAuthor: '— Dale Carnegie 💡' },
+            { month: 'Dezembro', emoji: '🎄', title: 'Esperança e Eternidade 🌠', spiritualBook: 'O Céu – Randy Alcorn 📖', spiritualQuote: '“A eternidade não é um conceito abstrato; é a realidade para a qual fomos criados.”', spiritualAuthor: '— Randy Alcorn ✨', personalBook: 'Grit – Angela Duckworth 📚', personalQuote: '“A paixão e a perseverança por metas de longo prazo são o que diferenciam quem chega lá.”', personalAuthor: '— Angela Duckworth 💡' }
+
+  ];
+
+        // Função para verificar login
+        function checkLogin() {
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value.trim();
+            const errorMessage = document.getElementById('errorMessage');
+
+            const validLogins = [
+                { username: 'rodrigo', password: 'rodrigo@2016' },
+                { username: 'vitoria', password: 'vi2025' }
+            ];
+
+            const user = validLogins.find(u => u.username === username && u.password === password);
+
+            if (user) {
                 currentUser = username;
                 document.getElementById('login').style.display = 'none';
-                document.getElementById('sidebar').classList.add('active');
                 document.getElementById('mainContent').classList.add('active');
-                document.getElementById('menuToggle').classList.add('active');
-                document.getElementById('welcomeMessage').innerHTML = `Seja bem-vindo, ${username}, que o Senhor seja contigo 🙏`;
+                document.getElementById('sidebar').style.display = 'block';
+                document.getElementById('menuToggle').style.display = 'block';
+                document.getElementById('welcomeMessage').textContent = `Bem-vindo, ${username.charAt(0).toUpperCase() + username.slice(1)}!`;
+                updateDate();
+                setTimeout(createParticles, 0); // Criar partículas após renderização inicial
             } else {
                 loginAttempts--;
-                const errorMessage = document.getElementById('errorMessage');
                 errorMessage.style.display = 'block';
-                errorMessage.innerHTML = `Ops, senha errada! 😅 Você tem ${loginAttempts} tentativas, ou esse dispositivo vai explodir 💣`;
-                if (loginAttempts === 0) {
-                    alert('Kaboom! 💥 Dispositivo autodestruído (brincadeira, tenta de novo)!');
-                    loginAttempts = 3;
-                    errorMessage.style.display = 'none';
+                if (loginAttempts <= 0) {
+                    alert('Número máximo de tentativas excedido. A página será recarregada.');
+                    window.location.reload();
                 }
             }
         }
 
-        // Login com Enter
-        document.getElementById('password').addEventListener('keypress', function(event) {
-            if (event.key === 'Enter') {
-                checkLogin();
-            }
-        });
-
-        // Toggle menu
+        // Função para alternar o menu lateral
         function toggleMenu() {
             const sidebar = document.getElementById('sidebar');
+            const menuToggle = document.getElementById('menuToggle');
             const mainContent = document.getElementById('mainContent');
+
+            sidebar.classList.toggle('active');
             sidebar.classList.toggle('collapsed');
             mainContent.classList.toggle('collapsed');
+
+            menuToggle.textContent = sidebar.classList.contains('active') ? '✖' : '☰';
         }
 
-        // Placeholder para páginas
+        // Função para atualizar o devocional
+        function updateDevotional(monthIndex) {
+            const devotional = devotionals[monthIndex];
+            document.getElementById('devotionalTitle').textContent = `Devocional 📖 ${devotional.emoji}`;
+            document.getElementById('devotionalBooks').textContent = devotional.books;
+            document.getElementById('devotionalQuote').textContent = devotional.quote;
+            document.getElementById('devotionalAuthor').textContent = devotional.author;
+            document.getElementById('devotionalQuestion').textContent = devotional.question;
+        }
+
+        // Função para atualizar a leitura que constrói
+        function updateReading(monthIndex) {
+            const reading = readings[monthIndex];
+            document.getElementById('bookTitle').textContent = `Leitura Que Constrói 🌱 ${reading.emoji}`;
+            document.getElementById('bookMonthTitle').textContent = reading.title;
+            document.getElementById('bookSpiritual').textContent = reading.spiritualBook;
+            document.getElementById('bookSpiritualQuote').textContent = reading.spiritualQuote;
+            document.getElementById('bookSpiritualAuthor').textContent = reading.spiritualAuthor;
+            document.getElementById('bookPersonal').textContent = reading.personalBook;
+            document.getElementById('bookPersonalQuote').textContent = reading.personalQuote;
+            document.getElementById('bookPersonalAuthor').textContent = reading.personalAuthor;
+        }
+
+        // Função para criar partículas otimizadas
+        function createParticles() {
+            const particlesBg = document.getElementById('particles-bg');
+            const fragment = document.createDocumentFragment();
+            const particleCount = 20; // Reduzido para melhor performance
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle' + (i % 2 === 0 ? ' green' : '');
+                particle.style.width = `${Math.random() * 6 + 2}px`;
+                particle.style.height = particle.style.width;
+                particle.style.left = `${Math.random() * 100}vw`;
+                particle.style.animationDuration = `${Math.random() * 10 + 10}s`;
+                particle.style.animationDelay = `${Math.random() * 5}s`;
+                fragment.appendChild(particle);
+            }
+
+            particlesBg.appendChild(fragment);
+        }
+
+        // Função para atualizar a data
+        function updateDate() {
+            const dateDisplay = document.getElementById('dateDisplay');
+            const now = new Date();
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            dateDisplay.textContent = now.toLocaleDateString('pt-BR', options);
+        }
+
+        // Função para carregar página (placeholder)
         function loadPage(page) {
-            document.getElementById('mainContent').innerHTML = `<h1 style="color: #34C759;">${page.charAt(0).toUpperCase() + page.slice(1)} Content</h1>`;
+            alert(`Carregando página: ${page}`);
         }
 
-        // Sair
+        // Função para logout
         function logout() {
             window.location.reload();
         }
 
-        // Exibir data
-        const today = new Date();
-        const day = String(today.getDate()).padStart(2, '0');
-        const month = today.toLocaleString('pt-BR', { month: 'long' });
-        document.getElementById('dateDisplay').innerHTML = `${day} de ${month}`;
+        // Inicialização
+        document.addEventListener('DOMContentLoaded', () => {
+            updateDevotional(4); // Inicia com Maio
+            updateReading(4);    // Inicia com Maio
+
+            // Adicionar evento de tecla Enter para login
+            const usernameInput = document.getElementById('username');
+            const passwordInput = document.getElementById('password');
+
+            usernameInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') checkLogin();
+            });
+
+            passwordInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') checkLogin();
+            });
+        });
     </script>
 </body>
 </html>
