@@ -206,7 +206,7 @@
         }
 
         .sidebar button:hover, .sidebar button:focus {
-            background: rgba(255, 255, 255, 0.12);
+            background: rgba(255, 255,  o 255, 0.12);
             color: #34C759;
         }
 
@@ -772,7 +772,7 @@
             <svg class="icon" viewBox="0 0 24 24"><path d="M9 11.75c-.69 0-1.25.56-1.25 1.25s.56 1.25 1.25 1.25 1.25-.56 1.25-1.25-.56-1.25-1.25-1.25zm6 0c-.69 0-1.25.56-1.25 1.25s.56 1.25 1.25 1.25 1.25-.56 1.25-1.25-.56-1.25-1.25-1.25zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm3.88-11.71L10 14.17l-1.88-1.88a.996.996 0 00-1.41 0c-.39.39-.39 1.02 0 1.41l2.59 2.59c.39.39 1.02.39 1.41 0L17.3 9.7a.996.996 0 000-1.41c-.39-.39-1.03-.39-1.42 0z"/></svg>
             <span>Connect</span>
         </button>
-        <button onclick="loadPage('sugestoes')" aria-label="Acessar página de sugestões">
+        <button onclick="window.location.href='https://docs.google.com/forms/d/e/1FAIpQLSco6SQUGVPKqw5aOsjh_pAf-cLvVDmDSDskOpFZ9qvxlsRHlA/viewform?usp=dialog'" aria-label="Acessar formulário de sugestões">
             <svg class="icon" viewBox="0 0 24 24"><path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7zm2.85 11.1l-.85.6V16h-4v-2.3l-.85-.6C7.8 12.16 7 10.63 7 9c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.63-.8 3.16-2.15 4.1z"/></svg>
             <span>Sugestões</span>
         </button>
@@ -949,7 +949,18 @@
 
             const validLogins = [
                 { username: 'rodrigo', password: 'rodrigo@2016' },
-                { username: 'vitoria', password: 'vi2025' }
+                { username: 'vitoria', password: 'vi2025' },
+                { username: 'camis', password: 'flow2025' },
+                { username: 'joedson', password: 'flow2025' },
+                { username: 'sara', password: 'flow2025' },
+                { username: 'vitoria menezes', password: 'flow2025' },
+                { username: 'victor', password: 'flow2025' },
+                { username: 'yuri', password: 'flow2025' },
+                { username: 'rafael', password: 'flow2025' },
+                { username: 'jenny', password: 'flow2025' },
+                { username: 'daniel', password: 'flow2025' },
+                { username: 'ellen', password: 'flow2025' },
+                { username: 'samuel', password: 'flow2025' }
             ];
 
             const user = validLogins.find(u => u.username === username && u.password === password);
