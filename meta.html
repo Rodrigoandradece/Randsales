@@ -206,7 +206,7 @@
         }
 
         .sidebar button:hover, .sidebar button:focus {
-            background: rgba(255, 255,  o 255, 0.12);
+            background: rgba(255, 255, 255, 0.12);
             color: #34C759;
         }
 
@@ -399,6 +399,46 @@
             100% { opacity: 1; transform: translateY(0); }
         }
 
+        /* Image Gallery */
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+            padding: 0 1rem;
+            opacity: 0;
+            animation: slideUpWithFade 0.7s forwards 1.3s;
+        }
+
+        .image-gallery img {
+            width: 100%;
+            height: auto;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            transition: transform 0.5s ease, box-shadow 0.5s ease, filter 0.5s ease;
+            object-fit: cover;
+            aspect-ratio: 16 / 9;
+            filter: brightness(0.95);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .image-gallery img:hover, .image-gallery img:focus {
+            transform: scale(1.02);
+            box-shadow: 0 6px 18px rgba(52, 199, 89, 0.2);
+            filter: brightness(1.02);
+            animation: subtleGlow 1.5s infinite alternate ease-in-out;
+        }
+
+        .image-gallery img:focus {
+            outline: 2px solid #34C759;
+            outline-offset: 2px;
+        }
+
+        @keyframes subtleGlow {
+            from { box-shadow: 0 6px 18px rgba(52, 199, 89, 0.2); }
+            to { box-shadow: 0 8px 22px rgba(52, 199, 89, 0.3); }
+        }
+
         /* Aniversariantes */
         .birthday-section {
             background: linear-gradient(135deg, #FF6F91 0%, #FF2D55 100%);
@@ -407,7 +447,7 @@
             margin: 1.5rem 0;
             position: relative;
             opacity: 0;
-            animation: fadeInWithBounce 0.7s forwards 0.7s;
+            animation: fadeInWithBounce 0.7s forwards 1.5s;
             box-shadow: 0 6px 20px rgba(255, 45, 85, 0.4);
             overflow: hidden;
         }
@@ -454,14 +494,14 @@
             margin: 1.5rem 0;
             position: relative;
             opacity: 0;
-            animation: slideUpWithFade 0.7s forwards 0.9s;
+            animation: slideUpWithFade 0.7s forwards 1.7s;
             box-shadow: 0 6px 20px rgba(52, 199, 89, 0.4);
             overflow: hidden;
         }
 
         .book-section {
             background: linear-gradient(135deg, #FF9BB8 0%, #FF6F91 100%);
-            animation-delay: 1.1s;
+            animation-delay: 1.9s;
             box-shadow: 0 6px 20px rgba(255, 155, 184, 0.4);
         }
 
@@ -507,7 +547,7 @@
             position: relative;
             z-index: 1;
             opacity: 0;
-            animation: fadeInWithBounce 0.7s forwards 0.9s;
+            animation: fadeInWithBounce 0.7s forwards 1.9s;
             font-weight: 600;
             text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
         }
@@ -519,7 +559,7 @@
             position: relative;
             z-index: 1;
             font-style: italic;
-            animation: slideUpText 0.5s forwards 1.0s;
+            animation: slideUpText 0.5s forwards 2.0s;
             line-height: 1.6;
             text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
         }
@@ -530,7 +570,7 @@
             color: rgba(255, 255, 255, 0.9);
             position: relative;
             z-index: 1;
-            animation: slideUpText 0.5s forwards 1.1s;
+            animation: slideUpText 0.5s forwards 2.1s;
             font-weight: 500;
             text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
         }
@@ -542,7 +582,7 @@
             position: relative;
             z-index: 1;
             font-weight: 600;
-            animation: slideUpText 0.5s forwards 1.2s;
+            animation: slideUpText 0.5s forwards 2.2s;
             text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
         }
 
@@ -552,7 +592,7 @@
             color: rgba(255, 255, 255, 0.95);
             position: relative;
             z-index: 1;
-            animation: slideUpText 0.5s forwards 1.3s;
+            animation: slideUpText 0.5s forwards 2.3s;
             transition: transform 0.3s ease, color 0.3s ease;
             text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
         }
@@ -573,7 +613,7 @@
             color: #fff;
             position: relative;
             z-index: 1;
-            animation: slideUpText 0.5s forwards 1.2s;
+            animation: slideUpText 0.5s forwards 2.2s;
             font-weight: 600;
             text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
         }
@@ -692,6 +732,11 @@
                 left: 0.8rem;
                 font-size: 1.3rem;
             }
+
+            .image-gallery {
+                grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+                gap: 1rem;
+            }
         }
 
         @media (max-width: 480px) {
@@ -733,6 +778,11 @@
             .login-container button {
                 padding: 0.7rem;
                 font-size: 0.95rem;
+            }
+
+            .image-gallery {
+                grid-template-columns: 1fr;
+                gap: 0.8rem;
             }
         }
     </style>
@@ -777,7 +827,7 @@
             <span>Sugestões</span>
         </button>
         <button onclick="window.location.href='https://docs.google.com/forms/d/e/1FAIpQLSdzEJueL_mAEsrE6MldU-R6fXPwFXk2WW4fohIkl_YU5Dn6pA/viewform?usp=dialog'" aria-label="Acessar formulário de agendamento MIP">
-            <svg class="icon" viewBox="0 0 24 24"><path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"/></svg>
+            <svg class="icon" viewBox="0 0 24 24"><path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11zM7 10h5v5H7z"/></svg>
             <span>Agendamento MIP</span>
         </button>
         <button onclick="loadPage('acao-social')" aria-label="Acessar página de ação social">
@@ -841,6 +891,11 @@
                 <div class="number">76%</div>
                 <div class="label">% Líderes no MIP (mês)</div>
             </div>
+        </div>
+
+        <div class="image-gallery">
+            <img src="https://cdn.jsdelivr.net/gh/rodrigoandradece/Randsales@main/images/i1.jpg" alt="Imagem 1" aria-label="Galeria de imagens - Imagem 1">
+            <img src="https://cdn.jsdelivr.net/gh/rodrigoandradece/Randsales@main/images/i2.jpg" alt="Imagem 2" aria-label="Galeria de imagens - Imagem 2">
         </div>
 
         <div class="birthday-section">
