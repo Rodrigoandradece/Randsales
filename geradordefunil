@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gerador de Modelos Automático</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background-color: #F5F5F7; /* Fundo cinza claro iOS */
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+    .card {
+      background-color: #FFFFFF;
+      border-radius: 12px;
+      box-shadow: 0 3px 12px rgba(0, 0, 0, 0.06);
+      animation: popIn 0.3s ease-out;
+    }
+    .btn-primary {
+      background-color: #A4FF01; /* Verde vibrante */
+      border-radius: 8px;
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 8px rgba(164, 255, 1, 0.3);
+    }
+    .btn-primary:hover {
+      background-color: #8CDE01; /* Verde mais escuro */
+      box-shadow: 0 4px 10px rgba(164, 255, 1, 0.4);
+      transform: translateY(-1px);
+    }
+    .btn-primary:active {
+      transform: scale(0.95);
+    }
+    .btn-copy {
+      background-color: #A4FF01;
+      border-radius: 8px;
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 8px rgba(164, 255, 1, 0.3);
+    }
+    .btn-copy:hover {
+      background-color: #8CDE01;
+      box-shadow: 0 4px 10px rgba(164, 255, 1, 0.4);
+    }
+    .btn-copy:active {
+      transform: scale(0.95);
+    }
+    input, select {
+      border-radius: 8px;
+      border: 1px solid #E5E7EB;
+      background-color: #F9FAFB;
+      transition: all 0.2s ease;
+      font-size: 0.875rem; /* text-sm */
+    }
+    input:focus, select:focus {
+      border-color: #A4FF01;
+      box-shadow: 0 0 0 2px rgba(164, 255, 1, 0.2);
+    }
+    textarea, #assunto-output {
+      font-family: monospace; /* Preserva formatação */
+      border-radius: 8px;
+      border: 1px solid #E5E7EB;
+      font-size: 1rem; /* text-base */
+    }
+    #output {
+      animation: slideIn 0.3s ease-out;
+    }
+    @keyframes popIn {
+      from {
+        transform: scale(0.98);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(6px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    @keyframes flashBorder {
+      0%, 100% { border-color: #E5E7EB; }
+      50% { border-color: #A4FF01; }
+    }
+    .flash {
+      animation: flashBorder 0.5s ease;
+    }
+    .field-1 { animation: fadeIn 0.4s ease-out 0.05s forwards; opacity: 0; }
+    .field-2 { animation: fadeIn 0.4s ease-out 0.1s forwards; opacity: 0; }
+    .field-3 { animation: fadeIn 0.4s ease-out 0.15s forwards; opacity: 0; }
+    .field-4 { animation: fadeIn 0.4s ease-out 0.2s forwards; opacity: 0; }
+    .field-5 { animation: fadeIn 0.4s ease-out 0.25s forwards; opacity: 0; }
+  </style>
+</head>
+<body class="flex items-center justify-center min-h-screen">
+  <div class="card p-6 w-full max-w-md">
+    <h1 class="text-lg font-semibold text-gray-900 mb-4">Gerador de Modelos Automático</h1>
+    
+    <!-- Formulário -->
+    <div class="mb-6">
+      <div class="mb-3 field-1">
+        <label for="empresa" class="block text-xs font-semibold text-gray-700 mb-1">Nome da Empresa</label>
+        <input type="text" id="empresa" class="block w-full border p-2" placeholder="Ex: Empresa XYZ">
+      </div>
+      <div class="mb-3 field-2">
+        <label for="cliente" class="block text-xs font-semibold text-gray-700 mb-1">Nome do Cliente</label>
+        <input type="text" id="cliente" class="block w-full border p-2" placeholder="Ex: João Silva">
+      </div>
+      <div class="mb-3 field-3">
+        <label for="executivo" class="block text-xs font-semibold text-gray-700 mb-1">Executivo Responsável</label>
+        <select id="executivo" class="block w-full border p-2">
+          <option value="Rodrigo">Rodrigo</option>
+          <option value="Welliana">Welliana</option>
+        </select>
+      </div>
+      <div class="mb-3 field-4">
+        <label for="segmento" class="block text-xs font-semibold text-gray-700 mb-1">Segmento</label>
+        <select id="segmento" class="block w-full border p-2">
+          <option value="Educacional">Educacional</option>
+          <option value="Condominial">Condominial</option>
+          <option value="Empresarial">Empresarial</option>
+        </select>
+      </div>
+      <div class="mb-3 field-5">
+        <label for="canal" class="block text-xs font-semibold text-gray-700 mb-1">Canal de Comunicação</label>
+        <select id="canal" onchange="atualizarModelos()" class="block w-full border p-2">
+          <option value="email">E-mail</option>
+          <option value="whatsapp">WhatsApp</option>
+        </select>
+      </div>
+      <div class="mb-4 field-6">
+        <label for="modelo" class="block text-xs font-semibold text-gray-700 mb-1">Modelo</label>
+        <select id="modelo" class="block w-full border p-2">
+          <option value="boas-vindas-email">Boas-Vindas (E-mail)</option>
+        </select>
+      </div>
+      <button onclick="gerarMensagem()" class="w-full btn-primary text-gray-900 font-semibold py-2 px-3">Gerar Mensagem</button>
+    </div>
+    
+    <!-- Área de saída -->
+    <div id="output" class="hidden">
+      <h2 class="text-base font-semibold text-gray-900 mb-3">Mensagem Gerada</h2>
+      <div id="assunto-container" class="mb-3 hidden">
+        <label for="assunto-output" class="block text-xs font-semibold text-gray-700 mb-1">Assunto</label>
+        <input type="text" id="assunto-output" readonly class="block w-full p-3 bg-gray-50 text-gray-800" value="">
+      </div>
+      <div class="relative">
+        <textarea id="mensagem" readonly class="w-full h-80 p-3 bg-gray-50 text-gray-800"></textarea>
+        <button onclick="copiarMensagem()" class="absolute top-2 right-2 btn-copy text-gray-900 font-medium py-1.5 px-2 flex items-center gap-1">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" viewBox="0 0 20 20" fill="currentColor">
+            <path d="M8 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z" />
+            <path d="M6 3a2 2 0 00-2 2v11a2 2 0 002 2h8a2 2 0 002-2V5a2 2 0 00-2-2 3 3 0 01-3 3H9a3 3 0 01-3-3z" />
+          </svg>
+          Copiar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function atualizarModelos() {
+      const canal = document.getElementById('canal').value;
+      const modeloSelect = document.getElementById('modelo');
+      modeloSelect.innerHTML = '';
+
+      if (canal === 'email') {
+        modeloSelect.innerHTML = `
+          <option value="boas-vindas-email">Boas-Vindas (E-mail)</option>
+          <option value="email-1-diagnostico">📨 E-mail 1 – Diagnóstico gratuito + benefício direto</option>
+          <option value="email-2-prova-social">📨 E-mail 2 – Prova social + proposta de ação clara</option>
+          <option value="email-3-ultima-chamada">📨 E-mail 3 – Última chamada + opção de saída elegante</option>
+        `;
+      } else if (canal === 'whatsapp') {
+        modeloSelect.innerHTML = `
+          <option value="whatsapp-m1-diagnostico">✅ M1 – Diagnóstico disfarçado + curiosidade + autoridade</option>
+          <option value="whatsapp-m2-gatilhos">✅ M2 – Gatilhos + autoridade + escassez de agenda</option>
+          <option value="whatsapp-m3-urgencia">✅ M3 – Urgência + CTA direto + fechamento suave</option>
+        `;
+      }
+    }
+
+    function gerarMensagem() {
+      const empresa = document.getElementById('empresa').value.trim();
+      const cliente = document.getElementById('cliente').value.trim();
+      const executivo = document.getElementById('executivo').value;
+      const segmento = document.getElementById('segmento').value;
+      const canal = document.getElementById('canal').value;
+      const modelo = document.getElementById('modelo').value;
+
+      if (!empresa || !cliente) {
+        alert('Por favor, preencha o nome da empresa e do cliente.');
+        return;
+      }
+
+      const cargo = executivo === 'Rodrigo' ? 'Diretor Comercial' : 'CEO do grupo WS';
+      let mensagem = '';
+      let assunto = '';
+      const assuntoContainer = document.getElementById('assunto-container');
+      const output = document.getElementById('output');
+
+      if (modelo === 'boas-vindas-email') {
+        assunto = 'Seja muito bem-vindo à WS! 🚀';
+        mensagem = `Boa tarde, ${cliente},\n\n` +
+                   `É um grande prazer ter você e a ${empresa} como nossos clientes! Estamos muito animados para começar essa jornada ao lado de vocês, e como ${cargo}, quero garantir que tenham desde o início a melhor experiência possível conosco.\n\n` +
+                   `Apresento abaixo nossa equipe, que estará diretamente envolvida no sucesso dessa parceria:\n` +
+                   `. **Rodrigo Andrade** – Diretor Comercial e de Sucesso do Cliente\n` +
+                   ` Estará à disposição para assegurar que a ${empresa} alcance os melhores resultados, garantindo que todo o processo seja executado da forma mais eficiente e estratégica possível.\n` +
+                   `. **Marcos Paulo** – Diretor de Planejamento e Estratégia\n` +
+                   ` Estará ao seu lado para garantir que todas as etapas estratégicas e de implantação sejam tratadas com precisão e alinhadas às metas da ${empresa}.\n` +
+                   `. **Welliana Sampaio** – CEO\n` +
+                   ` Lidero o grupo WS com uma visão executiva e estratégica, com o objetivo de transformar nossas parcerias em soluções reais, duradouras e de alto impacto.\n` +
+                   `. **Wellington Sampaio** – CVO e Conselheiro Jurídico\n` +
+                   ` Atuará como apoio técnico nas demandas jurídicas, oferecendo suporte e orientação sempre que necessário.\n` +
+                   `. **Sâneva Sampaio** – Diretora Jurídica\n` +
+                   ` Responsável por toda a estrutura jurídica, garantindo conformidade e segurança em todos os processos, além da implementação de cobranças judiciais, quando aplicável.\n` +
+                   `. **Nilson Cavalcante** – Coordenador de Operações de Cobrança\n` +
+                   ` Liderará o acompanhamento diário das ações de cobrança, assegurando consistência, agilidade e eficiência nos resultados.\n\n` +
+                   `Na WS Cobrança, nosso compromisso é com o sucesso da ${empresa}. Estamos prontos para oferecer todo o suporte necessário para que suas metas de recuperação sejam atingidas com excelência.\n\n` +
+                   `Se precisar de qualquer coisa, estou à disposição.\n\n` +
+                   `Atenciosamente,`;
+        assuntoContainer.classList.remove('hidden');
+      } else if (modelo === 'email-1-diagnostico') {
+        assunto = `Diagnóstico gratuito para reduzir perdas na ${empresa}`;
+        mensagem = `Olá ${cliente},\n\n` +
+                   `Empresas com o perfil da ${empresa} têm enfrentado grandes desafios com inadimplência, o que gera perda de caixa e insegurança nos recebimentos.\n\n` +
+                   `Gostaria de te oferecer um **diagnóstico gratuito**, com base em cases reais do setor ${segmento.toLowerCase()}, para te mostrar como podemos:\n` +
+                   `✅ Aumentar a taxa de recuperação de crédito\n` +
+                   `✅ Reduzir a sobrecarga da equipe interna\n` +
+                   `✅ Fazer tudo isso sem nenhum custo para a empresa\n\n` +
+                   `Pode me dizer um bom horário essa semana para conversarmos?\n\n` +
+                   `Forte abraço,\n` +
+                   `${executivo} – Especialista em Estratégias de Cobrança`;
+        assuntoContainer.classList.remove('hidden');
+      } else if (modelo === 'email-2-prova-social') {
+        assunto = `Como empresas do seu segmento estão evitando prejuízos silenciosos`;
+        mensagem = `Olá ${cliente},\n\n` +
+                   `Na última semana, empresas do mesmo segmento da ${empresa} recuperaram mais de **R$ 500 mil** conosco, usando um modelo simples e **100% sem custo** para elas.\n\n` +
+                   `Gostaria de te mostrar como adaptar isso à sua realidade.\n` +
+                   `Tenho dois horários disponíveis essa semana para uma conversa rápida:\n` +
+                   `▪️ Quarta 14h\n` +
+                   `▪️ Quinta 10h\n\n` +
+                   `Caso queira outro horário, posso ajustar.\n\n` +
+                   `Fico à disposição,\n` +
+                   `${executivo}`;
+        assuntoContainer.classList.remove('hidden');
+      } else if (modelo === 'email-3-ultima-chamada') {
+        assunto = `Último contato – sem custo e com resultado real`;
+        mensagem = `Olá ${cliente},\n\n` +
+                   `Esse é meu último contato por aqui, mas acredito que a ${empresa} pode se beneficiar de uma solução que **traz resultado e não gera custo**.\n\n` +
+                   `Caso queira conhecer o plano que usamos com outras empresas para evitar perdas silenciosas e melhorar o fluxo de caixa em até 90 dias, me avise.\n` +
+                   `Se não for o momento, sem problema — deixo a porta aberta.\n\n` +
+                   `Abraço,\n` +
+                   `${executivo}`;
+        assuntoContainer.classList.remove('hidden');
+      } else if (modelo === 'whatsapp-m1-diagnostico') {
+        mensagem = `Olá ${cliente}, tudo certo? 💪\n\n` +
+                   `Fui indicado a analisar empresas como a ${empresa}, e percebi que muitas estão perdendo dinheiro por inadimplência mal gerida ou ausência de estrutura de cobrança especializada.\n\n` +
+                   `Eu sou ${executivo}, ${cargo} da WS Cobrança. Atuamos com um modelo **sem custo** para sua empresa e com resultados acima da média no setor ${segmento.toLowerCase()}.\n\n` +
+                   `Tem 2 minutos agora ou prefere que eu envie um link para agendarmos uma conversa rápida? 🎯\n\n` +
+                   `🔹 **Gatilhos**: dor, autoridade, curiosidade, economia de tempo\n` +
+                   `🔹 **Objetivo**: iniciar conversa e abrir espaço para reunião 🔥`;
+        assuntoContainer.classList.add('hidden');
+      } else if (modelo === 'whatsapp-m2-gatilhos') {
+        mensagem = `${cliente}, empresas no mesmo setor da ${empresa} já estão recuperando mais de **R$ 500 mil** com nosso modelo. 💪\n\n` +
+                   `A vantagem? **Sem custos**, sem burocracia, sem sobrecarregar sua equipe.\n\n` +
+                   `Tenho 2 janelas disponíveis nos próximos dias para te mostrar isso em detalhes:\n` +
+                   `▪️ Quarta 14h\n` +
+                   `▪️ Quinta 10h\n\n` +
+                   `Qual prefere? 🎯\n\n` +
+                   `🔹 **Gatilhos**: prova social, escassez, clareza\n` +
+                   `🔹 **Objetivo**: quebrar objeção e fechar reunião com datas prontas 🔥`;
+        assuntoContainer.classList.add('hidden');
+      } else if (modelo === 'whatsapp-m3-urgencia') {
+        mensagem = `Última mensagem, ${cliente}, prometo ser breve. 💪\n\n` +
+                   `Temos um plano específico para empresas do porte da ${empresa} que evita perdas silenciosas e melhora o fluxo de caixa em **30 a 90 dias**.\n\n` +
+                   `Posso te enviar o link direto pra você agendar um horário?\n` +
+                   `👉 Só me dizer “pode enviar” que mando agora. 🎯\n\n` +
+                   `🔹 **Gatilhos**: urgência, promessa clara, call-to-action\n` +
+                   `🔹 **Objetivo**: tirar o lead da inércia 🔥`;
+        assuntoContainer.classList.add('hidden');
+      }
+
+      const mensagemArea = document.getElementById('mensagem');
+      const assuntoInput = document.getElementById('assunto-output');
+      mensagemArea.value = mensagem;
+      assuntoInput.value = assunto;
+      output.classList.remove('hidden');
+    }
+
+    function copiarMensagem() {
+      const mensagem = document.getElementById('mensagem');
+      mensagem.select();
+      document.execCommand('copy');
+      mensagem.classList.add('flash');
+      setTimeout(() => mensagem.classList.remove('flash'), 500);
+      alert('Mensagem copiada para a área de transferência!');
+    }
+
+    // Inicializa os modelos na carga da página
+    atualizarModelos();
+  </script>
+</body>
+</html>
