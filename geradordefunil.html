@@ -6,313 +6,1062 @@
   <title>Gerador de Modelos Automático</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
+    /* Base Styles */
     body {
-      background-color: #F5F5F7; /* Fundo cinza claro iOS */
+      background: linear-gradient(to bottom, #F5F5F7, #E5E7EB);
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      margin: 0;
+      padding: 1rem;
     }
+
+    /* Card Styles */
     .card {
       background-color: #FFFFFF;
       border-radius: 12px;
-      box-shadow: 0 3px 12px rgba(0, 0, 0, 0.06);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
       animation: popIn 0.3s ease-out;
+      max-width: 100%;
+      width: 100%;
+      padding: 2rem;
+    }
+    @media (min-width: 640px) {
+      .card {
+        max-width: 1024px;
+      }
+    }
+    @media (min-width: 768px) {
+      .card {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+      }
+    }
+    @media (max-width: 767px) {
+      .card {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+    }
+
+    /* Button Styles */
+    .btn {
+      border-radius: 8px;
+      transition: all 0.2s ease;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
     }
     .btn-primary {
-      background-color: #A4FF01; /* Verde vibrante */
-      border-radius: 8px;
-      transition: all 0.2s ease;
+      background-color: #A4FF01;
+      color: #111827;
       box-shadow: 0 2px 8px rgba(164, 255, 1, 0.3);
+      padding: 0.75rem 1rem;
     }
-    .btn-primary:hover {
-      background-color: #8CDE01; /* Verde mais escuro */
-      box-shadow: 0 4px 10px rgba(164, 255, 1, 0.4);
+    .btn-primary:hover:not(:disabled) {
+      background-color: #8CDE01;
+      box-shadow: 0 4px 12px rgba(164, 255, 1, 0.4);
       transform: translateY(-1px);
     }
-    .btn-primary:active {
-      transform: scale(0.95);
+    .btn-primary:active:not(:disabled) {
+      transform: scale(0.98);
+    }
+    .btn-primary:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
     }
     .btn-copy {
-      background-color: #A4FF01;
-      border-radius: 8px;
-      transition: all 0.2s ease;
-      box-shadow: 0 2px 8px rgba(164, 255, 1, 0.3);
+      background-color: transparent;
+      color: #A4FF01;
+      opacity: 0.7;
+      padding: 0.25rem;
     }
     .btn-copy:hover {
-      background-color: #8CDE01;
-      box-shadow: 0 4px 10px rgba(164, 255, 1, 0.4);
+      color: #8CDE01;
+      opacity: 1;
     }
     .btn-copy:active {
       transform: scale(0.95);
     }
-    input, select {
+
+    /* Input and Select Styles */
+    input, select, textarea {
       border-radius: 8px;
       border: 1px solid #E5E7EB;
       background-color: #F9FAFB;
-      transition: all 0.2s ease;
-      font-size: 0.875rem; /* text-sm */
+      padding: 0.5rem 0.75rem;
+      font-size: 0.875rem;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      width: 100%;
+      box-sizing: border-box;
     }
-    input:focus, select:focus {
+    input:focus, select:focus, textarea:focus {
+      outline: none;
       border-color: #A4FF01;
-      box-shadow: 0 0 0 2px rgba(164, 255, 1, 0.2);
+      box-shadow: 0 0 0 3px rgba(164, 255, 1, 0.2);
     }
-    textarea, #assunto-output {
-      font-family: monospace; /* Preserva formatação */
-      border-radius: 8px;
-      border: 1px solid #E5E7EB;
-      font-size: 1rem; /* text-base */
+    input[aria-invalid="true"], select[aria-invalid="true"] {
+      border-color: #EF4444;
     }
-    #output {
-      animation: slideIn 0.3s ease-out;
+    textarea {
+      min-height: 16rem;
+      max-height: 24rem;
+      resize: vertical;
+      font-family: inherit;
+      font-size: 0.875rem;
+      line-height: 1.5;
+      padding: 1rem;
+      white-space: pre-wrap;
+      overflow-y: auto;
     }
+    #assunto-output {
+      background-color: #F3F4F6;
+      color: #111827;
+    }
+
+    /* Label Styles */
+    label {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: #1F2937;
+      display: block;
+      margin-bottom: 0.25rem;
+    }
+    label.required::after {
+      content: '*';
+      color: #EF4444;
+      margin-left: 0.25rem;
+    }
+
+    /* Modelo Condominial Indicator */
+    .modelo-condominial {
+      display: inline-block;
+      font-size: 0.75rem;
+      margin-left: 0.25rem;
+      vertical-align: middle;
+    }
+
+    /* Animations */
     @keyframes popIn {
-      from {
-        transform: scale(0.98);
-        opacity: 0;
-      }
-      to {
-        transform: scale(1);
-        opacity: 1;
-      }
+      from { transform: scale(0.95); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
     }
     @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(6px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
     }
-    @keyframes slideIn {
-      from {
-        opacity: 0;
-        transform: translateY(10px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
+    @keyframes slideInRight {
+      from { opacity: 0; transform: translateX(20px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    .animate-field { animation: fadeIn 0.3s ease-out forwards; }
+    .animate-output {
+      animation: slideInRight 0.3s ease-out forwards;
+    }
+    @media (max-width: 767px) {
+      .animate-output {
+        animation: fadeIn 0.3s ease-out forwards;
       }
     }
-    @keyframes flashBorder {
-      0%, 100% { border-color: #E5E7EB; }
-      50% { border-color: #A4FF01; }
+
+    /* Toast Notification */
+    .toast {
+      position: fixed;
+      bottom: 1rem;
+      right: 1rem;
+      background-color: #111827;
+      color: #FFFFFF;
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      opacity: 0;
+      transform: translateY(20px);
+      animation: toastIn 0.3s ease-out forwards;
     }
-    .flash {
-      animation: flashBorder 0.5s ease;
+    @keyframes toastIn {
+      to { opacity: 1; transform: translateY(0); }
     }
-    .field-1 { animation: fadeIn 0.4s ease-out 0.05s forwards; opacity: 0; }
-    .field-2 { animation: fadeIn 0.4s ease-out 0.1s forwards; opacity: 0; }
-    .field-3 { animation: fadeIn 0.4s ease-out 0.15s forwards; opacity: 0; }
-    .field-4 { animation: fadeIn 0.4s ease-out 0.2s forwards; opacity: 0; }
-    .field-5 { animation: fadeIn 0.4s ease-out 0.25s forwards; opacity: 0; }
+    .toast.hide {
+      animation: toastOut 0.3s ease-out forwards;
+    }
+    @keyframes toastOut {
+      to { opacity: 0; transform: translateY(20px); }
+    }
+
+    /* Error Message */
+    .error-message {
+      color: #EF4444;
+      font-size: 0.75rem;
+      margin-top: 0.25rem;
+      display: none;
+    }
+    .error-message.show {
+      display: block;
+    }
+
+    /* Focus Accessibility */
+    input:focus-visible, select:focus-visible, button:focus-visible {
+      outline: 2px solid #A4FF01;
+      outline-offset: 2px;
+    }
+
+    /* Output Container */
+    #output[aria-hidden="true"] {
+      display: block;
+    }
+    #output {
+      display: block;
+    }
+
+    /* Steps Guide */
+    .steps-guide {
+      background-color: #F9FAFB;
+      border-radius: 8px;
+      padding: 1.5rem;
+      font-size: 0.875rem;
+      border: 1px solid #E5E7EB;
+    }
+    .steps-guide h2 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #1F2937;
+      margin-bottom: 1rem;
+    }
+    .steps-guide ol {
+      list-style: decimal;
+      padding-left: 1.5rem;
+      margin: 0;
+    }
+    .steps-guide li {
+      margin-bottom: 0.5rem;
+    }
   </style>
 </head>
 <body class="flex items-center justify-center min-h-screen">
-  <div class="card p-6 w-full max-w-md">
-    <h1 class="text-lg font-semibold text-gray-900 mb-4">Gerador de Modelos Automático</h1>
-    
+  <div class="card" role="region" aria-label="Gerador de Modelos Automático">
     <!-- Formulário -->
-    <div class="mb-6">
-      <div class="mb-3 field-1">
-        <label for="empresa" class="block text-xs font-semibold text-gray-700 mb-1">Nome da Empresa</label>
-        <input type="text" id="empresa" class="block w-full border p-2" placeholder="Ex: Empresa XYZ">
-      </div>
-      <div class="mb-3 field-2">
-        <label for="cliente" class="block text-xs font-semibold text-gray-700 mb-1">Nome do Cliente</label>
-        <input type="text" id="cliente" class="block w-full border p-2" placeholder="Ex: João Silva">
-      </div>
-      <div class="mb-3 field-3">
-        <label for="executivo" class="block text-xs font-semibold text-gray-700 mb-1">Executivo Responsável</label>
-        <select id="executivo" class="block w-full border p-2">
-          <option value="Rodrigo">Rodrigo</option>
-          <option value="Welliana">Welliana</option>
-        </select>
-      </div>
-      <div class="mb-3 field-4">
-        <label for="segmento" class="block text-xs font-semibold text-gray-700 mb-1">Segmento</label>
-        <select id="segmento" class="block w-full border p-2">
-          <option value="Educacional">Educacional</option>
-          <option value="Condominial">Condominial</option>
-          <option value="Empresarial">Empresarial</option>
-        </select>
-      </div>
-      <div class="mb-3 field-5">
-        <label for="canal" class="block text-xs font-semibold text-gray-700 mb-1">Canal de Comunicação</label>
-        <select id="canal" onchange="atualizarModelos()" class="block w-full border p-2">
-          <option value="email">E-mail</option>
-          <option value="whatsapp">WhatsApp</option>
-        </select>
-      </div>
-      <div class="mb-4 field-6">
-        <label for="modelo" class="block text-xs font-semibold text-gray-700 mb-1">Modelo</label>
-        <select id="modelo" class="block w-full border p-2">
-          <option value="boas-vindas-email">Boas-Vindas (E-mail)</option>
-        </select>
-      </div>
-      <button onclick="gerarMensagem()" class="w-full btn-primary text-gray-900 font-semibold py-2 px-3">Gerar Mensagem</button>
+    <div>
+      <h1 class="text-lg font-semibold text-gray-900 mb-6">Gerador de Modelos Automático</h1>
+      <form id="message-form" novalidate class="mb-6">
+        <div class="mb-4 animate-field">
+          <label for="empresa" class="required">Nome da Empresa</label>
+          <input type="text" id="empresa" aria-required="true" placeholder="Ex: Empresa XYZ">
+          <p id="empresa-error" class="error-message">Por favor, insira o nome da empresa.</p>
+        </div>
+        <div class="mb-4 animate-field">
+          <label for="cliente" class="required">Nome do Cliente</label>
+          <input type="text" id="cliente" aria-required="true" placeholder="Ex: João Silva">
+          <p id="cliente-error" class="error-message">Por favor, insira o nome do cliente.</p>
+        </div>
+        <div class="mb-4 animate-field">
+          <label for="executivo">Executivo Responsável</label>
+          <select id="executivo">
+            <option value="Rodrigo">Rodrigo</option>
+            <option value="Welliana">Welliana</option>
+          </select>
+        </div>
+        <div class="mb-4 animate-field">
+          <label for="segmento">Mercado</label>
+          <select id="segmento">
+            <option value="Educacional">Mercado Educacional</option>
+            <option value="Condominial">Mercado Condominial</option>
+            <option value="Empresarial">Mercado Empresarial</option>
+          </select>
+        </div>
+        <div class="mb-4 animate-field">
+          <label for="canal">Canal de Comunicação</label>
+          <select id="canal">
+            <option value="email">E-mail</option>
+            <option value="whatsapp">WhatsApp</option>
+          </select>
+        </div>
+        <div class="mb-4 animate-field">
+          <label for="categoria">Categoria</label>
+          <select id="categoria" aria-label="Selecionar categoria de mensagem"></select>
+        </div>
+        <div class="mb-6 animate-field">
+          <label for="modelo">Modelo</label>
+          <select id="modelo"></select>
+        </div>
+        <div class="flex gap-4">
+          <button type="submit" id="generate-btn" class="btn btn-primary w-full">Gerar Mensagem</button>
+          <button type="button" id="clear-btn" class="btn btn-primary w-full">Limpar Formulário</button>
+        </div>
+      </form>
     </div>
     
     <!-- Área de saída -->
-    <div id="output" class="hidden">
-      <h2 class="text-base font-semibold text-gray-900 mb-3">Mensagem Gerada</h2>
-      <div id="assunto-container" class="mb-3 hidden">
-        <label for="assunto-output" class="block text-xs font-semibold text-gray-700 mb-1">Assunto</label>
-        <input type="text" id="assunto-output" readonly class="block w-full p-3 bg-gray-50 text-gray-800" value="">
+    <div id="output" aria-hidden="true" aria-live="polite">
+      <h2 class="text-base font-semibold text-gray-900 mb-4">Mensagem Gerada</h2>
+      <div id="steps-guide" role="region" aria-label="Instruções de uso">
+        <h2>Como Usar o Formulário</h2>
+        <ol>
+          <li>✍️ Insira o nome da empresa e do cliente nos campos obrigatórios.</li>
+          <li>🔽 Escolha o executivo, mercado e canal de comunicação nos menus suspensos.</li>
+          <li>📋 Selecione a categoria e o modelo de mensagem desejados.</li>
+          <li>🚀 Clique em "Gerar Mensagem" para ver o resultado aqui.</li>
+          <li>📄 Clique no ícone de copiar para usar a mensagem gerada.</li>
+        </ol>
       </div>
-      <div class="relative">
-        <textarea id="mensagem" readonly class="w-full h-80 p-3 bg-gray-50 text-gray-800"></textarea>
-        <button onclick="copiarMensagem()" class="absolute top-2 right-2 btn-copy text-gray-900 font-medium py-1.5 px-2 flex items-center gap-1">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" viewBox="0 0 20 20" fill="currentColor">
-            <path d="M8 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z" />
-            <path d="M6 3a2 2 0 00-2 2v11a2 2 0 002 2h8a2 2 0 002-2V5a2 2 0 00-2-2 3 3 0 01-3 3H9a3 3 0 01-3-3z" />
-          </svg>
-          Copiar
-        </button>
+      <div id="output-content" class="hidden">
+        <div id="assunto-container" class="mb-4 hidden">
+          <label for="assunto-output">Assunto</label>
+          <input type="text" id="assunto-output" readonly>
+        </div>
+        <div class="relative">
+          <textarea id="mensagem" readonly aria-readonly="true" role="textbox"></textarea>
+          <button id="copy-btn" class="btn-copy absolute top-0.5 right-0.5" aria-label="Copiar mensagem gerada" title="Copiar mensagem">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+              <path d="M8 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z" />
+              <path d="M6 3a2 2 0 00-2 2v11a2 2 0 002 2h8a2 2 0 002-2V5a2 2 0 00-2-2 3 3 0 01-3 3H9a3 3 0 01-3-3z" />
+            </svg>
+          </button>
+        </div>
       </div>
     </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast hidden" role="alert"></div>
   </div>
 
   <script>
-    function atualizarModelos() {
-      const canal = document.getElementById('canal').value;
-      const modeloSelect = document.getElementById('modelo');
-      modeloSelect.innerHTML = '';
+    // Utility Functions
+    const showToast = (message, duration = 3000) => {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.remove('hide', 'hidden');
+      setTimeout(() => {
+        toast.classList.add('hide');
+        setTimeout(() => toast.classList.add('hidden'), 300);
+      }, duration);
+    };
 
-      if (canal === 'email') {
-        modeloSelect.innerHTML = `
-          <option value="boas-vindas-email">Boas-Vindas (E-mail)</option>
-          <option value="email-1-diagnostico">📨 E-mail 1 – Diagnóstico gratuito + benefício direto</option>
-          <option value="email-2-prova-social">📨 E-mail 2 – Prova social + proposta de ação clara</option>
-          <option value="email-3-ultima-chamada">📨 E-mail 3 – Última chamada + opção de saída elegante</option>
-        `;
-      } else if (canal === 'whatsapp') {
-        modeloSelect.innerHTML = `
-          <option value="whatsapp-m1-diagnostico">✅ M1 – Diagnóstico disfarçado + curiosidade + autoridade</option>
-          <option value="whatsapp-m2-gatilhos">✅ M2 – Gatilhos + autoridade + escassez de agenda</option>
-          <option value="whatsapp-m3-urgencia">✅ M3 – Urgência + CTA direto + fechamento suave</option>
-        `;
+    const validateInput = (value) => value.trim().length >= 2;
+
+    // Form Elements
+    const form = document.getElementById('message-form');
+    const empresaInput = document.getElementById('empresa');
+    const clienteInput = document.getElementById('cliente');
+    const executivoSelect = document.getElementById('executivo');
+    const segmentoSelect = document.getElementById('segmento');
+    const canalSelect = document.getElementById('canal');
+    const categoriaSelect = document.getElementById('categoria');
+    const modeloSelect = document.getElementById('modelo');
+    const generateBtn = document.getElementById('generate-btn');
+    const clearBtn = document.getElementById('clear-btn');
+    const output = document.getElementById('output');
+    const stepsGuide = document.getElementById('steps-guide');
+    const outputContent = document.getElementById('output-content');
+    const assuntoContainer = document.getElementById('assunto-container');
+    const assuntoInput = document.getElementById('assunto-output');
+    const mensagemArea = document.getElementById('mensagem');
+    const copyBtn = document.getElementById('copy-btn');
+
+    // Email Models Mapping
+    const emailModelsDefault = {
+      'E-mails de Apresentação': [
+        { value: 'autoridade-diagnostico', text: 'Entrada de Autoridade e Diagnóstico Rápido' },
+        { value: 'prova-social', text: 'Provocação + Prova Social Direta' },
+        { value: 'oferta-valor', text: 'Oferta de Valor + Abertura Consultiva' },
+      ],
+      'E-mails Gatilho da Dor': [
+        { value: 'perdendo-dinheiro', text: 'Você está perdendo dinheiro sem perceber?' },
+        { value: 'equipe-sobrecarregada', text: 'Sua equipe está sobrecarregada com cobrança?' },
+        { value: 'controle-inadimplencia', text: 'Você sente que perdeu o controle da inadimplência?' },
+        { value: 'cobrar-reclamacao', text: 'A dor de cobrar clientes e ainda ouvir reclamação' },
+      ],
+      'E-mails Autoridade e Diferenciação': [
+        { value: 'grandes-empresas', text: 'Por que grandes empresas escolhem a WS Cobrança?' },
+        { value: 'modelo-diferente', text: 'Nosso modelo é diferente — e funciona' },
+        { value: 'resultados-reais', text: 'Resultados que falam por si' },
+      ],
+      'E-mails Benefícios e Resultado Direto': [
+        { value: 'mais-resultado-aluno', text: 'Mais resultado na cobrança sem perder o aluno' },
+        { value: 'tentou-tudo-educacional', text: 'Você já tentou de tudo e a inadimplência continua?' },
+      ],
+      'E-mails Chamada para Conversa ou Reunião': [
+        { value: 'chamada-educacional', text: 'Convidar para uma conversa sobre inadimplência (Educacional)' },
+        { value: 'chamada-empresarial', text: 'Convidar para uma conversa sobre inadimplência (Empresarial)' },
+      ],
+      'E-mails Follow-up e Reforço Final': [
+        { value: 'fechando-ciclo-educacional', text: 'Apenas fechando o ciclo (Educacional)' },
+        { value: 'antes-encerrar-educacional', text: 'Antes de encerrar… (Educacional)' },
+      ],
+      'E-mails Fechamento': [
+        { value: 'proximo-passo-educacional', text: 'Pronto para dar o próximo passo? (Educacional)' },
+        { value: 'sair-papel-educacional', text: 'Hora de sair do papel (Educacional)' },
+      ],
+      'E-mails Boas-Vindas (Pós-Fechamento)': [
+        { value: 'boas-vindas-email', text: 'Boas-Vindas' },
+      ],
+    };
+
+    const emailModelsCondominial = {
+      'E-mails Gatilho da Dor': [
+        { value: 'perdendo-dinheiro-condominial', text: 'Você está perdendo dinheiro sem perceber?', condominial: true },
+        { value: 'equipe-sobrecarregada-condominial', text: 'Sua administradora ou síndico está sobrecarregado com cobrança?', condominial: true },
+        { value: 'controle-inadimplencia-condominial', text: 'Você sente que perdeu o controle da inadimplência?', condominial: true },
+        { value: 'cobrar-moradores-condominial', text: 'Cobrar moradores virou um problema?', condominial: true },
+      ],
+      'E-mails Autoridade e Diferenciação': [
+        { value: 'grandes-condominios-condominial', text: 'Por que grandes condomínios escolhem a WS?', condominial: true },
+        { value: 'modelo-preserva-condominial', text: 'Nosso modelo preserva a relação e resolve a inadimplência', condominial: true },
+        { value: 'numeros-reais-condominial', text: 'Números que mostram resultado real', condominial: true },
+      ],
+      'E-mails Benefícios e Resultado Direto': [
+        { value: 'tentou-tudo-condominial', text: 'Como entregamos resultado onde síndicos já tentaram de tudo', condominial: true },
+      ],
+      'E-mails Chamada para Conversa ou Reunião': [
+        { value: 'solucoes-condominial', text: 'Soluções reais para inadimplência em condomínios', condominial: true },
+        { value: 'problema-juridico-condominial', text: 'Quando a cobrança vira um problema jurídico ou pessoal', condominial: true },
+        { value: 'caixa-saudavel-condominial', text: 'Ficou mais difícil manter o caixa saudável no condomínio?', condominial: true },
+      ],
+      'E-mails Follow-up e Reforço Final': [
+        { value: 'encerrando-condominial', text: 'Encerrando por aqui? (Condominial)', condominial: true },
+        { value: 'fechar-contato-condominial', text: 'Só para fechar com você (Condominial)', condominial: true },
+      ],
+      'E-mails Fechamento': [
+        { value: 'recuperar-valores-condominial', text: 'Pronto para recuperar os valores em aberto? (Condominial)', condominial: true },
+        { value: 'inicio-semana-condominial', text: 'Vamos dar início ainda essa semana? (Condominial)', condominial: true },
+      ],
+    };
+
+    const whatsappModels = [
+      { value: 'whatsapp-m1-diagnostico', text: 'M1 – Diagnóstico disfarçado + curiosidade + autoridade' },
+      { value: 'whatsapp-m2-gatilhos', text: 'M2 – Gatilhos + autoridade + escassez de agenda' },
+      { value: 'whatsapp-m3-urgencia', text: 'M3 – Urgência + CTA direto + fechamento suave' },
+    ];
+
+    // Load Form Data from localStorage
+    const loadFormData = () => {
+      empresaInput.value = localStorage.getItem('empresa') || '';
+      clienteInput.value = localStorage.getItem('cliente') || '';
+      executivoSelect.value = localStorage.getItem('executivo') || 'Rodrigo';
+      segmentoSelect.value = localStorage.getItem('segmento') || 'Educacional';
+      canalSelect.value = localStorage.getItem('canal') || 'email';
+      atualizarCategorias();
+      const savedCategoria = localStorage.getItem('categoria');
+      if (savedCategoria && categoriaSelect.querySelector(`option[value="${savedCategoria}"]`)) {
+        categoriaSelect.value = savedCategoria;
       }
-    }
+      atualizarModelos();
+    };
 
-    function gerarMensagem() {
-      const empresa = document.getElementById('empresa').value.trim();
-      const cliente = document.getElementById('cliente').value.trim();
-      const executivo = document.getElementById('executivo').value;
-      const segmento = document.getElementById('segmento').value;
-      const canal = document.getElementById('canal').value;
-      const modelo = document.getElementById('modelo').value;
+    // Save Form Data to localStorage
+    const saveFormData = () => {
+      localStorage.setItem('empresa', empresaInput.value);
+      localStorage.setItem('cliente', clienteInput.value);
+      localStorage.setItem('executivo', executivoSelect.value);
+      localStorage.setItem('segmento', segmentoSelect.value);
+      localStorage.setItem('canal', canalSelect.value);
+      localStorage.setItem('categoria', categoriaSelect.value);
+    };
 
-      if (!empresa || !cliente) {
-        alert('Por favor, preencha o nome da empresa e do cliente.');
+    // Update Category Options
+    const atualizarCategorias = () => {
+      const canal = canalSelect.value;
+      categoriaSelect.innerHTML = '';
+      const categories = canal === 'email' ? Object.keys(emailModelsDefault) : ['Mensagens WhatsApp'];
+      categories.forEach(category => {
+        const option = document.createElement('option');
+        option.value = category;
+        option.textContent = category;
+        categoriaSelect.appendChild(option);
+      });
+      atualizarModelos();
+    };
+
+    // Update Model Options
+    const atualizarModelos = () => {
+      const canal = canalSelect.value;
+      const categoria = categoriaSelect.value;
+      const segmento = segmentoSelect.value;
+      modeloSelect.innerHTML = '';
+      let options = [];
+      if (canal === 'email') {
+        if (segmento === 'Condominial' && (
+          categoria === 'E-mails Gatilho da Dor' ||
+          categoria === 'E-mails Autoridade e Diferenciação' ||
+          categoria === 'E-mails Benefícios e Resultado Direto' ||
+          categoria === 'E-mails Chamada para Conversa ou Reunião' ||
+          categoria === 'E-mails Follow-up e Reforço Final' ||
+          categoria === 'E-mails Fechamento'
+        )) {
+          options = emailModelsCondominial[categoria] || [];
+        } else {
+          options = emailModelsDefault[categoria] || [];
+        }
+      } else {
+        options = whatsappModels;
+      }
+      options.forEach(({ value, text, condominial }) => {
+        const option = document.createElement('option');
+        option.value = value;
+        option.textContent = text;
+        if (condominial) {
+          option.classList.add('modelo-condominial');
+          option.setAttribute('aria-label', `${text} (adaptado para setor condominial)`);
+        }
+        modeloSelect.appendChild(option);
+      });
+    };
+
+    // Generate Message
+    const gerarMensagem = () => {
+      const empresa = empresaInput.value.trim();
+      const cliente = clienteInput.value.trim();
+      const executivo = executivoSelect.value;
+      const segmento = segmentoSelect.value;
+      const canal = canalSelect.value;
+      const modelo = modeloSelect.value;
+
+      // Validation
+      let isValid = true;
+      if (!validateInput(empresa)) {
+        empresaInput.setAttribute('aria-invalid', 'true');
+        document.getElementById('empresa-error').classList.add('show');
+        isValid = false;
+      } else {
+        empresaInput.removeAttribute('aria-invalid');
+        document.getElementById('empresa-error').classList.remove('show');
+      }
+      if (!validateInput(cliente)) {
+        clienteInput.setAttribute('aria-invalid', 'true');
+        document.getElementById('cliente-error').classList.add('show');
+        isValid = false;
+      } else {
+        clienteInput.removeAttribute('aria-invalid');
+        document.getElementById('cliente-error').classList.remove('show');
+      }
+
+      if (!isValid) {
+        showToast('Preencha todos os campos obrigatórios.', 4000);
         return;
       }
 
-      const cargo = executivo === 'Rodrigo' ? 'Diretor Comercial' : 'CEO do grupo WS';
+      generateBtn.disabled = true;
+      generateBtn.innerHTML = '<svg class="animate-spin h-5 w-5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="#111827" stroke-width="4" fill="none" /><path fill="#111827" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z" /></svg> Gerando...';
+
+      const cargo = executivo === 'Rodrigo' ? 'Diretor Comercial' : 'CEO';
       let mensagem = '';
       let assunto = '';
-      const assuntoContainer = document.getElementById('assunto-container');
-      const output = document.getElementById('output');
 
-      if (modelo === 'boas-vindas-email') {
-        assunto = 'Seja muito bem-vindo à WS! 🚀';
-        mensagem = `Boa tarde, ${cliente},\n\n` +
-                   `É um grande prazer ter você e a ${empresa} como nossos clientes! Estamos muito animados para começar essa jornada ao lado de vocês, e como ${cargo}, quero garantir que tenham desde o início a melhor experiência possível conosco.\n\n` +
-                   `Apresento abaixo nossa equipe, que estará diretamente envolvida no sucesso dessa parceria:\n` +
-                   `. **Rodrigo Andrade** – Diretor Comercial e de Sucesso do Cliente\n` +
-                   ` Estará à disposição para assegurar que a ${empresa} alcance os melhores resultados, garantindo que todo o processo seja executado da forma mais eficiente e estratégica possível.\n` +
-                   `. **Marcos Paulo** – Diretor de Planejamento e Estratégia\n` +
-                   ` Estará ao seu lado para garantir que todas as etapas estratégicas e de implantação sejam tratadas com precisão e alinhadas às metas da ${empresa}.\n` +
-                   `. **Welliana Sampaio** – CEO\n` +
-                   ` Lidero o grupo WS com uma visão executiva e estratégica, com o objetivo de transformar nossas parcerias em soluções reais, duradouras e de alto impacto.\n` +
-                   `. **Wellington Sampaio** – CVO e Conselheiro Jurídico\n` +
-                   ` Atuará como apoio técnico nas demandas jurídicas, oferecendo suporte e orientação sempre que necessário.\n` +
-                   `. **Sâneva Sampaio** – Diretora Jurídica\n` +
-                   ` Responsável por toda a estrutura jurídica, garantindo conformidade e segurança em todos os processos, além da implementação de cobranças judiciais, quando aplicável.\n` +
-                   `. **Nilson Cavalcante** – Coordenador de Operações de Cobrança\n` +
-                   ` Liderará o acompanhamento diário das ações de cobrança, assegurando consistência, agilidade e eficiência nos resultados.\n\n` +
-                   `Na WS Cobrança, nosso compromisso é com o sucesso da ${empresa}. Estamos prontos para oferecer todo o suporte necessário para que suas metas de recuperação sejam atingidas com excelência.\n\n` +
-                   `Se precisar de qualquer coisa, estou à disposição.\n\n` +
-                   `Atenciosamente,`;
-        assuntoContainer.classList.remove('hidden');
-      } else if (modelo === 'email-1-diagnostico') {
-        assunto = `Diagnóstico gratuito para reduzir perdas na ${empresa}`;
-        mensagem = `Olá ${cliente},\n\n` +
-                   `Empresas com o perfil da ${empresa} têm enfrentado grandes desafios com inadimplência, o que gera perda de caixa e insegurança nos recebimentos.\n\n` +
-                   `Gostaria de te oferecer um **diagnóstico gratuito**, com base em cases reais do setor ${segmento.toLowerCase()}, para te mostrar como podemos:\n` +
-                   `✅ Aumentar a taxa de recuperação de crédito\n` +
-                   `✅ Reduzir a sobrecarga da equipe interna\n` +
-                   `✅ Fazer tudo isso sem nenhum custo para a empresa\n\n` +
-                   `Pode me dizer um bom horário essa semana para conversarmos?\n\n` +
-                   `Forte abraço,\n` +
-                   `${executivo} – Especialista em Estratégias de Cobrança`;
-        assuntoContainer.classList.remove('hidden');
-      } else if (modelo === 'email-2-prova-social') {
-        assunto = `Como empresas do seu segmento estão evitando prejuízos silenciosos`;
-        mensagem = `Olá ${cliente},\n\n` +
-                   `Na última semana, empresas do mesmo segmento da ${empresa} recuperaram mais de **R$ 500 mil** conosco, usando um modelo simples e **100% sem custo** para elas.\n\n` +
-                   `Gostaria de te mostrar como adaptar isso à sua realidade.\n` +
-                   `Tenho dois horários disponíveis essa semana para uma conversa rápida:\n` +
-                   `▪️ Quarta 14h\n` +
-                   `▪️ Quinta 10h\n\n` +
-                   `Caso queira outro horário, posso ajustar.\n\n` +
-                   `Fico à disposição,\n` +
-                   `${executivo}`;
-        assuntoContainer.classList.remove('hidden');
-      } else if (modelo === 'email-3-ultima-chamada') {
-        assunto = `Último contato – sem custo e com resultado real`;
-        mensagem = `Olá ${cliente},\n\n` +
-                   `Esse é meu último contato por aqui, mas acredito que a ${empresa} pode se beneficiar de uma solução que **traz resultado e não gera custo**.\n\n` +
-                   `Caso queira conhecer o plano que usamos com outras empresas para evitar perdas silenciosas e melhorar o fluxo de caixa em até 90 dias, me avise.\n` +
-                   `Se não for o momento, sem problema — deixo a porta aberta.\n\n` +
-                   `Abraço,\n` +
-                   `${executivo}`;
-        assuntoContainer.classList.remove('hidden');
-      } else if (modelo === 'whatsapp-m1-diagnostico') {
-        mensagem = `Olá ${cliente}, tudo certo? 💪\n\n` +
-                   `Fui indicado a analisar empresas como a ${empresa}, e percebi que muitas estão perdendo dinheiro por inadimplência mal gerida ou ausência de estrutura de cobrança especializada.\n\n` +
-                   `Eu sou ${executivo}, ${cargo} da WS Cobrança. Atuamos com um modelo **sem custo** para sua empresa e com resultados acima da média no setor ${segmento.toLowerCase()}.\n\n` +
-                   `Tem 2 minutos agora ou prefere que eu envie um link para agendarmos uma conversa rápida? 🎯\n\n` +
-                   `🔹 **Gatilhos**: dor, autoridade, curiosidade, economia de tempo\n` +
-                   `🔹 **Objetivo**: iniciar conversa e abrir espaço para reunião 🔥`;
-        assuntoContainer.classList.add('hidden');
-      } else if (modelo === 'whatsapp-m2-gatilhos') {
-        mensagem = `${cliente}, empresas no mesmo setor da ${empresa} já estão recuperando mais de **R$ 500 mil** com nosso modelo. 💪\n\n` +
-                   `A vantagem? **Sem custos**, sem burocracia, sem sobrecarregar sua equipe.\n\n` +
-                   `Tenho 2 janelas disponíveis nos próximos dias para te mostrar isso em detalhes:\n` +
-                   `▪️ Quarta 14h\n` +
-                   `▪️ Quinta 10h\n\n` +
-                   `Qual prefere? 🎯\n\n` +
-                   `🔹 **Gatilhos**: prova social, escassez, clareza\n` +
-                   `🔹 **Objetivo**: quebrar objeção e fechar reunião com datas prontas 🔥`;
-        assuntoContainer.classList.add('hidden');
-      } else if (modelo === 'whatsapp-m3-urgencia') {
-        mensagem = `Última mensagem, ${cliente}, prometo ser breve. 💪\n\n` +
-                   `Temos um plano específico para empresas do porte da ${empresa} que evita perdas silenciosas e melhora o fluxo de caixa em **30 a 90 dias**.\n\n` +
-                   `Posso te enviar o link direto pra você agendar um horário?\n` +
-                   `👉 Só me dizer “pode enviar” que mando agora. 🎯\n\n` +
-                   `🔹 **Gatilhos**: urgência, promessa clara, call-to-action\n` +
-                   `🔹 **Objetivo**: tirar o lead da inércia 🔥`;
-        assuntoContainer.classList.add('hidden');
+      if (canal === 'email') {
+        if (modelo === 'boas-vindas-email') {
+          assunto = 'Seja muito bem-vindo à WS! 🚀';
+          mensagem = `Boa tarde, ${cliente},\n\n` +
+                     `É um grande prazer ter você e a ${empresa} como nossos clientes! Estamos muito animados para começar essa jornada ao lado de vocês, e como ${cargo}, quero garantir que tenham desde o início a melhor experiência possível conosco.\n\n` +
+                     `Apresento abaixo nossa equipe, que estará diretamente envolvida no sucesso dessa parceria:\n` +
+                     `. **Rodrigo Andrade** – Diretor Comercial e de Sucesso do Cliente\n` +
+                     ` Estará à disposição para assegurar que a ${empresa} alcance os melhores resultados, garantindo que todo o processo seja executado da forma mais eficiente e estratégica possível.\n` +
+                     `. **Marcos Paulo** – Diretor de Planejamento e Estratégia\n` +
+                     ` Estará ao seu lado para garantir que todas as etapas estratégicas e de implantação sejam tratadas com precisão e alinhadas às metas da ${empresa}.\n` +
+                     `. **Welliana Sampaio** – CEO\n` +
+                     ` Lidero a WS com uma visão executiva e estratégica, com o objetivo de transformar nossas parcerias em soluções reais, duradouras e de alto impacto.\n` +
+                     `. **Wellington Sampaio** – CVO e Conselheiro Jurídico\n` +
+                     ` Atuará como apoio técnico nas demandas jurídicas, oferecendo suporte e orientação sempre que necessário.\n` +
+                     `. **Sâneva Sampaio** – Diretora Jurídica\n` +
+                     ` Responsável por toda a estrutura jurídica, garantindo conformidade e segurança em todos os processos, além da implementação de cobranças judiciais, quando aplicável.\n` +
+                     `. **Nilson Cavalcante** – Coordenador de Operações de Cobrança\n` +
+                     ` Liderará o acompanhamento diário das ações de cobrança, assegurando consistência, agilidade e eficiência nos resultados.\n\n` +
+                     `Na WS Cobrança, nosso compromisso é com o sucesso da ${empresa}. Estamos prontos para oferecer todo o suporte necessário para que suas metas de recuperação sejam atingidas com excelência.\n\n` +
+                     `Se precisar de qualquer coisa, estou à disposição.\n\n` +
+                     `Atenciosamente,\n` +
+                     `${executivo}\n${cargo} | WS Cobrança`;
+          assuntoContainer.classList.remove('hidden');
+        } else if (modelo === 'autoridade-diagnostico') {
+          assunto = `${cliente}, vi algo na ${empresa} que podemos resolver — sem gerar custo`;
+          mensagem = `Olá ${cliente}, tudo bem?\n\n` +
+                     `Sou ${executivo}, ${cargo} na WS Cobrança. Estou te escrevendo porque percebi que a ${empresa}, atuando no mercado ${segmento.toLowerCase()}, pode estar enfrentando um cenário comum que temos resolvido para nossos clientes: inadimplência crescente e imprevisibilidade nos recebimentos.\n\n` +
+                     `O que fazemos é simples, mas extremamente eficaz:\n` +
+                     `🔹 Assumimos 100% da cobrança extrajudicial\n` +
+                     `🔹 Sem custo para a sua empresa\n` +
+                     `🔹 Honorários arcados exclusivamente pelo inadimplente\n\n` +
+                     `Hoje, nossa atuação cobre desde instituições educacionais com mais de 12 mil alunos, até grandes administradoras condominiais com carteiras acima de R$ 50 milhões. E todas têm algo em comum: não tinham tempo, estrutura ou resultado para cobrar com escala — até nos conhecerem.\n\n` +
+                     `Me diga:\n` +
+                     `👉 Hoje, quem está cuidando das cobranças na ${empresa}?\n` +
+                     `👉 Você já calculou quanto está deixando de recuperar?\n\n` +
+                     `Se quiser, posso te apresentar rapidamente como funcionaria um piloto sem compromisso para testar a performance da WS na prática.\n\n` +
+                     `No aguardo,\n` +
+                     `${executivo}\n${cargo} | WS Cobrança`;
+          assuntoContainer.classList.remove('hidden');
+        } else if (modelo === 'prova-social') {
+          assunto = `${empresa} também sente que cobra muito... e recebe pouco?`;
+          mensagem = `Olá ${cliente},\n\n` +
+                     `Meu nome é ${executivo}, sou ${cargo} na WS Cobrança e venho conversando com várias empresas do mercado ${segmento.toLowerCase()} que estão enfrentando o mesmo cenário: esforço alto para cobrar e retorno baixo.\n\n` +
+                     `Na prática, isso se traduz em:\n` +
+                     `• Equipe financeira sobrecarregada;\n` +
+                     `• Fluxo de caixa instável;\n` +
+                     `• E uma lista crescente de inadimplentes “parados” há meses.\n\n` +
+                     `O que temos feito é transformar esse cenário. A WS atua com um modelo 100% sem ônus para nossos parceiros. Assumimos a operação de cobrança extrajudicial, com equipe especializada, roteiros validados e tecnologia, sem qualquer custo fixo para você.\n\n` +
+                     `Nossos honorários são pagos apenas pelo inadimplente — e só quando ele paga. Isso nos obriga a entregar resultado real, não promessas.\n\n` +
+                     `Clientes no mercado ${segmento.toLowerCase()} já conseguiram dobrar a taxa de recuperação em 90 dias.\n\n` +
+                     `Posso te mostrar como seria na ${empresa}?\n\n` +
+                     `Forte abraço,\n` +
+                     `${executivo}\n${cargo} | WS Cobrança`;
+          assuntoContainer.classList.remove('hidden');
+        } else if (modelo === 'oferta-valor') {
+          assunto = `Recuperar mais, sem gastar mais: o modelo que está virando padrão no mercado ${segmento.toLowerCase()}`;
+          mensagem = `Olá ${cliente},\n\n` +
+                     `Tudo certo?\n\n` +
+                     `Sou ${executivo}, ${cargo} da WS Cobrança, especialista em operações de cobrança com mais de uma década de experiência em mercados como o ${segmento.toLowerCase()}.\n\n` +
+                     `O que fazemos? Tiramos a cobrança da sua equipe e assumimos tudo por você, com um diferencial que vem chamando atenção de gestores:\n` +
+                     `• Não há custo algum para a sua empresa.\n` +
+                     `• Nossos honorários são embutidos no valor negociado com o inadimplente — a WS só recebe se você receber.\n\n` +
+                     `Isso garante 3 coisas:\n` +
+                     `• Alívio para sua equipe, que pode focar no estratégico.\n` +
+                     `• Recuperação real de valores que estavam travados.\n` +
+                     `• Preservação do relacionamento com o cliente, com abordagem humanizada e respeitosa.\n\n` +
+                     `Temos um método exclusivo que adapta a estratégia conforme o perfil de devedor e o tempo da dívida. Se você topar, posso te apresentar um estudo rápido sobre o potencial de recuperação na ${empresa}.\n\n` +
+                     `Que tal marcarmos um diagnóstico gratuito?\n\n` +
+                     `Abraço,\n` +
+                     `${executivo}\n${cargo} | WS Cobrança`;
+          assuntoContainer.classList.remove('hidden');
+        } else if (modelo === 'perdendo-dinheiro' && segmento !== 'Condominial') {
+          assunto = `Quanto a ${empresa} perde por mês com inadimplência?`;
+          mensagem = `Olá ${cliente},\n\n` +
+                     `Em média, empresas do ${segmento.toLowerCase()} deixam de recuperar até 70% da carteira vencida por falta de um processo de cobrança estruturado.\n` +
+                     `Na prática, isso significa dinheiro parado, impacto no fluxo de caixa e atraso em planos importantes.\n\n` +
+                     `Na WS Cobrança, criamos um modelo sem custo fixo que já ajudou empresas como a sua a:\n\n` +
+                     `• Recuperar valores esquecidos\n` +
+                     `• Reduzir drasticamente o índice de inadimplência\n` +
+                     `• Voltar a ter previsibilidade financeira\n\n` +
+                     `Posso te mostrar como isso funcionaria na ${empresa} com dados reais?\n\n` +
+                     `Fico à disposição,`;
+          assuntoContainer.classList.remove('hidden');
+        } else if (modelo === 'equipe-sobrecarregada' && segmento !== 'Condominial') {
+          assunto = `A cobrança está tomando tempo da sua operação?`;
+          mensagem = `Olá ${cliente},\n\n` +
+                     `Muitas empresas do ${segmento.toLowerCase()} nos procuram quando percebem que o próprio time está sobrecarregado tentando cobrar e vender ao mesmo tempo.\n\n` +
+                     `E o resultado é sempre o mesmo: nem a cobrança anda, nem as vendas crescem.\n\n` +
+                     `É justamente por isso que a WS existe:\n` +
+                     `Cuidamos 100% da cobrança extrajudicial sem interferir na rotina do seu time e sem custo para a ${empresa}.\n\n` +
+                     `Posso te mostrar como outras empresas do seu segmento resolveram esse problema?\n\n` +
+                     `Se fizer sentido, agendamos uma conversa rápida.\n\n` +
+                     `Abraço,`;
+          assuntoContainer.classList.remove('hidden');
+        } else if (modelo === 'controle-inadimplencia' && segmento !== 'Condominial') {
+          assunto = `A inadimplência saiu do controle na ${empresa}?`;
+          mensagem = `Olá ${cliente},\n\n` +
+                     `A perda de controle na inadimplência costuma acontecer aos poucos, mas o impacto vem de uma vez só:\n\n` +
+                     `• Entrada de caixa comprometida\n` +
+                     `• Crescimento travado\n` +
+                     `• Clientes viciados no atraso\n\n` +
+                     `Na WS Cobrança, trazemos uma estrutura pronta para agir com inteligência, empatia e firmeza, recuperando valores sem destruir o relacionamento.\n\n` +
+                     `E o melhor: com honorários pagos pelo inadimplente, não pela ${empresa}.\n\n` +
+                     `Posso te mostrar como seria esse processo para o seu cenário?\n\n` +
+                     `Conte comigo,`;
+          assuntoContainer.classList.remove('hidden');
+        } else if (modelo === 'cobrar-reclamacao' && segmento !== 'Condominial') {
+          assunto = `Já tentou cobrar e foi criticado pelo cliente?`;
+          mensagem = `Olá ${cliente},\n\n` +
+                     `Muitos parceiros que atendemos no ${segmento.toLowerCase()} nos relatam o mesmo cenário:\n` +
+                     `Cobrar o cliente virou motivo de desconforto, estresse e até reclamações.\n\n` +
+                     `Mas a verdade é que cobrança mal feita mancha a reputação da empresa e ainda dificulta o retorno do cliente no futuro.\n\n` +
+                     `Nosso método une:\n` +
+                     `✔️ Abordagem humanizada\n` +
+                     `✔️ Comunicação estratégica e firme\n` +
+                     `✔️ Recuperação financeira com preservação da imagem\n\n` +
+                     `E tudo isso com honorários pagos pelo inadimplente.\n\n` +
+                     `Vamos conversar sobre como aplicar isso na ${empresa}?\n\n` +
+                     `Abraço,`;
+          assuntoContainer.classList.remove('hidden');
+        } else if (modelo === 'perdendo-dinheiro-condominial' && segmento === 'Condominial') {
+          assunto = `Quanto o seu condomínio perde por mês com inadimplência?`;
+          mensagem = `Olá ${cliente},\n\n` +
+                     `Em média, condomínios como o ${empresa} deixam de recuperar até 70% da inadimplência mensal, simplesmente por falta de um processo de cobrança estruturado e especializado.\n\n` +
+                     `Isso gera impacto direto no caixa, compromete obras, manutenção e até a segurança dos moradores.\n\n` +
+                     `A WS Cobrança atua exclusivamente na recuperação de taxas condominiais atrasadas, com um modelo 100% extrajudicial e sem custo para o condomínio — os honorários são pagos diretamente pelo inadimplente.\n\n` +
+                     `Posso te mostrar como aplicamos isso de forma prática e eficiente no setor condominial?\n\n` +
+                     `Fico à disposição,`;
+          assuntoContainer.classList.remove('hidden');
+        } else if (modelo === 'equipe-sobrecarregada-condominial' && segmento === 'Condominial') {
+          assunto = `Cobrança está tomando tempo da gestão no ${empresa}?`;
+          mensagem = `Olá ${cliente},\n\n` +
+                     `Administradoras e síndicos que atendemos relatam a mesma dor:\n` +
+                     `A cobrança de inadimplentes consome um tempo enorme e ainda gera atrito com os moradores.\n\n` +
+                     `E o pior: isso paralisa a gestão e compromete o clima do condomínio.\n\n` +
+                     `Por isso, na WS Cobrança, oferecemos uma estrutura pronta para atuar com:\n\n` +
+                     `✔️ Abordagem profissional e humanizada\n` +
+                     `✔️ Preservação da relação entre síndico, administradora e condôminos\n` +
+                     `✔️ Sem custo para o condomínio — os honorários são pagos pelo inadimplente\n\n` +
+                     `Podemos conversar sobre como aplicar isso no ${empresa}?\n\n` +
+                     `Abraço,`;
+          assuntoContainer.classList.remove('hidden');
+        } else if (modelo === 'controle-inadimplencia-condominial' && segmento === 'Condominial') {
+          assunto = `A inadimplência saiu do controle no ${empresa}?`;
+          mensagem = `Olá ${cliente},\n\n` +
+                     `A inadimplência em condomínios costuma crescer silenciosamente... até que as contas não fecham e a gestão entra em alerta.\n\n` +
+                     `Nos últimos meses, temos ajudado síndicos e administradoras do setor condominial a:\n\n` +
+                     `• Recuperar valores em aberto com eficiência\n` +
+                     `• Evitar conflitos com moradores\n` +
+                     `• Manter a previsibilidade de caixa mesmo com cenário instável\n\n` +
+                     `E tudo isso sem custo para o condomínio — nossa remuneração vem dos honorários pagos pelo devedor.\n\n` +
+                     `Te mostro como seria isso no ${empresa}?\n\n` +
+                     `Conte comigo,`;
+          assuntoContainer.classList.remove('hidden');
+        } else if (modelo === 'cobrar-moradores-condominial' && segmento === 'Condominial') {
+          assunto = `Já tentou cobrar e foi mal interpretado pelos moradores?`;
+          mensagem = `Olá ${cliente},\n\n` +
+                     `Sei como pode ser desconfortável para síndicos e administradoras:\n` +
+                     `Cobrar um morador e ainda ouvir reclamações, perder o relacionamento ou gerar atrito no grupo.\n\n` +
+                     `Mas a verdade é que a inadimplência precisa ser resolvida com firmeza — e sem colocar a gestão no centro do conflito.\n\n` +
+                     `Na WS Cobrança, atuamos de forma:\n\n` +
+                     `✔️ Profissional e empática\n` +
+                     `✔️ Com inteligência emocional e estratégia jurídica\n` +
+                     `✔️ Sem custo para o condomínio\n\n` +
+                     `Podemos conversar sobre como esse modelo pode funcionar no ${empresa}?\n\n` +
+                     `Um abraço,`;
+          assuntoContainer.classList.remove('hidden');
+        } else if (modelo === 'grandes-empresas' && segmento !== 'Condominial') {
+          assunto = `O que faz empresas líderes escolherem nosso modelo de cobrança?`;
+          mensagem = `Olá ${cliente},\n\n` +
+                     `Empresas de diversos segmentos — como ${segmento.toLowerCase()} — têm migrado para a WS Cobrança porque entendem que eficiência na recuperação de crédito não pode ser apenas uma operação comum.\n\n` +
+                     `Nosso modelo entrega:\n\n` +
+                     `✅ Cobrança 100% extrajudicial e humanizada\n` +
+                     `✅ Zero custo para sua empresa — os honorários são pagos pelo inadimplente\n` +
+                     `✅ Tecnologia e equipe especializada com alta taxa de recuperação\n\n` +
+                     `Você não precisa mais lidar com atrasos sem solução ou depender de processos lentos e desgastantes.\n\n` +
+                     `Posso te mostrar como grandes empresas do seu mercado já estão tendo resultados consistentes?\n\n` +
+                     `Fico à disposição,`;
+          assuntoContainer.classList.remove('hidden');
+        } else if (modelo === 'modelo-diferente' && segmento !== 'Condominial') {
+          assunto = `Como funciona nosso modelo sem custo para sua empresa`;
+          mensagem = `Olá ${cliente},\n\n` +
+                     `Ao contrário de outras soluções, nosso modelo não gera ônus à sua empresa.\n` +
+                     `Nós assumimos toda a operação e só recebemos quando você recebe — com um adicional aplicado ao valor da dívida.\n\n` +
+                     `Ou seja, quem paga pelos nossos honorários é o inadimplente.\n` +
+                     `E mais: usamos um processo extrajudicial com abordagem técnica e respeitosa, evitando desgastes e aumentando a taxa de recuperação.\n\n` +
+                     `Isso tem gerado resultados reais para empresas do setor ${segmento.toLowerCase()}.\n\n` +
+                     `Quer ver como aplicar isso no ${empresa}?\n\n` +
+                     `Estou pronto para te mostrar.`;
+          assuntoContainer.classList.remove('hidden');
+        } else if (modelo === 'resultados-reais' && segmento !== 'Condominial') {
+          assunto = `Como estamos batendo 70% de recuperação em contratos com nossos parceiros`;
+          mensagem = `Olá ${cliente},\n\n` +
+                     `Não acreditamos em promessas vazias.\n` +
+                     `Preferimos falar com dados reais:\n\n` +
+                     `✔️ Média de recuperação superior a 70% em contratos ativos\n` +
+                     `✔️ Redução do tempo médio de retorno financeiro em até 50%\n` +
+                     `✔️ Preservação da imagem e relacionamento com o devedor\n\n` +
+                     `A WS Cobrança é especialista em trazer resultados consistentes para empresas como a ${empresa}, com processos éticos, ágeis e estratégicos.\n\n` +
+                     `Que tal darmos o próximo passo e mostrar como isso funcionaria no seu cenário?\n\n` +
+                     `Conte comigo,`;
+          assuntoContainer.classList.remove('hidden');
+        } else if (modelo === 'grandes-condominios-condominial' && segmento === 'Condominial') {
+          assunto = `O que leva grandes condomínios e administradoras a fecharem com a WS?`;
+          mensagem = `Olá ${cliente},\n\n` +
+                     `Condomínios residenciais e comerciais vêm enfrentando desafios crescentes com inadimplência — e quem já trabalha com a WS Cobrança escolheu mudar esse cenário com um modelo inovador e sem custos.\n\n` +
+                     `Nossos diferenciais:\n\n` +
+                     `✅ Cobrança feita por especialistas no segmento condominial\n` +
+                     `✅ Total preservação da imagem da gestão e do relacionamento com os moradores\n` +
+                     `✅ Sem custo para o condomínio — os honorários são pagos pelo inadimplente\n\n` +
+                     `Funciona, é seguro e já está sendo usado por condomínios como o ${empresa}.\n\n` +
+                     `Quer ver como aplicar isso no seu?\n\n` +
+                     `Fico à disposição,\n` +
+                     `${executivo}\n${cargo} | WS Cobrança`;
+          assuntoContainer.classList.remove('hidden');
+        } else if (modelo === 'modelo-preserva-condominial' && segmento === 'Condominial') {
+          assunto = `O síndico não precisa mais se desgastar cobrando`;
+          mensagem = `Olá ${cliente},\n\n` +
+                     `Cobrança em condomínio é sensível. Um erro na abordagem pode causar conflitos, reuniões tensas e até ações judiciais desnecessárias.\n\n` +
+                     `É por isso que a WS Cobrança tem um modelo exclusivo para o setor condominial:\n\n` +
+                     `✔️ Abordagem humanizada e técnica\n` +
+                     `✔️ Preservação da imagem da gestão\n` +
+                     `✔️ Operação 100% extrajudicial\n` +
+                     `✔️ Sem custo para o condomínio — quem paga nossos honorários é o inadimplente\n\n` +
+                     `Posso te mostrar como isso se encaixa perfeitamente no ${empresa}?\n\n` +
+                     `Abraço,\n` +
+                     `${executivo}\n${cargo} | WS Cobrança`;
+          assuntoContainer.classList.remove('hidden');
+        } else if (modelo === 'numeros-reais-condominial' && segmento === 'Condominial') {
+          assunto = `Mais de 70% de recuperação sem judicializar e sem atrito`;
+          mensagem = `Olá ${cliente},\n\n` +
+                     `Na WS Cobrança, o que nos diferencia não é só o modelo — são os resultados práticos:\n\n` +
+                     `🏢 Condomínios com recuperação de até 70% sem acionar a justiça\n` +
+                     `🕒 Tempo médio de regularização menor que 60 dias\n` +
+                     `🤝 Retenção do bom relacionamento com os moradores\n\n` +
+                     `Isso é possível com um modelo pensado para o condomínio, sem desgaste com moradores e sem custo para a gestão.\n\n` +
+                     `Vamos conversar sobre como isso funcionaria no ${empresa}?\n\n` +
+                     `Conte comigo,\n` +
+                     `${executivo}\n${cargo} | WS Cobrança`;
+          assuntoContainer.classList.remove('hidden');
+        } else if (modelo === 'mais-resultado-aluno') {
+          assunto = `Dá para recuperar receita sem perder matrícula? Sim. Aqui está como.`;
+          mensagem = `Olá ${cliente},\n\n` +
+                     `Muitos gestores evitam cobrar com firmeza por medo de perder o aluno — e o problema vai se acumulando mês a mês.\n\n` +
+                     `Na WS, sabemos equilibrar resultado com relacionamento.\n\n` +
+                     `Entregamos:\n\n` +
+                     `📈 Recuperação efetiva da carteira inadimplente\n` +
+                     `📞 Comunicação empática, com foco em negociação (sem ameaças)\n` +
+                     `💡 Preservação da imagem da instituição e do vínculo com o aluno\n\n` +
+                     `Trabalhamos com instituições que têm o mesmo desafio do ${empresa}, e com uma atuação externa, conseguimos tirar a pressão da equipe interna e aumentar a recuperação sem custo.\n\n` +
+                     `Posso te mostrar um exemplo prático?\n\n` +
+                     `Fico à disposição,\n` +
+                     `${executivo}\n${cargo} | WS Cobrança`;
+          assuntoContainer.classList.remove('hidden');
+        } else if (modelo === 'tentou-tudo-educacional' && segmento !== 'Condominial') {
+          assunto = `Quando o financeiro já tentou de tudo e mesmo assim a inadimplência não cede`;
+          mensagem = `Olá ${cliente},\n\n` +
+                     `É comum encontrarmos instituições que já tentaram:\n\n` +
+                     `✔️ Acordos diretos com alunos e responsáveis\n` +
+                     `✔️ Envio de boletos e lembretes por WhatsApp\n` +
+                     `✔️ Negociações pontuais com descontos\n\n` +
+                     `Mas o problema persiste. Isso acontece porque cobrar exige processo e rotina — algo que o time interno nem sempre consegue sustentar com consistência.\n\n` +
+                     `Na WS, entramos com uma esteira completa de cobrança: do aviso amigável até a régua automatizada e atendimento humanizado.\n\n` +
+                     `E o melhor: sem custo fixo para a escola ou faculdade.\n\n` +
+                     `Se fizer sentido, posso apresentar como isso funcionaria no ${empresa}.\n\n` +
+                     `Fico no aguardo,\n` +
+                     `${executivo}\n${cargo} | WS Cobrança`;
+          assuntoContainer.classList.remove('hidden');
+        } else if (modelo === 'tentou-tudo-condominial' && segmento === 'Condominial') {
+          assunto = `Quando o síndico já tentou de tudo e a inadimplência continua`;
+          mensagem = `Olá ${cliente},\n\n` +
+                     `Recebemos muitos condomínios na WS com esse mesmo cenário:\n` +
+                     `✔️ Já tentaram notificações manuais\n` +
+                     `✔️ Acordos diretos com moradores\n` +
+                     `✔️ Até ameaças de judicialização\n\n` +
+                     `Mas a inadimplência continua rondando os 20, 30% — o que trava o caixa e impede melhorias básicas.\n\n` +
+                     `O que entregamos é um processo externo, neutro, com cobrança ativa por vários canais e acompanhamento diário de performance. E sempre com custo zero para o condomínio.\n\n` +
+                     `Em poucos meses, a inadimplência cai, os moradores percebem mais organização e o síndico volta a focar na gestão.\n\n` +
+                     `Posso mostrar um case rápido com números de um condomínio de perfil parecido com o ${empresa}?\n\n` +
+                     `Aguardo seu retorno,\n` +
+                     `${executivo}\n${cargo} | WS Cobrança`;
+          assuntoContainer.classList.remove('hidden');
+        } else if (modelo === 'solucoes-condominial' && segmento === 'Condominial') {
+          assunto = `Podemos conversar sobre a inadimplência no ${empresa}?`;
+          mensagem = `Olá ${cliente},\n\n` +
+                     `Tenho acompanhado de perto os desafios do mercado condominial — inadimplência crescente, impacto direto no fundo de reserva e cobrança mal estruturada.\n\n` +
+                     `Na WS, atuamos com um modelo que resolve esse problema com resultado e sem desgaste para síndicos e administradoras.\n\n` +
+                     `Se fizer sentido, podemos conversar 15 minutos para entender se isso se aplica ao ${empresa}.\n\n` +
+                     `Fico à disposição,\n` +
+                     `${executivo}\n${cargo} | WS Cobrança`;
+          assuntoContainer.classList.remove('hidden');
+        } else if (modelo === 'problema-juridico-condominial' && segmento === 'Condominial') {
+          assunto = `Síndico, cobrança não precisa ser uma dor`;
+          mensagem = `Olá ${cliente},\n\n` +
+                     `Em muitos condomínios, a cobrança vira um problema pessoal — o síndico cobra, o morador se ofende, e a inadimplência cresce.\n\n` +
+                     `Nosso modelo atua de forma externa, profissional e eficaz, com:\n\n` +
+                     `📞 Comunicação firme, mas respeitosa\n` +
+                     `📊 Relatórios transparentes e acompanhamento completo\n` +
+                     `💸 E o melhor: honorários pagos pelo devedor, não pelo condomínio\n\n` +
+                     `Posso te apresentar esse modelo em uma conversa rápida?\n\n` +
+                     `Tenho disponibilidade essa semana.\n\n` +
+                     `Um abraço,\n` +
+                     `${executivo}\n${cargo} | WS Cobrança`;
+          assuntoContainer.classList.remove('hidden');
+        } else if (modelo === 'caixa-saudavel-condominial' && segmento === 'Condominial') {
+          assunto = `Vamos conversar sobre alternativas práticas para a inadimplência?`;
+          mensagem = `Olá ${cliente},\n\n` +
+                     `A realidade é que manter o caixa equilibrado no condomínio está cada vez mais difícil — e isso impacta diretamente manutenção, folha e segurança.\n\n` +
+                     `Trabalhamos com síndicos e administradoras que estavam no mesmo cenário e hoje têm uma estrutura de cobrança previsível, sem custo para o condomínio.\n\n` +
+                     `Acredito que uma conversa de 15 minutos pode te trazer bons insights.\n\n` +
+                     `Quer agendar?\n\n` +
+                     `Fico no aguardo,\n` +
+                     `${executivo}\n${cargo} | WS Cobrança`;
+          assuntoContainer.classList.remove('hidden');
+        } else if (modelo === 'chamada-educacional' && segmento === 'Educacional') {
+          assunto = `Podemos conversar sobre a inadimplência no ${empresa}?`;
+          mensagem = `Olá ${cliente},\n\n` +
+                     `Tenho acompanhado de perto os desafios do mercado educacional — inadimplência impactando o fluxo de caixa e cobranças que geram atrito com alunos e responsáveis.\n\n` +
+                     `Na WS, oferecemos um modelo de cobrança que resolve esse problema com eficiência, sem custo fixo e preservando o relacionamento com o aluno.\n\n` +
+                     `Se fizer sentido, podemos agendar uma conversa de 15 minutos para entender como isso se aplica ao ${empresa}.\n\n` +
+                     `Fico à disposição,\n` +
+                     `${executivo}\n${cargo} | WS Cobrança`;
+          assuntoContainer.classList.remove('hidden');
+        } else if (modelo === 'chamada-empresarial' && segmento === 'Empresarial') {
+          assunto = `Podemos conversar sobre a inadimplência no ${empresa}?`;
+          mensagem = `Olá ${cliente},\n\n` +
+                     `No mercado empresarial, a inadimplência pode travar o crescimento e sobrecarregar a equipe financeira.\n\n` +
+                     `Na WS Cobrança, temos um modelo que assume 100% da cobrança extrajudicial, sem custo para a sua empresa e com honorários pagos pelo inadimplente.\n\n` +
+                     `Que tal uma conversa de 15 minutos para ver como isso funcionaria no ${empresa}?\n\n` +
+                     `Fico à disposição,\n` +
+                     `${executivo}\n${cargo} | WS Cobrança`;
+          assuntoContainer.classList.remove('hidden');
+        } else if (modelo === 'fechando-ciclo-educacional' && segmento === 'Educacional') {
+          assunto = `Posso considerar esse assunto encerrado?`;
+          mensagem = `Olá ${cliente},\n\n` +
+                     `Sei que sua rotina deve ser intensa e que talvez esse não seja o melhor momento. Estou te escrevendo apenas para saber se posso encerrar esse contato ou se ainda faz sentido seguirmos com uma conversa sobre inadimplência no ${empresa}.\n\n` +
+                     `Se a resposta for “agora não”, tudo certo. Só quero garantir que você tenha clareza de que existe uma solução prática, sem custo fixo, que já tem ajudado outras instituições como a sua.\n\n` +
+                     `Se quiser, estou à disposição para uma última agenda de 15 min essa semana.\n\n` +
+                     `Fico no aguardo,\n` +
+                     `${executivo}\n${cargo} | WS Cobrança`;
+          assuntoContainer.classList.remove('hidden');
+        } else if (modelo === 'antes-encerrar-educacional' && segmento === 'Educacional') {
+          assunto = `Antes de encerrar, posso deixar um ponto?`;
+          mensagem = `Olá ${cliente},\n\n` +
+                     `Se não houve resposta até agora, entendo que talvez não seja prioridade no momento. Mas antes de encerrar este contato, queria deixar um ponto claro:\n\n` +
+                     `Nosso modelo não é uma simples cobrança — é uma estratégia de recuperação recorrente, sem atrito com o aluno e sem custo para sua instituição.\n\n` +
+                     `Se em algum momento isso voltar ao seu radar, estarei à disposição para retomar a conversa.\n\n` +
+                     `Desejo sucesso no seu trabalho à frente do ${empresa}!\n\n` +
+                     `Atenciosamente,\n` +
+                     `${executivo}\n${cargo} | WS Cobrança`;
+          assuntoContainer.classList.remove('hidden');
+        } else if (modelo === 'encerrando-condominial' && segmento === 'Condominial') {
+          assunto = `Podemos considerar esse contato encerrado?`;
+          mensagem = `Olá ${cliente},\n\n` +
+                     `Estou encerrando a rodada de contatos que iniciamos e só queria confirmar se ainda faz sentido falarmos sobre a inadimplência no ${empresa}.\n\n` +
+                     `Se não for o momento ideal, entendo totalmente. Mas acredito que, como síndico ou gestor, você pode se beneficiar de um modelo de cobrança que funciona sem desgaste com moradores e sem custo para o condomínio.\n\n` +
+                     `Posso agendar uma conversa final de 15 min? Ou posso arquivar este contato?\n\n` +
+                     `Fico à disposição,\n` +
+                     `${executivo}\n${cargo} | WS Cobrança`;
+          assuntoContainer.classList.remove('hidden');
+        } else if (modelo === 'fechar-contato-condominial' && segmento === 'Condominial') {
+          assunto = `Só fechando esse contato contigo`;
+          mensagem = `Olá ${cliente},\n\n` +
+                     `Entendo que a agenda esteja corrida ou que talvez esse assunto não esteja como prioridade no momento.\n\n` +
+                     `Só estou te enviando esse último e-mail para reforçar que o modelo da WS resolve um dos maiores pontos de tensão nos condomínios: inadimplência alta e cobrança feita pelo síndico.\n\n` +
+                     `Se quiser entender como isso funcionaria no ${empresa}, ainda tenho espaço para uma conversa esta semana.\n\n` +
+                     `Caso contrário, fico à disposição para quando fizer sentido.\n\n` +
+                     `Um abraço,\n` +
+                     `${executivo}\n${cargo} | WS Cobrança`;
+          assuntoContainer.classList.remove('hidden');
+        } else if (modelo === 'proximo-passo-educacional' && segmento === 'Educacional') {
+          assunto = `Podemos avançar com a solução para inadimplência no ${empresa}?`;
+          mensagem = `Olá ${cliente},\n\n` +
+                     `Após tudo que conversamos, acredito que já temos clareza de que a WS pode apoiar o ${empresa} com um modelo sem custo, sem burocracia e com impacto real nos recebimentos.\n\n` +
+                     `Podemos seguir com o contrato e agendar o onboarding?\n\n` +
+                     `Estou com o documento pronto. Caso precise, podemos alinhar os últimos detalhes em uma call rápida ainda hoje.\n\n` +
+                     `Aguardando seu ok para avançarmos.\n\n` +
+                     `Forte abraço,\n` +
+                     `${executivo}\n${cargo} | WS Cobrança`;
+          assuntoContainer.classList.remove('hidden');
+        } else if (modelo === 'sair-papel-educacional' && segmento === 'Educacional') {
+          assunto = `Bora colocar a estratégia de cobrança em ação?`;
+          mensagem = `Oi ${cliente},\n\n` +
+                     `Já validamos que faz sentido, que não há custo para a instituição e que você está em busca de uma solução para recuperar valores sem desgaste com alunos/responsáveis.\n\n` +
+                     `Posso enviar o contrato ainda hoje?\n\n` +
+                     `Se preferir, me sinaliza um horário para conversarmos e revisar os próximos passos juntos.\n\n` +
+                     `Vamos transformar essa ideia em resultado?\n\n` +
+                     `Conte comigo,\n` +
+                     `${executivo}\n${cargo} | WS Cobrança`;
+          assuntoContainer.classList.remove('hidden');
+        } else if (modelo === 'recuperar-valores-condominial' && segmento === 'Condominial') {
+          assunto = `Podemos ativar a cobrança no ${empresa}?`;
+          mensagem = `Olá ${cliente},\n\n` +
+                     `Nossa conversa deixou claro que o ${empresa} está diante de um problema comum: inadimplência alta, pressão sobre o caixa e cobranças desgastantes para o síndico.\n\n` +
+                     `A boa notícia é que podemos resolver isso sem custo fixo e de forma profissional.\n\n` +
+                     `Posso te enviar o contrato para assinatura?\n\n` +
+                     `Assim, já iniciamos o processo de integração e você poderá acompanhar os resultados nas primeiras semanas.\n\n` +
+                     `Fico no aguardo para avançarmos.\n\n` +
+                     `Atenciosamente,\n` +
+                     `${executivo}\n${cargo} | WS Cobrança`;
+          assuntoContainer.classList.remove('hidden');
+        } else if (modelo === 'inicio-semana-condominial' && segmento === 'Condominial') {
+          assunto = `Último passo para resolver a inadimplência do ${empresa}`;
+          mensagem = `Olá ${cliente},\n\n` +
+                     `Já analisamos o cenário do condomínio, mostrei como o modelo da WS funciona e os resultados que entregamos em outros condomínios semelhantes.\n\n` +
+                     `Estamos a um passo de tirar esse peso das suas costas.\n\n` +
+                     `Posso te encaminhar o contrato para assinatura ainda hoje?\n\n` +
+                     `A implementação é rápida, o processo é transparente, e o retorno é mensurável.\n\n` +
+                     `Fico à disposição para seguir com você.\n\n` +
+                     `Um abraço,\n` +
+                     `${executivo}\n${cargo} | WS Cobrança`;
+          assuntoContainer.classList.remove('hidden');
+        } else {
+          assunto = 'Modelo não configurado';
+          mensagem = `Desculpe, o modelo selecionado ainda não foi configurado. Por favor, escolha outro modelo ou entre em contato com o suporte.\n\nAtenciosamente,\n${executivo}\n${cargo} | WS Cobrança`;
+          assuntoContainer.classList.remove('hidden');
+        }
+      } else if (canal === 'whatsapp') {
+        if (modelo === 'whatsapp-m1-diagnostico') {
+          mensagem = `Oi ${cliente}, tudo bem? Aqui é ${executivo}, ${cargo} da WS Cobrança.\n\n` +
+                     `Percebi que a ${empresa} pode estar enfrentando desafios com inadimplência, algo comum no mercado ${segmento.toLowerCase()}.\n\n` +
+                     `Você já parou pra calcular quanto isso impacta o caixa? 😕\n\n` +
+                     `Nós temos um modelo que resolve isso sem custo pra sua empresa, com honorários pagos pelo inadimplente. Quer que eu te explique rapidinho como funciona?`;
+          assuntoContainer.classList.add('hidden');
+        } else if (modelo === 'whatsapp-m2-gatilhos') {
+          mensagem = `Oi ${cliente}, ${executivo} da WS Cobrança aqui.\n\n` +
+                     `Muitas empresas do mercado ${segmento.toLowerCase()} estão perdendo dinheiro e sobrecarregando o time com cobrança.\n\n` +
+                     `Nosso modelo já ajudou clientes a recuperar até 70% da inadimplência sem esforço interno e sem custo fixo. 🚀\n\n` +
+                     `Minha agenda tá concorrida, mas consigo te explicar como funciona em 10 minutos. Topa?`;
+          assuntoContainer.classList.add('hidden');
+        } else if (modelo === 'whatsapp-m3-urgencia') {
+          mensagem = `Oi ${cliente}, aqui é ${executivo} da WS Cobrança.\n\n` +
+                     `Tô passando pra te lembrar que a inadimplência na ${empresa} pode estar travando o crescimento do negócio.\n\n` +
+                     `Nosso modelo sem custo fixo pode começar a recuperar esses valores já na próxima semana, mas minha agenda tá fechando. 😅\n\n` +
+                     `Bora agendar uma conversa rápida pra colocar isso em ação?`;
+          assuntoContainer.classList.add('hidden');
+        } else {
+          mensagem = `Desculpe, o modelo selecionado ainda não foi configurado para WhatsApp. Por favor, escolha outro modelo ou entre em contato com o suporte.\n\n${executivo}\n${cargo} | WS Cobrança`;
+          assuntoContainer.classList.add('hidden');
+        }
       }
 
-      const mensagemArea = document.getElementById('mensagem');
-      const assuntoInput = document.getElementById('assunto-output');
-      mensagemArea.value = mensagem;
+      // Display Output
+      output.setAttribute('aria-hidden', 'false');
+      stepsGuide.classList.add('hidden');
+      outputContent.classList.remove('hidden');
+      outputContent.classList.add('animate-output');
       assuntoInput.value = assunto;
-      output.classList.remove('hidden');
-    }
+      mensagemArea.value = mensagem;
 
-    function copiarMensagem() {
-      const mensagem = document.getElementById('mensagem');
-      mensagem.select();
-      document.execCommand('copy');
-      mensagem.classList.add('flash');
-      setTimeout(() => mensagem.classList.remove('flash'), 500);
-      alert('Mensagem copiada para a área de transferência!');
-    }
+      // Reset Button
+      generateBtn.disabled = false;
+      generateBtn.innerHTML = 'Gerar Mensagem';
 
-    // Inicializa os modelos na carga da página
-    atualizarModelos();
+      showToast('Mensagem gerada com sucesso!', 2000);
+    };
+
+    // Form Submission
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      gerarMensagem();
+      saveFormData();
+    });
+
+    // Clear Form
+    clearBtn.addEventListener('click', () => {
+      form.reset();
+      empresaInput.removeAttribute('aria-invalid');
+      clienteInput.removeAttribute('aria-invalid');
+      document.getElementById('empresa-error').classList.remove('show');
+      document.getElementById('cliente-error').classList.remove('show');
+      executivoSelect.value = 'Rodrigo';
+      segmentoSelect.value = 'Educacional';
+      canalSelect.value = 'email';
+      atualizarCategorias();
+      output.setAttribute('aria-hidden', 'true');
+      stepsGuide.classList.remove('hidden');
+      outputContent.classList.add('hidden');
+      outputContent.classList.remove('animate-output');
+      localStorage.clear();
+      showToast('Formulário limpo!', 2000);
+    });
+
+    // Copy to Clipboard
+    copyBtn.addEventListener('click', () => {
+      const textToCopy = canalSelect.value === 'email' 
+        ? `Assunto: ${assuntoInput.value}\n\n${mensagemArea.value}`
+        : mensagemArea.value;
+      navigator.clipboard.writeText(textToCopy).then(() => {
+        showToast('Mensagem copiada para a área de transferência!', 2000);
+      }).catch(() => {
+        showToast('Erro ao copiar a mensagem.', 2000);
+      });
+    });
+
+    // Event Listeners for Dynamic Updates
+    canalSelect.addEventListener('change', () => {
+      atualizarCategorias();
+      saveFormData();
+    });
+    segmentoSelect.addEventListener('change', () => {
+      atualizarModelos();
+      saveFormData();
+    });
+    categoriaSelect.addEventListener('change', () => {
+      atualizarModelos();
+      saveFormData();
+    });
+    empresaInput.addEventListener('input', saveFormData);
+    clienteInput.addEventListener('input', saveFormData);
+    executivoSelect.addEventListener('change', saveFormData);
+
+    // Initialize Form
+    loadFormData();
   </script>
 </body>
 </html>
