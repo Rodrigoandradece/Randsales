@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -587,6 +588,13 @@
                <i class="fas fa-calendar-week"></i>
                <span>Semanal Welliana</span>
             </a>
+             <a href="https://docs.google.com/forms/d/e/1FAIpQLSfv5w2yFrvPLyeU4dXmprpc1lzqlF_PRA9HwghrImUuw-GXDQ/viewform?usp=dialog" 
+               target="_blank" 
+               class="sidebar-button">
+               <i class="fas fa-calendar-week"></i>
+               <span>Marketing AQS</span>
+            </a>
+
             <button class="logout-button" onclick="logout()">
                 <i class="fas fa-sign-out-alt"></i>
                 <span>Sair</span>
@@ -658,6 +666,25 @@
                     <span class="metric-name">Fechamento Q2</span>
                 </div>
             </div>
+            <div class="metrics-container" id="metricsContainer">
+                <div class="metric-card" onclick="updateExplanation('Custo Total de Campanhas (R$)',R$0,00)">
+                    <h3>Custo Total de Campanhas (R$)</h3>
+                    <p>R$ 0,00</p>
+                    <span class="metric-name">Custo Total de Campanhas (R$)</span>
+                </div>
+                <div class="metric-card" onclick="updateExplanation('CAC Geral (R$)', R$ 0,00 )">
+                    <h3>CAC Geral (R$)</h3>
+                    <p>R$ 0,00</p>
+                    <span class="metric-name">CAC Geral (R$)</span>
+                </div>
+                <div class="metric-card" onclick="updateExplanation('ROI Geral (R$)',R$ 0,00)">
+                    <h3>ROI Geral (R$)</h3>
+                    <p>R$ 0,00</p>
+                    <span class="metric-name">ROI Geral (R$)</span>
+                </div>
+              
+            </div>
+
             <div class="metric-explanation" id="metricExplanation">
                 <h3>Dúvidas Frequentes 😊</h3>
                 <select id="faqSelect" class="faq-select">
