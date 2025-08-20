@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestão Comercial</title>
+    <title>COMERCIAL TRIA</title>
     <link href="https://fonts.cdnfonts.com/css/sf-pro-display" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -61,7 +60,7 @@
             background: none;
             border: none;
             font-size: 1.2rem;
-            color: #A4FF01;
+            color: #FF69B4;
             cursor: pointer;
             padding: 0.5rem;
             transition: transform 0.2s ease, filter 0.2s ease;
@@ -85,7 +84,7 @@
         }
 
         .sidebar-button:hover {
-            background: #A4FF01;
+            background: #FF69B4;
             color: #000;
         }
 
@@ -98,7 +97,7 @@
             font-size: 1.2rem;
             width: 30px;
             text-align: center;
-            color: #A4FF01;
+            color: #FF69B4;
         }
 
         .sidebar-button:hover i {
@@ -183,7 +182,7 @@
         }
 
         .highlight-button {
-            padding:  Ged 0.8rem 1.5rem;
+            padding: 0.8rem 1.5rem;
             font-size: 1rem;
             color: #000;
             background: transparent;
@@ -198,7 +197,7 @@
         }
 
         .highlight-button:hover {
-            background: #A4FF01;
+            background: #FF69B4;
             color: #000;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             transform: translateY(-2px);
@@ -211,29 +210,10 @@
 
         .highlight-button i {
             font-size: 1.2rem;
-            color: #A4FF01;
+            color: #FF69B4;
         }
 
         .highlight-button:hover i {
-            color: #000;
-        }
-
-        .funil-button {
-            background: #FF69B4;
-        }
-
-        .funil-button:hover {
-            background: #FF85C0;
-            color: #000;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            transform: translateY(-2px);
-        }
-
-        .funil-button i {
-            color: #FFF;
-        }
-
-        .funil-button:hover i {
             color: #000;
         }
 
@@ -272,7 +252,7 @@
         .metric-card:nth-child(5) { animation-delay: 0.5s; }
 
         .metric-card:hover {
-            background: #A4FF01;
+            background: #FF69B4;
             transform: translateY(-3px);
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
@@ -312,110 +292,6 @@
             opacity: 1;
             max-height: 20px;
             margin-top: 0.5rem;
-        }
-
-        .metric-explanation {
-            width: 100%;
-            max-width: 800px;
-            margin: 0 auto 2rem;
-            padding: 1.5rem;
-            background: linear-gradient(145deg, rgba(255, 255, 255, 0.95), rgba(240, 240, 240, 0.9));
-            backdrop-filter: blur(10px);
-            border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-            text-align: center;
-            position: relative;
-        }
-
-        .metric-explanation h3 {
-            font-size: 1.3rem;
-            color: #333;
-            margin-bottom: 1.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-        }
-
-        .faq-select {
-            width: 100%;
-            max-width: 600px;
-            padding: 0.8rem;
-            font-size: 1rem;
-            border: 1px solid #A4FF01;
-            border-radius: 12px;
-            background: rgba(255, 255, 255, 0.9);
-            color: #333;
-            appearance: none;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            outline: none;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-            margin: 0 auto;
-            display: block;
-        }
-
-        .faq-select:hover {
-            border-color: #8FE001;
-            box-shadow: 0 4px 12px rgba(164, 255, 1, 0.2);
-            transform: translateY(-2px);
-        }
-
-        .faq-select:focus {
-            border-color: #8FE001;
-            box-shadow: 0 4px 16px rgba(164, 255, 1, 0.3);
-        }
-
-        .faq-answer-container {
-            margin-top: 1.5rem;
-            padding: 0 1rem;
-        }
-
-        .faq-category-title {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: #A4FF01;
-            margin-bottom: 0.5rem;
-            opacity: 0;
-            transform: translateY(-10px);
-            animation: fadeIn 0.5s ease forwards;
-        }
-
-        .faq-answer {
-            padding: 1rem;
-            background: linear-gradient(145deg, #F5F5F5, #E8E8E8);
-            border-radius: 12px;
-            color: #333;
-            font-size: 0.95rem;
-            line-height: 1.5;
-            max-height: 300px;
-            overflow: auto;
-            opacity: 0;
-            transform: translateY(-20px);
-            animation: slideUpFadeIn 0.5s ease forwards;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-            transition: max-height 0.5s ease, opacity 0.5s ease, transform 0.5s ease;
-            white-space: pre-wrap;
-        }
-
-        .faq-answer li {
-            margin-bottom: 0.75rem;
-        }
-
-        @keyframes slideUpFadeIn {
-            0% { max-height: 0; opacity: 0; transform: translateY(-20px); }
-            100% { max-height: 300px; opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes fadeIn {
-            0% { opacity: 0; transform: translateY(-10px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
-
-        .faq-answer.active {
-            max-height: 300px;
-            opacity: 1;
-            transform: translateY(0);
         }
 
         .login-container {
@@ -461,15 +337,15 @@
 
         .login-input:focus {
             outline: none;
-            border-color: #A4FF01;
-            box-shadow: 0 0 8px rgba(164, 255, 1, 0.3);
+            border-color: #FF69B4;
+            box-shadow: 0 0 8px rgba(255, 105, 180, 0.3);
         }
 
         .login-button {
             width: 100%;
             padding: 0.8rem;
             margin-top: 1rem;
-            background: #A4FF01;
+            background: #FF69B4;
             color: #000;
             border: none;
             border-radius: 12px;
@@ -480,7 +356,7 @@
         }
 
         .login-button:hover {
-            background: #8FE001;
+            background: #FF85C0;
             transform: translateY(-1px);
         }
 
@@ -519,28 +395,13 @@
             .metric-card:hover p { font-size: 1.5rem; }
             .calendar-box h2 { font-size: 1rem; }
             .calendar-box p { font-size: 0.8rem; }
-            .metric-explanation { padding: 1rem; }
-            .faq-category-title { font-size: 1rem; }
-            .faq-answer {
-                font-size: 0.8rem;
-                line-height: 1.4;
-                padding: 0.8rem;
-                max-height: 400px;
-            }
-            .faq-answer li {
-                margin-bottom: 0.5rem;
-            }
-            .faq-answer-container {
-                padding: 0 0.5rem;
-            }
         }
     </style>
 </head>
 <body>
     <div id="loginSection" class="login-container">
-        <img src="https://cdn.jsdelivr.net/gh/rodrigoandradece/Randsales@main/images/logows.png" 
-             onerror="this.src='https://via.placeholder.com/200x200?text=Logo+WS'" 
-             alt="Logo WS" 
+        <img src="https://cdn.jsdelivr.net/gh/rodrigoandradece/Randsales@main/images/logotria.png" 
+             alt="Logo Tria" 
              class="login-logo">
         <div class="login-card">
             <input type="text" id="username" class="login-input" placeholder="Login" />
@@ -553,7 +414,7 @@
     <div id="mainSection" class="hidden">
         <div class="sidebar">
             <div class="sidebar-header">
-                <h2>Gestão Comercial</h2>
+                <h2>COMERCIAL TRIA</h2>
                 <button class="toggle-button" onclick="toggleSidebar()">
                     <i class="fas fa-bars"></i>
                 </button>
@@ -562,39 +423,38 @@
                target="_blank" 
                class="sidebar-button">
                <i class="fas fa-user-plus"></i>
-               <span>Lead's Rodrigo</span>
+               <span>Cadastrar novo Lead's</span>
             </a>
             <a href="https://forms.gle/7tJ13WkzmHrB7H6x9" 
                target="_blank" 
                class="sidebar-button">
                <i class="fas fa-user-plus"></i>
-               <span>Lead's Welliana</span>
+               <span>Cadastrar novo Lead's Welliana</span>
             </a>
-            <a href="https://docs.google.com/forms/d/e/1FAIpQLSctISw1hCPXCAv_3579rVMAEgEoTdf8_FNks3ev1gE9NJpB2g/viewform?usp=preview " 
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSctISw1hCPXCAv_3579rVMAEgEoTdf8_FNks3ev1gE9NJpB2g/viewform?usp=preview" 
                target="_blank" 
                class="sidebar-button">
                <i class="fas fa-user-check"></i>
-               <span>Relacionamento</span>
+               <span>OP Cobrança</span>
             </a>
             <a href="https://docs.google.com/forms/d/e/1FAIpQLScrTPmWv8VOCdMnqfvNBAu2l0kSgsAZsAVV_KTRUlNQMwW2_Q/viewform?usp=dialog" 
                target="_blank" 
                class="sidebar-button">
                <i class="fas fa-calendar-week"></i>
-               <span>Semanal Rodrigo</span>
+               <span>Ação Semanal</span>
             </a>
             <a href="https://docs.google.com/forms/d/e/1FAIpQLSfk0PPvO9Uep_etC5xw3i5MwrzrTcsfJ384cJ4tVAbPj3GYyw/viewform?usp=dialog" 
                target="_blank" 
                class="sidebar-button">
                <i class="fas fa-calendar-week"></i>
-               <span>Semanal Welliana</span>
+               <span>OP Comercial</span>
             </a>
-             <a href="https://docs.google.com/forms/d/e/1FAIpQLSfv5w2yFrvPLyeU4dXmprpc1lzqlF_PRA9HwghrImUuw-GXDQ/viewform?usp=dialog" 
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSfv5w2yFrvPLyeU4dXmprpc1lzqlF_PRA9HwghrImUuw-GXDQ/viewform?usp=dialog" 
                target="_blank" 
                class="sidebar-button">
                <i class="fas fa-calendar-week"></i>
                <span>Marketing AQS</span>
             </a>
-
             <button class="logout-button" onclick="logout()">
                 <i class="fas fa-sign-out-alt"></i>
                 <span>Sair</span>
@@ -618,11 +478,6 @@
                    class="highlight-button">
                    <i class="fas fa-table"></i> CRM Rodrigo
                 </a>
-                <a href="https://docs.google.com/spreadsheets/d/1WvOVXN3ArMZu5EhUvuA_TwqT-X5Cw36V2GnAeKeuugU/edit?gid=0#gid=0" 
-                   target="_blank" 
-                   class="highlight-button">
-                   <i class="fas fa-table"></i> CRM Welliana
-                </a>
                 <a href="https://docs.google.com/spreadsheets/d/128w2nHTuELrHEvUztaFO9c-Laz6w291xsjAo-0sm3aA/edit?gid=0#gid=0" 
                    target="_blank" 
                    class="highlight-button">
@@ -633,95 +488,49 @@
                    class="highlight-button">
                    <i class="fas fa-headset"></i> Pós-Venda CS
                 </a>
-                <a href="https://rodrigoandradece.github.io/Randsales/geradordefunil.html" 
-                   target="_blank" 
-                   class="highlight-button funil-button">
-                   <i class="fas fa-filter"></i> Funil Mensagens
-                </a>
             </div>
             <div class="metrics-container" id="metricsContainer">
-                <div class="metric-card" onclick="updateExplanation('Leads Gerados mês', 32)">
+                <div class="metric-card">
                     <h3>Lead's Gerados mês</h3>
                     <p>32</p>
                     <span class="metric-name">Lead's Gerados mês</span>
                 </div>
-                <div class="metric-card" onclick="updateExplanation('Reuniões Realizadas mês', 20)">
+                <div class="metric-card">
                     <h3>Reuniões Realizadas mês</h3>
                     <p>20</p>
                     <span class="metric-name">Reuniões Realizadas mês</span>
                 </div>
-                <div class="metric-card" onclick="updateExplanation('Fechamento mês', 11)">
+                <div class="metric-card">
                     <h3>Fechamento mês</h3>
                     <p>11</p>
                     <span class="metric-name">Fechamento mês</span>
                 </div>
-                <div class="metric-card" onclick="updateExplanation('Leads Q2', 75)">
+                <div class="metric-card">
                     <h3>Leads Q2</h3>
                     <p>75</p>
                     <span class="metric-name">Leads Q2</span>
                 </div>
-                <div class="metric-card" onclick="updateExplanation('Fechamento Q2', 24)">
+                <div class="metric-card">
                     <h3>Fechamento Q2</h3>
                     <p>24</p>
                     <span class="metric-name">Fechamento Q2</span>
                 </div>
             </div>
             <div class="metrics-container" id="metricsContainer">
-                <div class="metric-card" onclick="updateExplanation('Custo Total de Campanhas (R$)',R$0,00)">
+                <div class="metric-card">
                     <h3>Custo Total de Campanhas (R$)</h3>
                     <p>R$ 0,00</p>
                     <span class="metric-name">Custo Total de Campanhas (R$)</span>
                 </div>
-                <div class="metric-card" onclick="updateExplanation('CAC Geral (R$)', R$ 0,00 )">
+                <div class="metric-card">
                     <h3>CAC Geral (R$)</h3>
                     <p>R$ 0,00</p>
                     <span class="metric-name">CAC Geral (R$)</span>
                 </div>
-                <div class="metric-card" onclick="updateExplanation('ROI Geral (R$)',R$ 0,00)">
+                <div class="metric-card">
                     <h3>ROI Geral (R$)</h3>
                     <p>R$ 0,00</p>
                     <span class="metric-name">ROI Geral (R$)</span>
-                </div>
-              
-            </div>
-
-            <div class="metric-explanation" id="metricExplanation">
-                <h3>Dúvidas Frequentes 😊</h3>
-                <select id="faqSelect" class="faq-select">
-                    <option value="">Selecione uma dúvida</option>
-                    <optgroup label="Quebra de Objeções">
-                        <option value="1">1. Já temos um time interno de cobrança.</option>
-                        <option value="2">2. Tenho receio de expor minha marca com uma cobrança agressiva.</option>
-                        <option value="3">3. Não sei se vai valer a pena terceirizar.</option>
-                        <option value="4">4. Meus contratos não preveem honorários de cobrança.</option>
-                        <option value="5">5. A maioria dos meus clientes são bons pagadores, só atrasam um pouco.</option>
-                        <option value="6">6. Já testei outra empresa e não deu resultado.</option>
-                        <option value="7">7. Temos um relacionamento próximo com nossos clientes, não queremos prejudicar.</option>
-                        <option value="8">8. Não temos inadimplência alta, então não vejo necessidade.</option>
-                        <option value="9">9. Meu cliente é grande, não posso cobrar igual um pequeno.</option>
-                        <option value="10">10. Estamos priorizando outros investimentos agora.</option>
-                        <option value="11">11. Como posso confiar na qualidade do atendimento de vocês?</option>
-                        <option value="12">12. Não gosto da ideia de terceiros falando com os meus clientes.</option>
-                        <option value="13">13. Quero ver um caso de sucesso real antes de decidir.</option>
-                        <option value="14">14. Preciso de mais tempo pra analisar com calma.</option>
-                        <option value="15">15. E se meu cliente se sentir ofendido ou sair por conta da cobrança?</option>
-                    </optgroup>
-                    <optgroup label="Operacional">
-                        <option value="16">16. Quanto tempo deve dur slaap een call de vendas?</option>
-                        <option value="17">17. Quantas tentativas devo fazer antes de desistir de um lead?</option>
-                        <option value="18">18. Quais perguntas levam o lead para o fechamento?</option>
-                        <option value="19">19. Quais perguntas criam rapport com o decisor B2B?</option>
-                        <option value="20">20. Perguntas extras por etapa do funil (específico pra WS Cobrança)</option>
-                        <option value="21">21. Como gerar urgência sem parecer agressivo?</option>
-                        <option value="22">22. Como lidar com o ‘vou pensar’?</option>
-                        <option value="23">23. Como vencer a objeção do ‘já tenho uma empresa que faz isto’?</option>
-                        <option value="24">24. Como transformar um case em fechamento?</option>
-                        <option value="25">25. Como reativar um lead que esfriou?</option>
-                    </optgroup>
-                </select>
-                <div class="faq-answer-container" id="faqAnswerContainer">
-                    <div id="faqCategoryTitle" class="faq-category-title"></div>
-                    <div id="faqAnswer" class="faq-answer"></div>
                 </div>
             </div>
         </div>
@@ -784,110 +593,6 @@
             const logo = document.querySelector('.login-logo');
             fetch(logo.src)
                 .catch(() => console.error('Failed to load logo from primary source'));
-        });
-
-        const faqData = {
-            "1": { answer: "Perfeito. Isso mostra que você valoriza o recebimento. Agora, deixa eu te provocar: se sua equipe fosse 100% eficaz, a inadimplência estaria zerada. O que a WS faz não é substituir, é complementar. A gente atua onde seu time não consegue escalar — com volume, técnica e foco absoluto em recuperar. E o melhor: sem custo fixo pra você.", category: "Quebra de Objeções" },
-            "2": { answer: "Você está certo em se preocupar com sua reputação. Mas te digo: cobrança não precisa ser agressiva, precisa ser inteligente. A WS atua com abordagem humanizada, orientada à solução. Seu cliente se sente ouvido, não coagido — e o melhor, você recebe.", category: "Quebra de Objeções" },
-            "3": { answer: "Vamos aos números. Quanto custa hoje cada 1% de inadimplência pra você? Agora compara com o quanto você deixaria de perder recuperando esse valor — sem contratar ninguém, sem custo fixo, sem riscos. A WS só ganha se você receber. Isso é skin in the game real.", category: "Quebra de Objeções" },
-            "4": { answer: "Dois caminhos: primeiro, ajustamos sua régua de comunicação e você passa a prever. Segundo, você pode seguir com a WS no modelo onde a gente negocia direto com o inadimplente — e os honorários saem de lá, não do seu caixa. Ou seja, sem dor, sem custo.", category: "Quebra de Objeções" },
-            "5": { answer: "Justamente. Quem atrasa um pouco, atrasa sempre — e vai se tornando cultura. A WS atua pra corrigir isso antes que vire um problemão. A gente transforma comportamento de pagamento. E quem paga em dia, também agradece por não carregar quem atrasa.", category: "Quebra de Objeções" },
-            "6": { answer: "Isso acontece. Cobrança não é tudo igual. O que difere é o método, o CRM proprietário, a régua inteligente e o time treinado. Se te entregaram volume sem estratégia, era esperado. A WS joga com processo, dados e resultado. Deixa a gente provar em um piloto.", category: "Quebra de Objeções" },
-            "7": { answer: "E é por isso que terceirizar faz sentido. O “peso” da cobrança sai da sua relação direta com o cliente. A WS entra com neutralidade, respeito e técnica. Você mantém a confiança, e ainda mostra profissionalismo: empresa séria cobra com processo.", category: "Quebra de Objeções" },
-            "8": { answer: "Então parabéns. E agora é o momento ideal pra estruturar — não quando o problema explode. A WS ajuda a manter esse índice saudável e a prevenir riscos. Cobrança não é só apagar incêndio, é blindagem. E isso se faz com processo antes da crise.", category: "Quebra de Objeções" },
-            "9": { answer: "A régua da WS é segmentada exatamente pra isso. Um varejista não recebe a mesma abordagem que uma multinacional. Nosso time tem experiência B2B e atua com leitura de contexto, perfil e histórico. A cobrança é estratégica, não genérica.", category: "Quebra de Objeções" },
-            "10": { answer: "E isso torna a WS ainda mais necessária. Você precisa de caixa, certo? O que a gente faz é transformar crédito parado em fluxo de caixa ativo. Sem investimento da sua parte. Não é custo — é recuperação. E isso financia o que você quer priorizar.", category: "Quebra de Objeções" },
-            "11": { answer: "Essa é a pergunta certa. Qualidade não se promete, se prova. A WS tem uma régua de atendimento estruturada, com scripts validados, operadores treinados e auditoria contínua. Você pode acompanhar tudo: tom, tempo, resultado. Transparência total. E mais: antes de qualquer escala, a gente testa num piloto pra você ver com seus próprios olhos.", category: "Quebra de Objeções" },
-            "12": { answer: "Entendo totalmente. Mas deixa eu inverter a lógica: justamente por valorizar sua relação com o cliente é que faz sentido um especialista assumir esse papel. A WS não é um “terceiro”, é um representante estratégico. Atuamos com seu nome, seu tom, seu padrão. Você não perde o cliente — você recupera receita e fortalece a marca com profissionalismo.", category: "Quebra de Objeções" },
-            "13": { answer: "Justo. Posso te mostrar cases documentados em segmentos similares ao seu — com dados de recuperação, ticket médio, tempo médio de recebimento e feedback dos clientes. Nada genérico. Inclusive, posso te conectar com clientes ativos da WS, se quiser ouvir deles direto. A gente joga limpo e entrega o que fala.", category: "Quebra de Objeções" },
-            "14": { answer: "Tempo é importante — mas vale lembrar que inadimplência não espera. Cada dia que passa, o valor recuperável cai. Por isso, minha sugestão: vamos rodar um piloto pequeno, de teste controlado. Sem compromisso de longo prazo. Você analisa com dados reais da sua operação, e decide com segurança — e não só com suposição.", category: "Quebra de Objeções" },
-            "15": { answer: "Essa é uma preocupação legítima, mas na prática é o contrário que acontece. Nossos clientes relatam que o devedor respeita mais quando há um processo profissional de cobrança. Isso demonstra seriedade e maturidade da sua empresa. E mais: se o cliente realmente abandona por estar sendo cobrado de forma justa, ele já não era um bom cliente. A WS ajuda a filtrar e fortalecer sua base.", category: "Quebra de Objeções" },
-            "16": { answer: "Você tá falando com gestores que têm meta, pressão, agenda cheia e medo de se queimar com o cliente final.\n\nSeja objetivo: 30 a 40 minutos.\n- 15 min pra entender o cenário\n- 15 min pra apresentar solução\n- 10 min pra alinhar próximos passos e apertar o gatilho\n\nAmigo(a), quem faz reunião de mais de 1h pra falar de cobrança não tá vendendo performance. Tá vendendo PowerPoint.", category: "Operacional" },
-            "17": { answer: "Cobrança é tema sensível. Você precisa insistir, mas com inteligência.\n\n8 a 12 tentativas em multicanal (Whats, ligação, e-mail, LinkedIn). Cada tentativa deve agregar contexto:\n\n* Tentativa 1: Vi que vocês têm uma inadimplência média de X% no setor.\n* Tentativa 4: Queria mostrar como recuperamos 58% em 90 dias pra (escola, condomínio, empresa, loja...) com cenário similar ao seu.\n* Tentativa 7: Se não for prioridade agora, posso te mandar só o case de ROI?\n\nNão desista de um lead que ainda não entendeu o que pode ganhar com você.", category: "Operacional" },
-            "18": { answer: "Vendas é sobre mostrar o custo de não agir. Você vende alívio com perguntas que tocam na dor:\n\n* Se vocês continuarem com esse índice de inadimplência nos próximos 6 meses, o que acontece com o caixa?\n* O que mais te preocupa: não receber ou perder o cliente final no processo?\n* Se eu mostrar que a cobrança pode ser feita com respeito, resultado e custo zero, a gente avança?\n* Se eu te entrego recuperação de X% sem atrito com o aluno/inquilino/morador, qual seria o impeditivo hoje?\n* O que tá te impedindo de delegar isso agora e parar de apagar incêndio?", category: "Operacional" },
-            "19": { answer: "Rapport é mostrar que você entende a dor e o medo de parecer agressivo:\n\n* Qual foi o maior desafio de cobrança que vocês enfrentaram esse ano?\n* Como vocês lidam quando um cliente importante atrasa?\n* Você prefere manter a cobrança interna por controle ou por cultura?\n* Você já tentou terceirizar? O que te fez voltar atrás?\n* Como você mede sucesso numa operação de cobrança hoje? É só pelo % recuperado?\n\nConexão real abre portas. Quem se abre, compra.", category: "Operacional" },
-            "20": { answer: "Perguntas por etapa do funil para WS Cobrança:\n\n**Prospecção (SDR):**\n* Vocês têm um time interno de cobrança ou hoje isso tá diluído?\n* Hoje vocês perdem mais por inadimplência ou por desgaste com cliente?\n* Quer que eu levante um diagnóstico simples de oportunidades e gargalos, sem compromisso?\n\n**Diagnóstico (Closer):**\n* Qual o valor total em aberto nos últimos 12 meses?\n* Se recuperássemos 40% disso em até 90 dias, quanto entraria no caixa?\n* Qual o impacto da inadimplência no seu planejamento financeiro anual?\n* Vocês já calculam o CAC de cada cliente perdido por dívida?\n\n**Negociação / Proposta:**\n* Se o custo é zero e o risco é nosso, o que falta pra gente começar?\n* Se a gente recuperar em 30 dias o que seu time não recuperou em 6 meses, vale o teste?\n* Quer começar com um lote piloto e medir junto com você?", category: "Operacional" },
-            "21": { answer: "Urgência vem do impacto real da demora, não de desespero.\n\nFrases que aceleram a decisão:\n* Cada semana que passa, o valor em aberto cresce. Já parou pra ver quanto custa esperar mais 30 dias?\n* Se a gente tivesse começado quando falamos da outra vez, talvez você já tivesse dinheiro em caixa.\n* O tempo tá jogando contra você ou a seu favor nesse cenário?\n\nA urgência que funciona conecta com a dor real e o desejo de alívio. Não empurra, desperta.", category: "Operacional" },
-            "22": { answer: "90% dos ‘vou pensar’ são só uma forma educada de dizer ‘não confio ainda ou não vi valor’.\n\nCava o motivo com:\n* Legal. Só pra eu entender: o que exatamente você quer avaliar antes de seguir?\n* É uma dúvida sobre o modelo, sobre a entrega ou sobre se é a hora certa?\n* Vamos fazer o seguinte: me diz o que te impede de testar por 30 dias. Se não for bom, você me tira no piloto.\n\nO segredo é eliminar o talvez, não forçar o sim.", category: "Operacional" },
-            "23": { answer: "Não fale mal da empresa atual. Posicione-se como upgrade:\n\n* Perfeito! Isso mostra que vocês já entenderam o valor de cobrar bem. Agora a pergunta é: estão satisfeitos com os resultados?\n* Vocês medem hoje a recuperação líquida? Posso te mostrar como aumentamos isso mesmo com empresas que já tinham um parceiro.\n* Posso fazer um comparativo sem compromisso? Só pra ver se tem gordura pra recuperar mais.\n\nO ‘já tenho’ é o começo da comparação, não o fim.", category: "Operacional" },
-            "24": { answer: "Case com semelhança vira espelho, não só história:\n\n* Deixa eu te contar o que aconteceu com uma empresa igualzinha à sua, no mesmo setor.\n* Eles também tinham medo de parecer agressivos. A gente entrou com uma abordagem leve, e em 60 dias, R$ X mil voltaram pro caixa.\n* Posso te mostrar esse case em 5 min. Se fazer sentido, a gente replica com o nome de vocês no próximo.\n\nGente não compra dados. Compra transformação parecida.", category: "Operacional" },
-            "25": { answer: "Lead frio não é morto. É mal nutrido.\n\nRetome com:\n* Falei com você há 60 dias. Se tivesse começado naquela época, já estaria com R$ X mil recuperados. Ainda faz sentido pra você?\n* Tem uma atualização que pode te interessar: novos dados do setor mostram que a inadimplência subiu X%. Quer olhar juntos?\n* Voltei porque lembrei da sua meta de reduzir inadimplência até o segundo semestre. Ainda é prioridade?\n\nReapareça com timing, dado novo e sem parecer desesperado.", category: "Operacional" }
-        };
-
-        function showAnswer() {
-            const select = document.getElementById('faqSelect');
-            const categoryTitleDiv = document.getElementById('faqCategoryTitle');
-            const answerDiv = document.getElementById('faqAnswer');
-            const selectedValue = select.value;
-
-            if (selectedValue) {
-                const data = faqData[selectedValue];
-                categoryTitleDiv.textContent = data.category;
-                categoryTitleDiv.style.display = 'block';
-                answerDiv.textContent = data.answer;
-                answerDiv.classList.add('active');
-                // Apply mobile-specific class if screen width <= 600px
-                if (window.innerWidth <= 600) {
-                    answerDiv.classList.add('mobile-faq');
-                } else {
-                    answerDiv.classList.remove('mobile-faq');
-                }
-            } else {
-                categoryTitleDiv.style.display = 'none';
-                answerDiv.classList.remove('active', 'mobile-faq');
-            }
-        }
-
-        function updateExplanation(metricName, value) {
-            const explanationDiv = document.getElementById('metricExplanation');
-            const select = explanationDiv.querySelector('#faqSelect');
-            select.innerHTML = `
-                <option value="">Selecione uma dúvida</option>
-                <optgroup label="Quebra de Objeções">
-                    <option value="1">1. Já temos um time interno de cobrança.</option>
-                    <option value="2">2. Tenho receio de expor minha marca com uma cobrança agressiva.</option>
-                    <option value="3">3. Não sei se vai valer a pena terceirizar.</option>
-                    <option value="4">4. Meus contratos não preveem honorários de cobrança.</option>
-                    <option value="5">5. A maioria dos meus clientes são bons pagadores, só atrasam um pouco.</option>
-                    <option value="6">6. Já testei outra empresa e não deu resultado.</option>
-                    <option value="7">7. Temos um relacionamento próximo com nossos clientes, não queremos prejudicar.</option>
-                    <option value="8">8. Não temos inadimplência alta, então não vejo necessidade.</option>
-                    <option value="9">9. Meu cliente é grande, não posso cobrar igual um pequeno.</option>
-                    <option value="10">10. Estamos priorizando outros investimentos agora.</option>
-                    <option value="11">11. Como posso confiar na qualidade do atendimento de vocês?</option>
-                    <option value="12">12. Não gosto da ideia de terceiros falando com os meus clientes.</option>
-                    <option value="13">13. Quero ver um caso de sucesso real antes de decidir.</option>
-                    <option value="14">14. Preciso de mais tempo pra analisar com calma.</option>
-                    <option value="15">15. E se meu cliente se sentir ofendido ou sair por conta da cobrança?</option>
-                </optgroup>
-                <optgroup label="Operacional">
-                    <option value="16">16. Quanto tempo deve durar uma call de vendas?</option>
-                    <option value="17">17. Quantas tentativas devo fazer antes de desistir de um lead?</option>
-                    <option value="18">18. Quais perguntas levam o lead para o fechamento?</option>
-                    <option value="19">19. Quais perguntas criam rapport com o decisor B2B?</option>
-                    <option value="20">20. Perguntas extras por etapa do funil (específico pra WS Cobrança)</option>
-                    <option value="21">21. Como gerar urgência sem parecer agressivo?</option>
-                    <option value="22">22. Como lidar com o ‘vou pensar’?</option>
-                    <option value="23">23. Como vencer a objeção do ‘já tenho uma empresa que faz isso’?</option>
-                    <option value="24">24. Como transformar um case em fechamento?</option>
-                    <option value="25">25. Como reativar um lead que esfriou?</option>
-                </optgroup>
-            `;
-            select.addEventListener('change', showAnswer);
-        }
-
-        document.addEventListener('DOMContentLoaded', function() {
-            const select = document.getElementById('faqSelect');
-            select.addEventListener('change', showAnswer);
-            // Re-apply mobile styling on window resize
-            window.addEventListener('resize', function() {
-                const answerDiv = document.getElementById('faqAnswer');
-                if (window.innerWidth <= 600 && answerDiv.classList.contains('active')) {
-                    answerDiv.classList.add('mobile-faq');
-                } else {
-                    answerDiv.classList.remove('mobile-faq');
-                }
-            });
         });
     </script>
 </body>
