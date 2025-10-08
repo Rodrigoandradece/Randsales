@@ -466,7 +466,7 @@
             content: " 🎉";
         }
 
-        /* Video Section */
+        /* Video Section (Carrossel) */
         .video-section {
             background: linear-gradient(135deg, rgba(44, 44, 46, 0.95) 0%, rgba(60, 60, 62, 0.95) 100%);
             border-radius: 12px;
@@ -486,13 +486,98 @@
             text-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
         }
 
-        .video-container {
-            display: grid;
-            grid-template-columns: 1fr;
+        .carousel-container {
+            position: relative;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            display: flex;
             gap: 0.8rem;
+            padding-bottom: 0.5rem;
         }
 
-        .video-container iframe {
+        .carousel-container::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .carousel-container::-webkit-scrollbar-thumb {
+            background: #34C759;
+            border-radius: 4px;
+        }
+
+        .carousel-container::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .carousel-item {
+            flex: 0 0 100%;
+            scroll-snap-align: start;
+            max-width: 100%;
+        }
+
+        .carousel-item iframe {
+            width: 100%;
+            height: auto;
+            aspect-ratio: 16 / 9;
+            border-radius: 12px;
+            border: none;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .carousel-nav {
+            display: flex;
+            justify-content: space-between;
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            transform: translateY(-50%);
+            padding: 0 0.5rem;
+        }
+
+        .carousel-nav button {
+            background: rgba(44, 44, 46, 0.7);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            color: #fff;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+
+        .carousel-nav button:hover, .carousel-nav button:focus {
+            background: #34C759;
+            transform: scale(1.1);
+        }
+
+        .carousel-nav button:focus {
+            outline: 2px solid #34C759;
+            outline-offset: 2px;
+        }
+
+        /* Controle de Avisos */
+        .notices-section {
+            background: linear-gradient(135deg, rgba(44, 44, 46, 0.95) 0%, rgba(60, 60, 62, 0.95) 100%);
+            border-radius: 12px;
+            padding: 1.2rem;
+            margin: 1.2rem 0;
+            opacity: 0;
+            animation: fadeInWithBounce 0.7s forwards 1.5s;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .notices-section h3 {
+            color: #fff;
+            margin-bottom: 0.8rem;
+            font-size: 1.2rem;
+            font-weight: 700;
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+        }
+
+        .notices-section iframe {
             width: 100%;
             height: auto;
             aspect-ratio: 16 / 9;
@@ -508,7 +593,7 @@
             padding: 1.2rem;
             margin: 1.2rem 0;
             opacity: 0;
-            animation: fadeInWithBounce 0.7s forwards 1.5s;
+            animation: fadeInWithBounce 0.7s forwards 1.7s;
             box-shadow: 0 6px 20px rgba(52, 199, 89, 0.4);
             display: flex;
             align-items: center;
@@ -608,12 +693,18 @@
                 padding: 0.3rem;
             }
 
-            .video-section h3 {
+            .video-section h3, .notices-section h3 {
                 font-size: 1.1rem;
             }
 
             .message-section p {
                 font-size: 0.85rem;
+            }
+
+            .carousel-nav button {
+                width: 35px;
+                height: 35px;
+                font-size: 1rem;
             }
         }
     </style>
@@ -637,31 +728,31 @@
     <button class="menu-toggle" id="menuToggle" onclick="toggleMenu()" aria-label="Abrir ou fechar o menu lateral">☰</button>
 
     <div class="sidebar" id="sidebar">
-        <button onclick="loadPage('cadastro-novo')" aria-label="Acessar formulário de cadastro de novos membros ou visitantes">
+        <button onclick="window.location.href='https://docs.google.com/forms/d/e/1FAIpQLSdzEJueL_mAEsrE6MldU-R6fXPwFXk2WW4fohIkl_YU5Dn6pA/viewform?usp=header'" aria-label="Acessar formulário de cadastro de novos membros ou visitantes">
             <svg class="icon" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h2v-2c0-1.66 5.33-3 8-3s8 1.34 8 3v2h2v-2c0-1.66-5.33-3-8-3zm-2-6h2v2h2v-2h2v-2h-2V4h-2v2h-2v2z"/></svg>
             <span>Cadastro Novo</span>
         </button>
-        <button onclick="loadPage('frequencia-culto')" aria-label="Acessar registro de frequência no culto">
+        <button onclick="window.location.href='https://docs.google.com/forms/d/e/1FAIpQLSfsxOAPy72TjytzJtto0UJlM3hwsmtJ9NIJiOzSc95eiVeT7Q/viewform?usp=header'" aria-label="Acessar registro de frequência no culto">
             <svg class="icon" viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7zm5-3h2v2h-2V7z"/></svg>
             <span>Frequência no Culto</span>
         </button>
-        <button onclick="loadPage('evangelismo')" aria-label="Acessar atividades de evangelismo">
+        <button onclick="window.location.href='https://docs.google.com/forms/d/e/1FAIpQLSfztWfjLuQGccts4T1LSE2omoKp5MioUHhUoGyiXe-GpSgY5A/viewform?usp=header'" aria-label="Acessar atividades de evangelismo">
             <svg class="icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14.83l4.59 4.59L12 14.34l-4.59-4.58L12 5.17zm0 2.83L9.17 10H14.83L12 7.17z"/></svg>
             <span>Evangelismo</span>
         </button>
-        <button onclick="loadPage('discipulado')" aria-label="Acessar atividades de discipulado">
+        <button onclick="window.location.href='https://docs.google.com/forms/d/e/1FAIpQLSeACYbYMo8j-xEZBpW4knlRyjNGlWPy-Y9Qv92ldFOJl91ZpQ/viewform?usp=header'" aria-label="Acessar formulário da Aliança dos Multiplicadores">
             <svg class="icon" viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
-            <span>Discipulado</span>
+            <span>Aliança dos Multiplicadores</span>
         </button>
-        <button onclick="window.location.href='https://docs.google.com/forms/d/e/1FAIpQLSco6SQUGVPKqw5aOsjh_pAf-cLvVDmDSDskOpFZ9qvxlsRHlA/viewform?usp=dialog'" aria-label="Acessar formulário de sugestões">
+        <button onclick="window.location.href='https://docs.google.com/forms/d/e/1FAIpQLSco6SQUGVPKqw5aOsjh_pAf-cLvVDmDSDskOpFZ9qvxlsRHlA/viewform?usp=header'" aria-label="Acessar formulário de sugestões">
             <svg class="icon" viewBox="0 0 24 24"><path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7zm2.85 11.1l-.85.6V16h-4v-2.3l-.85-.6C7.8 12.16 7 10.63 7 9c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.63-.8 3.16-2.15 4.1z"/></svg>
             <span>Sugestão</span>
         </button>
-        <button onclick="window.location.href='https://docs.google.com/forms/d/e/1FAIpQLScqGm7c0dULDwmnFhwJGMfFFCkt_t4STWg-aHLpCSGbIdmTkg/viewform?usp=dialog'" aria-label="Acessar formulário de compras">
+        <button onclick="window.location.href='https://docs.google.com/forms/d/e/1FAIpQLScqGm7c0dULDwmnFhwJGMfFFCkt_t4STWg-aHLpCSGbIdmTkg/viewform?usp=header'" aria-label="Acessar formulário de compras">
             <svg class="icon" viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
             <span>Compras</span>
         </button>
-        <button onclick="loadPage('acao-social')" aria-label="Acessar página de ações sociais">
+        <button onclick="window.location.href='https://docs.google.com/forms/d/e/1FAIpQLSf2SoyjDTrURvAzV7P83tuCxrAdasfSZMm5XjEx81V65k5WOQ/viewform?usp=header'" aria-label="Acessar formulário de ações sociais">
             <svg class="icon" viewBox="0 0 24 24"><path d="M16.5 13c-1.2 0-3.07.34-4.5 1-1.43-.67-3.3-1-4.5-1C5.33 13 1 14.08 1 16.25V19h22v-2.75c0-2.17-4.33-3.25-6.5-3.25zm-4 4.5h-10v-1.25c0-.54 2.56-1.75 5-1.75s5 1.21 5 1.75v1.25zm9 0H13.5v-1.25c0-.46-.2-1.06-.71-1.5 1.67-.67 3.83-1 5.21-1 2.44 0 5 1.21 5 1.75v1.25zM7.5 12c1.93 0 3.5-1.57 3.5-3.5S9.43 5 7.5 5 4 6.57 4 8.5 5.57 12 7.5 12zm0-5c.83 0 1.5.67 1.5 1.5S8.33 10 7.5 10 6 9.33 6 8.5 6.67 7 7.5 7zm9 5c1.93 0 3.5-1.57 3.5-3.5S18.43 5 16.5 5 13 6.57 13 8.5 14.57 12 16.5 12zm0-5c.83 0 1.5.67 1.5 1.5S17.33 10 16.5 10 15 9.33 15 8.5 15.67 7 16.5 7z"/></svg>
             <span>Ações Sociais</span>
         </button>
@@ -708,7 +799,7 @@
                 <svg class="icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
                 Alerta
             </button>
-            <button class="central-button connect" onclick="window.location.href='https://docs.google.com/forms/d/e/1FAIpQLSeupD3jOejLI5eO7iV1QkyPDPzW25Qqjm-u0viZB-NV_Ooi_A/viewform?usp=dialog'" title="Acesse o formulário de connect" aria-label="Acessar formulário de connect">
+            <button class="central-button connect" onclick="window.location.href='https://docs.google.com/forms/d/e/1FAIpQLSeupD3jOejLI5eO7iV1QkyPDPzW25Qqjm-u0viZB-NV_Ooi_A/viewform?usp=header'" title="Acesse o formulário de connect" aria-label="Acessar formulário de connect">
                 <svg class="icon" viewBox="0 0 24 24"><path d="M9 11.75c-.69 0-1.25.56-1.25 1.25s.56 1.25 1.25 1.25 1.25-.56 1.25-1.25-.56-1.25-1.25-1.25zm6 0c-.69 0-1.25.56-1.25 1.25s.56 1.25 1.25 1.25 1.25-.56 1.25-1.25-.56-1.25-1.25-1.25zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm3.88-11.71L10 14.17l-1.88-1.88a.996.996 0 00-1.41 0c-.39.39-.39 1.02 0 1.41l2.59 2.59c.39.39 1.02.39 1.41 0L17.3 9.7a.996.996 0 000-1.41c-.39-.39-1.03-.39-1.42 0z"/></svg>
                 Connect
             </button>
@@ -735,10 +826,23 @@
 
         <div class="video-section">
             <h3>FLOW 🔥</h3>
-            <div class="video-container">
-                <iframe src="https://www.youtube.com/embed/25o-8FAL_4E" title="Vídeo 1 - Elevation Camp" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <iframe src="https://www.youtube.com/embed/Ti95SpiYRpk" title="Vídeo 2 - Elevation Camp" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <div class="carousel-container" id="videoCarousel">
+                <div class="carousel-nav">
+                    <button class="prev" onclick="scrollCarousel('videoCarousel', -1)" aria-label="Vídeo anterior">←</button>
+                    <button class="next" onclick="scrollCarousel('videoCarousel', 1)" aria-label="Próximo vídeo">→</button>
+                </div>
+                <div class="carousel-item">
+                    <iframe src="https://www.youtube.com/embed/25o-8FAL_4E" title="Vídeo 1 - Elevation Camp" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                <div class="carousel-item">
+                    <iframe src="https://www.youtube.com/embed/Ti95SpiYRpk" title="Vídeo 2 - Elevation Camp" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
             </div>
+        </div>
+
+        <div class="notices-section">
+            <h3>Controle de Avisos</h3>
+            <iframe src="https://www.youtube.com/embed/Nb3D_knymu8" title="Vídeo - Controle de Avisos" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
 
         <div class="message-section">
@@ -800,6 +904,7 @@
                 document.getElementById('welcomeMessage').textContent = `Bem-vindo, ${username.charAt(0).toUpperCase() + username.slice(1)}!`;
                 setTimeout(createParticles, 0);
                 updateBirthdays(4); // Carrega aniversariantes de Maio por padrão
+                initializeCarousels();
             } else {
                 loginAttempts--;
                 errorMessage.style.display = 'block';
@@ -868,6 +973,64 @@
             messageP.setAttribute('tabindex', '0');
             messageP.setAttribute('aria-label', `Mensagem para os aniversariantes de ${birthday.month}: ${birthday.message}`);
             birthdayList.appendChild(messageP);
+        }
+
+        // Função para inicializar carrossel
+        function initializeCarousels() {
+            const carousels = document.querySelectorAll('.carousel-container');
+            carousels.forEach(carousel => {
+                let isDragging = false;
+                let startX, scrollLeft;
+
+                carousel.addEventListener('mousedown', (e) => {
+                    isDragging = true;
+                    startX = e.pageX - carousel.offsetLeft;
+                    scrollLeft = carousel.scrollLeft;
+                    carousel.style.cursor = 'grabbing';
+                });
+
+                carousel.addEventListener('mouseleave', () => {
+                    isDragging = false;
+                    carousel.style.cursor = 'grab';
+                });
+
+                carousel.addEventListener('mouseup', () => {
+                    isDragging = false;
+                    carousel.style.cursor = 'grab';
+                });
+
+                carousel.addEventListener('mousemove', (e) => {
+                    if (!isDragging) return;
+                    e.preventDefault();
+                    const x = e.pageX - carousel.offsetLeft;
+                    const walk = (x - startX) * 2;
+                    carousel.scrollLeft = scrollLeft - walk;
+                });
+
+                carousel.addEventListener('touchstart', (e) => {
+                    isDragging = true;
+                    startX = e.touches[0].pageX - carousel.offsetLeft;
+                    scrollLeft = carousel.scrollLeft;
+                });
+
+                carousel.addEventListener('touchend', () => {
+                    isDragging = false;
+                });
+
+                carousel.addEventListener('touchmove', (e) => {
+                    if (!isDragging) return;
+                    const x = e.touches[0].pageX - carousel.offsetLeft;
+                    const walk = (x - startX) * 2;
+                    carousel.scrollLeft = scrollLeft - walk;
+                });
+            });
+        }
+
+        // Função para navegar no carrossel
+        function scrollCarousel(carouselId, direction) {
+            const carousel = document.getElementById(carouselId);
+            const itemWidth = carousel.querySelector('.carousel-item').offsetWidth + 16; // Inclui gap
+            carousel.scrollBy({ left: direction * itemWidth, behavior: 'smooth' });
         }
 
         // Carregar aniversariantes de Maio por padrão ao carregar a página
