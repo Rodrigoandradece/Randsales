@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="Dashboard Connect: Veja connects ativos, líderes, dias e tipos com um design moderno e responsivo.">
+    <meta name="keywords" content="dashboard, connect, igreja, espiritualidade, métricas, responsivo, design">
+    <meta name="theme-color" content="#1C2526">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Dashboard Connect</title>
+    <style>
+        *, *:before, *:after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #1C2526 0%, #2A3439 100%);
+            color: #fff;
+            overflow-x: hidden;
+            overflow-y: auto;
+            position: relative;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.08) 0%, transparent 70%);
+            z-index: -1;
+        }
+
+        .particles-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #1C2526 0%, #2A3439 100%);
+            overflow: hidden;
+            z-index: -2;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: float 20s infinite linear;
+        }
+
+        .particle.green {
+            background: rgba(52, 199, 89, 0.4);
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh); }
+            100% { transform: translateY(-100vh); }
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            max-width: 260px;
+            height: 100%;
+            background: rgba(28, 28, 30, 0.95);
+            padding-top: 3rem;
+            transition: left 0.3s ease;
+            z-index: 999;
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            display: none;
+        }
+
+        .sidebar.active {
+            left: 0;
+            display: block;
+        }
+
+        .sidebar button {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            padding: 1rem 1.2rem;
+            border: none;
+            background: transparent;
+            color: #fff;
+            font-size: 0.95rem;
+            text-align: left;
+            cursor: pointer;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .sidebar button:hover, .sidebar button:focus {
+            background: rgba(255, 255, 255, 0.12);
+            color: #34C759;
+        }
+
+        .sidebar button:focus {
+            outline: 2px solid #34C759;
+            outline-offset: -2px;
+        }
+
+        .sidebar .icon {
+            margin-right: 0.8rem;
+            width: 1.1rem;
+            height: 1.1rem;
+            fill: #fff;
+            transition: transform 0.3s ease, fill 0.3s ease;
+        }
+
+        .sidebar button:hover .icon, .sidebar button:focus .icon {
+            transform: translateX(5px);
+            fill: #34C759;
+        }
+
+        .menu-toggle {
+            position: fixed;
+            top: 0.8rem;
+            left: 0.8rem;
+            background: rgba(44, 44, 46, 0.9);
+            border: none;
+            border-radius: 8px;
+            color: #34C759;
+            font-size: 1.3rem;
+            cursor: pointer;
+            z-index: 1000;
+            padding: 0.5rem;
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.3s ease;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            display: block;
+        }
+
+        .menu-toggle:hover, .menu-toggle:focus {
+            transform: rotate(90deg) scale(1.1);
+            background: rgba(52, 199, 89, 0.9);
+        }
+
+        .menu-toggle:focus {
+            outline: 2px solid #34C759;
+            outline-offset: 2px;
+        }
+
+        .main-content {
+            padding: 1rem;
+            display: block;
+        }
+
+        .welcome-message {
+            font-size: 1.5rem;
+            color: #34C759;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            opacity: 0;
+            animation: fadeIn 0.5s forwards 0.3s;
+            font-weight: 700;
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        .central-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 0.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .central-button {
+            background: linear-gradient(135deg, #FF9BB8 0%, #FF6F91 100%);
+            border: none;
+            border-radius: 12px;
+            padding: 0.8rem;
+            color: #fff;
+            font-size: 0.9rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .central-button.bible {
+            background: linear-gradient(135deg, #34C759 0%, #2eb34f 100%);
+        }
+
+        .central-button.alert {
+            background: linear-gradient(135deg, #FF2D55 0%, #FF4D6D 100%);
+        }
+
+        .central-button.connect {
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+        }
+
+        .central-button:hover, .central-button:focus {
+            background: #34C759;
+            transform: translateY(-4px);
+            box-shadow: 0 6px 20px rgba(52, 199, 89, 0.4);
+        }
+
+        .central-button:focus {
+            outline: 2px solid #34C759;
+            outline-offset: 2px;
+        }
+
+        .central-button .icon {
+            width: 1rem;
+            height: 1rem;
+            fill: #fff;
+        }
+
+        .filter-section {
+            background: linear-gradient(135deg, rgba(44, 44, 46, 0.95) 0%, rgba(60, 60, 62, 0.95) 100%);
+            border-radius: 12px;
+            padding: 1.2rem;
+            margin: 1.2rem 0;
+            opacity: 0;
+            animation: fadeInWithBounce 0.7s forwards 0.5s;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .filter-section h3 {
+            color: #fff;
+            margin-bottom: 0.8rem;
+            font-size: 1.2rem;
+            font-weight: 700;
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+        }
+
+        .filter-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+        }
+
+        .filter-input, .filter-select {
+            flex: 1;
+            min-width: 140px;
+            padding: 0.8rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            font-size: 0.95rem;
+            transition: border 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .filter-input:focus, .filter-select:focus {
+            border: 1px solid #34C759;
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 10px rgba(52, 199, 89, 0.3);
+            outline: none;
+        }
+
+        .connects-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 0.8rem;
+            margin-top: 1.5rem;
+        }
+
+        .connect-card {
+            border-radius: 12px;
+            padding: 1rem;
+            text-align: center;
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease, background 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .connect-card.jovens {
+            background: linear-gradient(135deg, #4CAF50 0%, #388E3C 100%);
+        }
+
+        .connect-card.casais {
+            background: linear-gradient(135deg, #F06292 0%, #C2185B 100%);
+        }
+
+        .connect-card.adolescentes {
+            background: linear-gradient(135deg, #FFB300 0%, #FF8F00 100%);
+        }
+
+        .connect-card.solteiros {
+            background: linear-gradient(135deg, #0288D1 0%, #01579B 100%);
+        }
+
+        .connect-card.famílias {
+            background: linear-gradient(135deg, #8E24AA 0%, #6A1B9A 100%);
+        }
+
+        .connect-card.mulheres {
+            background: linear-gradient(135deg, #F48FB1 0%, #EC407A 100%);
+        }
+
+        .connect-card.homens {
+            background: linear-gradient(135deg, #0288D1 0%, #01579B 100%);
+        }
+
+        .connect-card.misto {
+            background: linear-gradient(135deg, #7E57C2 0%, #5E35B1 100%);
+        }
+
+        .connect-card.jovens-mulheres {
+            background: linear-gradient(135deg, #F06292 0%, #EC407A 100%);
+        }
+
+        .connect-card:hover, .connect-card:focus {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 6px 20px rgba(52, 199, 89, 0.4);
+        }
+
+        .connect-card:focus {
+            outline: 2px solid #34C759;
+            outline-offset: 2px;
+        }
+
+        .connect-card .name {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #FFFFFF;
+            margin-bottom: 0.4rem;
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+        }
+
+        .connect-card .emoji {
+            font-size: 1.5rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .connect-card .detail {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin: 0.2rem 0;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        .motivational-chat {
+            position: fixed;
+            bottom: 1rem;
+            right: 1rem;
+            z-index: 1000;
+        }
+
+        .chat-toggle {
+            background: rgba(44, 44, 46, 0.9);
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            color: #34C759;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, background 0.3s ease;
+        }
+
+        .chat-toggle:hover, .chat-toggle:focus {
+            background: #34C759;
+            color: #fff;
+            transform: scale(1.1);
+        }
+
+        .chat-toggle:focus {
+            outline: 2px solid #34C759;
+            outline-offset: 2px;
+        }
+
+        .motivational-message {
+            display: none;
+            background: rgba(44, 44, 46, 0.85);
+            padding: 1rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            max-width: 300px;
+            font-style: italic;
+            font-size: 0.85rem;
+            color: #fff;
+            margin-top: 0.5rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .motivational-message.active {
+            display: block;
+            opacity: 0.8;
+        }
+
+        .motivational-message:hover {
+            opacity: 1;
+        }
+
+        @keyframes fadeInWithBounce {
+            0% { opacity: 0; transform: translateY(20px); }
+            60% { opacity: 1; transform: translateY(-4px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 480px) {
+            .sidebar {
+                max-width: 100%;
+                left: -100%;
+            }
+
+            .sidebar.active {
+                left: 0;
+            }
+
+            .main-content {
+                padding: 0.8rem;
+            }
+
+            .central-buttons {
+                gap: 0.6rem;
+            }
+
+            .central-button {
+                padding: 0.7rem;
+                font-size: 0.85rem;
+            }
+
+            .filter-container {
+                flex-direction: column;
+            }
+
+            .connects-container {
+                gap: 0.6rem;
+            }
+
+            .connect-card {
+                padding: 0.8rem;
+            }
+
+            .connect-card .name {
+                font-size: 1.1rem;
+            }
+
+            .motivational-message {
+                max-width: 200px;
+                font-size: 0.8rem;
+                padding: 0.8rem;
+            }
+
+            .chat-toggle {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+
+            .menu-toggle {
+                top: 0.6rem;
+                left: 0.6rem;
+                font-size: 1.2rem;
+                padding: 0.4rem;
+            }
+
+            .welcome-message {
+                font-size: 1.2rem;
+            }
+
+            .filter-section h3 {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="particles-bg" id="particles-bg"></div>
+
+    <button class="menu-toggle" id="menuToggle" onclick="toggleMenu()" aria-label="Abrir ou fechar o menu lateral">☰</button>
+
+    <div class="sidebar" id="sidebar">
+        <button onclick="window.location.href='https://docs.google.com/forms/d/e/1FAIpQLSdzEJueL_mAEsrE6MldU-R6fXPwFXk2WW4fohIkl_YU5Dn6pA/viewform?usp=header'" aria-label="Acessar formulário de cadastro de novos membros ou visitantes">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h2v-2c0-1.66 5.33-3 8-3s8 1.34 8 3v2h2v-2c0-1.66-5.33-3-8-3zm-2-6h2v2h2v-2h2v-2h-2V4h-2v2h-2v2z"/></svg>
+            <span>Cadastro Novo</span>
+        </button>
+        <button onclick="window.location.href='https://docs.google.com/forms/d/e/1FAIpQLSfsxOAPy72TjytzJtto0UJlM3hwsmtJ9NIJiOzSc95eiVeT7Q/viewform?usp=header'" aria-label="Acessar registro de frequência no culto">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7zm5-3h2v2h-2V7z"/></svg>
+            <span>Frequência no Culto</span>
+        </button>
+        <button onclick="window.location.href='https://docs.google.com/forms/d/e/1FAIpQLSfztWfjLuQGccts4T1LSE2omoKp5MioUHhUoGyiXe-GpSgY5A/viewform?usp=header'" aria-label="Acessar atividades de evangelismo">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14.83l4.59 4.59L12 14.34l-4.59-4.58L12 5.17zm0 2.83L9.17 10H14.83L12 7.17z"/></svg>
+            <span>Evangelismo</span>
+        </button>
+        <button onclick="window.location.href='https://docs.google.com/forms/d/e/1FAIpQLSeACYbYMo8j-xEZBpW4knlRyjNGlWPy-Y9Qv92ldFOJl91ZpQ/viewform?usp=header'" aria-label="Acessar formulário da Aliança dos Multiplicadores">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+            <span>Aliança dos Multiplicadores</span>
+        </button>
+        <button onclick="window.location.href='https://docs.google.com/forms/d/e/1FAIpQLSco6SQUGVPKqw5aOsjh_pAf-cLvVDmDSDskOpFZ9qvxlsRHlA/viewform?usp=header'" aria-label="Acessar formulário de sugestões">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7zm2.85 11.1l-.85.6V16h-4v-2.3l-.85-.6C7.8 12.16 7 10.63 7 9c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.63-.8 3.16-2.15 4.1z"/></svg>
+            <span>Sugestão</span>
+        </button>
+        <button onclick="window.location.href='https://docs.google.com/forms/d/e/1FAIpQLScqGm7c0dULDwmnFhwJGMfFFCkt_t4STWg-aHLpCSGbIdmTkg/viewform?usp=header'" aria-label="Acessar formulário de compras">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+            <span>Compras</span>
+        </button>
+        <button onclick="window.location.href='https://docs.google.com/forms/d/e/1FAIpQLSf2SoyjDTrURvAzV7P83tuCxrAdasfSZMm5XjEx81V65k5WOQ/viewform?usp=header'" aria-label="Acessar formulário de ações sociais">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M16.5 13c-1.2 0-3.07.34-4.5 1-1.43-.67-3.3-1-4.5-1C5.33 13 1 14.08 1 16.25V19h22v-2.75c0-2.17-4.33-3.25-6.5-3.25zm-4 4.5h-10v-1.25c0-.54 2.56-1.75 5-1.75s5 1.21 5 1.75v1.25zm9 0H13.5v-1.25c0-.46-.2-1.06-.71-1.5 1.67-.67 3.83-1 5.21-1 2.44 0 5 1.21 5 1.75v1.25zM7.5 12c1.93 0 3.5-1.57 3.5-3.5S9.43 5 7.5 5 4 6.57 4 8.5 5.57 12 7.5 12zm0-5c.83 0 1.5.67 1.5 1.5S8.33 10 7.5 10 6 9.33 6 8.5 6.67 7 7.5 7zm9 5c1.93 0 3.5-1.57 3.5-3.5S18.43 5 16.5 5 13 6.57 13 8.5 14.57 12 16.5 12zm0-5c.83 0 1.5.67 1.5 1.5S17.33 10 16.5 10 15 9.33 15 8.5 15.67 7 16.5 7z"/></svg>
+            <span>Ações Sociais</span>
+        </button>
+        <button onclick="logout()" aria-label="Sair do sistema">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M10.09 15.59L11.5 17l5-5-5-5-1.41 1.41L12.67 11H3v2h9.67l-2.58 2.59zM19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"/></svg>
+            <span>Sair</span>
+        </button>
+    </div>
+
+    <div class="main-content" id="mainContent">
+        <div class="welcome-message" id="welcomeMessage">Connect Gerais</div>
+
+        <div class="filter-section">
+            <h3>Filtrar Connects</h3>
+            <div class="filter-container">
+                <input type="text" id="searchInput" class="filter-input" placeholder="Pesquisar por nome ou líder" oninput="filterConnects()" aria-label="Pesquisar por nome do connect ou líder">
+                <select id="daySelect" class="filter-select" onchange="filterConnects()" aria-label="Selecionar dia da semana">
+                    <option value="">Todos os Dias</option>
+                    <option value="Segunda">Segunda</option>
+                    <option value="Terça">Terça</option>
+                    <option value="Quarta">Quarta</option>
+                    <option value="Quinta">Quinta</option>
+                    <option value="Sexta">Sexta</option>
+                    <option value="Sábado">Sábado</option>
+                    <option value="Domingo">Domingo</option>
+                </select>
+                <select id="typeSelect" class="filter-select" onchange="filterConnects()" aria-label="Selecionar tipo de connect">
+                    <option value="">Todos os Tipos</option>
+                    <option value="Jovens">Jovens</option>
+                    <option value="Casais">Casais</option>
+                    <option value="Adolescentes">Adolescentes</option>
+                    <option value="Mulheres">Mulheres</option>
+                    <option value="Homens">Homens</option>
+                    <option value="Misto">Misto</option>
+                    <option value="Jovens Mulheres">Jovens Mulheres</option>
+                </select>
+                <select id="modeSelect" class="filter-select" onchange="filterConnects()" aria-label="Selecionar modalidade">
+                    <option value="">Todas as Modalidades</option>
+                    <option value="Presencial">Presencial</option>
+                    <option value="Virtual">Virtual</option>
+                    <option value="Híbrido">Híbrido</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="connects-container" id="connectsList"></div>
+
+        <div class="central-buttons">
+            <button class="central-button bible" onclick="window.location.href='https://bible.com/bible/211/1jn.2.3-4.NTLH'" title="Acesse a Bíblia online" aria-label="Acessar a Bíblia online">
+                <svg class="icon" viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+                Bíblia
+            </button>
+            <button class="central-button" onclick="loadPage('gerencial')" title="Visualize métricas e relatórios gerenciais" aria-label="Acessar página gerencial">
+                <svg class="icon" viewBox="0 0 24 24"><path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2v-2H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"/></svg>
+                Gerencial
+            </button>
+            <button class="central-button alert" onclick="loadPage('alerta')" title="Veja alertas e notificações importantes" aria-label="Acessar página de alertas">
+                <svg class="icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+                Alerta
+            </button>
+            <button class="central-button connect" onclick="window.location.href='https://docs.google.com/forms/d/e/1FAIpQLSeupD3jOejLI5eO7iV1QkyPDPzW25Qqjm-u0viZB-NV_Ooi_A/viewform?usp=header'" title="Acesse o formulário de connect" aria-label="Acessar formulário de connect">
+                <svg class="icon" viewBox="0 0 24 24"><path d="M9 11.75c-.69 0-1.25.56-1.25 1.25s.56 1.25 1.25 1.25 1.25-.56 1.25-1.25-.56-1.25-1.25-1.25zm6 0c-.69 0-1.25.56-1.25 1.25s.56 1.25 1.25 1.25 1.25-.56 1.25-1.25-.56-1.25-1.25-1.25zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm3.88-11.71L10 14.17l-1.88-1.88a.996.996 0 00-1.41 0c-.39.39-.39 1.02 0 1.41l2.59 2.59c.39.39 1.02.39 1.41 0L17.3 9.7a.996.996 0 000-1.41c-.39-.39-1.03-.39-1.42 0z"/></svg>
+                Connect
+            </button>
+        </div>
+
+        <div class="motivational-chat">
+            <button class="chat-toggle" onclick="toggleChat()" aria-label="Abrir ou fechar mensagem motivacional">💬</button>
+            <div class="motivational-message" id="motivationalMessage"></div>
+        </div>
+    </div>
+
+    <script>
+        const connects = [
+            { name: 'Connect Casais Isabelle & Munguba Jr', leader: 'Isabelle e Munguba Jr', day: 'Terça', type: 'Casais', mode: 'Presencial', frequency: 'Semanal', emoji: '💑' },
+            { name: 'Connect Jovens Sarah', leader: 'Sarah Santos', day: 'Quinta', type: 'Jovens', mode: 'Virtual', frequency: 'Semanal (21h)', emoji: '😄' },
+            { name: 'Connect Casais Júnior & Sunamita', leader: 'Júnior Rodrigues e Sunamita', day: 'Terça', type: 'Casais', mode: 'Presencial', frequency: 'Semanal', emoji: '💑' },
+            { name: 'Connect Casais Valdemir & Glaudenia', leader: 'Valdemir e Glaudenia', day: 'Terça', type: 'Casais', mode: 'Presencial', frequency: 'Semanal', emoji: '💑' },
+            { name: 'Connect Casais Alexandre & Léa', leader: 'Alexandre e Léa', day: 'Terça', type: 'Casais', mode: 'Presencial', frequency: 'Quinzenal', emoji: '💑' },
+            { name: 'Connect Mulheres Léa', leader: 'Léa', day: 'Terça', type: 'Mulheres', mode: 'Virtual', frequency: 'Quinzenal', emoji: '👩' },
+            { name: 'Connect Homens Daniel', leader: 'Daniel', day: 'Terça', type: 'Homens', mode: 'Presencial', frequency: 'Semanal', emoji: '👨' },
+            { name: 'Connect Misto Eliel & Graça', leader: 'Eliel e Graça', day: 'Terça', type: 'Misto', mode: 'Virtual', frequency: 'Quinzenal', emoji: '👥' },
+            { name: 'Connect Jovens Mulheres Jenny', leader: 'Jenny Colares', day: 'Segunda', type: 'Jovens Mulheres', mode: 'Presencial', frequency: 'Quinzenal', emoji: '👩‍🦰' },
+            { name: 'Connect Casais Reginaldo & Débora', leader: 'Reginaldo e Débora', day: 'Terça', type: 'Casais', mode: 'Presencial', frequency: 'Quinzenal', emoji: '💑' },
+            { name: 'Connect Misto Everaldo & Pamela', leader: 'Everaldo e Pamela', day: 'Terça', type: 'Misto', mode: 'Híbrido', frequency: 'Quinzenal', emoji: '👥' },
+            { name: 'Connect Casais Márcio & Grazi', leader: 'Márcio e Grazi', day: 'Terça', type: 'Casais', mode: 'Presencial', frequency: 'Semanal', emoji: '💑' },
+            { name: 'Connect Mulheres Salvania & Damila', leader: 'Salvania e Damila', day: 'Terça', type: 'Mulheres', mode: 'Presencial', frequency: 'Quinzenal', emoji: '👩' },
+            { name: 'Connect Adolescentes Isaque & Pedro', leader: 'Isaque e Pedro', day: 'Sábado', type: 'Adolescentes', mode: 'Virtual', frequency: 'Semanal (14h)', emoji: '🎸' },
+            { name: 'Connect Casais Rodrigo & Vitória', leader: 'Rodrigo e Vitória', day: 'Segunda', type: 'Casais', mode: 'Presencial', frequency: 'Quinzenal', emoji: '💑' },
+            { name: 'Connect Jovens Joedson', leader: 'Joedson', day: 'Terça', type: 'Jovens', mode: 'Presencial', frequency: 'Semanal', emoji: '😄' },
+            { name: 'Connect Adolescentes Layssa & Júlia', leader: 'Layssa e Júlia', day: 'Terça', type: 'Adolescentes', mode: 'Híbrido', frequency: 'Quinzenal', emoji: '🎸' },
+            { name: 'Connect Jovens Ellen & Mari', leader: 'Ellen e Mari', day: 'Sábado', type: 'Jovens', mode: 'Presencial', frequency: 'Semanal', emoji: '😄' },
+            { name: 'Connect Mulheres Derly', leader: 'Derly Félix', day: 'Terça', type: 'Mulheres', mode: 'Virtual', frequency: 'Semanal', emoji: '👩' },
+            { name: 'Connect Mulheres Isabel', leader: 'Isabel', day: 'Terça', type: 'Mulheres', mode: 'Híbrido', frequency: 'Semanal', emoji: '👩' }
+        ];
+
+        const dayOrder = {
+            'Segunda': 1,
+            'Terça': 2,
+            'Quarta': 3,
+            'Quinta': 4,
+            'Sexta': 5,
+            'Sábado': 6,
+            'Domingo': 7
+        };
+
+        const phrases = [
+            'Josué 1:9 – “Não te mandei eu? Sê forte e corajoso; não temas, nem te espantes, porque o Senhor teu Deus é contigo por onde quer que andares.”',
+            'Isaías 41:10 – “Não temas, porque eu sou contigo; não te assombres, porque eu sou o teu Deus; eu te fortaleço, e te ajudo, e te sustento com a destra da minha justiça.”',
+            'Salmos 27:1 – “O Senhor é a minha luz e a minha salvação; a quem temerei? O Senhor é a força da minha vida; de quem me recearei?”',
+            'Filipenses 4:13 – “Tudo posso naquele que me fortalece.”',
+            'Romanos 8:37 – “Em todas estas coisas somos mais que vencedores, por aquele que nos amou.”',
+            'Jeremias 1:5 – “Antes que te formasse no ventre, eu te conheci; e antes que saísses da madre, te santifiquei.”',
+            'Romanos 8:28 – “Sabemos que todas as coisas cooperam para o bem daqueles que amam a Deus, daqueles que são chamados segundo o seu propósito.”',
+            'Efésios 2:10 – “Pois somos feitura dele, criados em Cristo Jesus para boas obras, as quais Deus preparou de antemão para que andássemos nelas.”',
+            '1 Pedro 2:9 – “Vós sois geração eleita, sacerdócio real, nação santa, povo adquirido, para que anuncieis as virtudes daquele que vos chamou das trevas para a sua maravilhosa luz.”',
+            'Isaías 6:8 – “Eis-me aqui, envia-me a mim.”'
+        ];
+
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles-bg');
+            const numParticles = 30;
+            for (let i = 0; i < numParticles; i++) {
+                const particle = document.createElement('div');
+                particle.className = `particle ${i % 2 === 0 ? 'green' : ''}`;
+                particle.style.width = `${Math.random() * 5 + 2}px`;
+                particle.style.height = particle.style.width;
+                particle.style.left = `${Math.random() * 100}vw`;
+                particle.style.animationDuration = `${Math.random() * 20 + 10}s`;
+                particle.style.animationDelay = `${Math.random() * 5}s`;
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        function toggleMenu() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('active');
+        }
+
+        function loadPage(page) {
+            alert(`Carregando página: ${page}`);
+        }
+
+        function logout() {
+            window.location.reload();
+        }
+
+        function renderConnects(filteredConnects) {
+            const connectsList = document.getElementById('connectsList');
+            connectsList.innerHTML = '';
+            filteredConnects.forEach(connect => {
+                const card = document.createElement('div');
+                card.className = `connect-card ${connect.type.toLowerCase().replace(' ', '-')}`;
+                card.setAttribute('tabindex', '0');
+                card.setAttribute('aria-label', `Connect: ${connect.name}, Líder: ${connect.leader}, Dia: ${connect.day}, Tipo: ${connect.type}, Modalidade: ${connect.mode}, Frequência: ${connect.frequency}`);
+                card.innerHTML = `
+                    <div class="emoji">${connect.emoji}</div>
+                    <div class="name">${connect.name}</div>
+                    <div class="detail">Líder: ${connect.leader}</div>
+                    <div class="detail">Dia: ${connect.day}</div>
+                    <div class="detail">Tipo: ${connect.type}</div>
+                    <div class="detail">Modalidade: ${connect.mode}</div>
+                    <div class="detail">Frequência: ${connect.frequency}</div>
+                `;
+                connectsList.appendChild(card);
+            });
+        }
+
+        function filterConnects() {
+            const search = document.getElementById('searchInput').value.toLowerCase();
+            const day = document.getElementById('daySelect').value;
+            const type = document.getElementById('typeSelect').value;
+            const mode = document.getElementById('modeSelect').value;
+
+            let filtered = connects.filter(connect => {
+                const matchesSearch = connect.name.toLowerCase().includes(search) || connect.leader.toLowerCase().includes(search);
+                const matchesDay = !day || connect.day === day;
+                const matchesType = !type || connect.type === type;
+                const matchesMode = !mode || connect.mode === mode;
+                return matchesSearch && matchesDay && matchesType && matchesMode;
+            });
+
+            filtered.sort((a, b) => dayOrder[a.day] - dayOrder[b.day]);
+
+            renderConnects(filtered);
+        }
+
+        function toggleChat() {
+            const messageDiv = document.getElementById('motivationalMessage');
+            if (messageDiv.classList.contains('active')) {
+                messageDiv.classList.remove('active');
+            } else {
+                messageDiv.classList.add('active');
+                const randomPhrase = phrases[Math.floor(Math.random() * phrases.length)];
+                messageDiv.textContent = randomPhrase;
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            createParticles();
+            document.getElementById('sidebar').style.display = 'block';
+            document.getElementById('menuToggle').style.display = 'block';
+            filterConnects();
+        });
+    </script>
+</body>
+</html>
