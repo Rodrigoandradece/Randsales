@@ -602,18 +602,18 @@
                 </select>
                 <select id="typeSelect" class="filter-select" onchange="filterConnects()" aria-label="Selecionar tipo de connect">
                     <option value="">Todos os Tipos</option>
-                    <option value="Jovens">Jovens</option>
-                    <option value="Casais">Casais</option>
+                    <option value="Misto sem limite de idade">Misto sem limite de idade</option>
                     <option value="Adolescentes">Adolescentes</option>
-                    <option value="Mulheres">Mulheres</option>
-                    <option value="Homens">Homens</option>
-                    <option value="Misto">Misto</option>
-                    <option value="Jovens Mulheres">Jovens Mulheres</option>
+                    <option value="Meninas de 11-13 anos">Meninas de 11-13 anos</option>
+                    <option value="Casais jovens e adultos">Casais jovens e adultos</option>
+                    <option value="Adolescentes Mulheres">Adolescentes Mulheres</option>
+                    <option value="Jovens mulheres">Jovens mulheres</option>
+                    <option value="Homens adultos">Homens adultos</option>
                 </select>
                 <select id="modeSelect" class="filter-select" onchange="filterConnects()" aria-label="Selecionar modalidade">
                     <option value="">Todas as Modalidades</option>
                     <option value="Presencial">Presencial</option>
-                    <option value="Virtual">Virtual</option>
+                    <option value="Online">Online</option>
                     <option value="Híbrido">Híbrido</option>
                 </select>
             </div>
@@ -629,26 +629,15 @@
 
     <script>
         const connects = [
-            { name: 'Connect Casais Isabelle & Munguba Jr', leader: 'Isabelle e Munguba Jr', day: 'Terça', type: 'Casais', mode: 'Presencial', frequency: 'Semanal', emoji: '💑' },
-            { name: 'Connect Jovens Sarah', leader: 'Sarah Santos', day: 'Quinta', type: 'Jovens', mode: 'Virtual', frequency: 'Semanal (21h)', emoji: '😄' },
-            { name: 'Connect Casais Júnior & Sunamita', leader: 'Júnior Rodrigues e Sunamita', day: 'Terça', type: 'Casais', mode: 'Presencial', frequency: 'Semanal', emoji: '💑' },
-            { name: 'Connect Casais Valdemir & Glaudenia', leader: 'Valdemir e Glaudenia', day: 'Terça', type: 'Casais', mode: 'Presencial', frequency: 'Semanal', emoji: '💑' },
-            { name: 'Connect Casais Alexandre & Léa', leader: 'Alexandre e Léa', day: 'Terça', type: 'Casais', mode: 'Presencial', frequency: 'Quinzenal', emoji: '💑' },
-            { name: 'Connect Mulheres Léa', leader: 'Léa', day: 'Terça', type: 'Mulheres', mode: 'Virtual', frequency: 'Quinzenal', emoji: '👩' },
-            { name: 'Connect Homens Daniel', leader: 'Daniel', day: 'Terça', type: 'Homens', mode: 'Presencial', frequency: 'Semanal', emoji: '👨' },
-            { name: 'Connect Misto Eliel & Graça', leader: 'Eliel e Graça', day: 'Terça', type: 'Misto', mode: 'Virtual', frequency: 'Quinzenal', emoji: '👥' },
-            { name: 'Connect Jovens Mulheres Jenny', leader: 'Jenny Colares', day: 'Segunda', type: 'Jovens Mulheres', mode: 'Presencial', frequency: 'Quinzenal', emoji: '👩‍🦰' },
-            { name: 'Connect Casais Reginaldo & Débora', leader: 'Reginaldo e Débora', day: 'Terça', type: 'Casais', mode: 'Presencial', frequency: 'Quinzenal', emoji: '💑' },
-            { name: 'Connect Misto Everaldo & Pamela', leader: 'Everaldo e Pamela', day: 'Terça', type: 'Misto', mode: 'Híbrido', frequency: 'Quinzenal', emoji: '👥' },
-            { name: 'Connect Casais Márcio & Grazi', leader: 'Márcio e Grazi', day: 'Terça', type: 'Casais', mode: 'Presencial', frequency: 'Semanal', emoji: '💑' },
-            { name: 'Connect Mulheres Salvania & Damila', leader: 'Salvania e Damila', day: 'Terça', type: 'Mulheres', mode: 'Presencial', frequency: 'Quinzenal', emoji: '👩' },
-            { name: 'Connect Adolescentes Isaque & Pedro', leader: 'Isaque e Pedro', day: 'Sábado', type: 'Adolescentes', mode: 'Virtual', frequency: 'Semanal (14h)', emoji: '🎸' },
-            { name: 'Connect Casais Rodrigo & Vitória', leader: 'Rodrigo e Vitória', day: 'Segunda', type: 'Casais', mode: 'Presencial', frequency: 'Quinzenal', emoji: '💑' },
-            { name: 'Connect Jovens Joedson', leader: 'Joedson', day: 'Terça', type: 'Jovens', mode: 'Presencial', frequency: 'Semanal', emoji: '😄' },
-            { name: 'Connect Adolescentes Layssa & Júlia', leader: 'Layssa e Júlia', day: 'Terça', type: 'Adolescentes', mode: 'Híbrido', frequency: 'Quinzenal', emoji: '🎸' },
-            { name: 'Connect Jovens Ellen & Mari', leader: 'Ellen e Mari', day: 'Sábado', type: 'Jovens', mode: 'Presencial', frequency: 'Semanal', emoji: '😄' },
-            { name: 'Connect Mulheres Derly', leader: 'Derly Félix', day: 'Terça', type: 'Mulheres', mode: 'Virtual', frequency: 'Semanal', emoji: '👩' },
-            { name: 'Connect Mulheres Isabel', leader: 'Isabel', day: 'Terça', type: 'Mulheres', mode: 'Híbrido', frequency: 'Semanal', emoji: '👩' }
+            { name: 'Son of God', leader: 'Samuel', day: 'Sábado', type: 'Misto sem limite de idade', mode: 'Presencial', frequency: 'Semanal', time: '16h', location: 'Praça Jardim América', emoji: '👥' },
+            { name: 'One Walk', leader: 'Isaque e Pedro', day: 'Sábado', type: 'Adolescentes', mode: 'Online', frequency: 'Semanal', time: '14h', emoji: '🎸' },
+            { name: 'Pedras Vivas', leader: 'Layssa', day: 'Sábado', type: 'Meninas de 11-13 anos', mode: 'Presencial', frequency: 'Semanal', time: '17h', emoji: '👧' },
+            { name: 'Kadosh', leader: 'Rodrigo e Vitória', day: 'Segunda', type: 'Casais jovens e adultos', mode: 'Presencial', frequency: 'Quinzenal', time: '19:30h', emoji: '💑' },
+            { name: 'Metanoia', leader: 'Leticia', day: 'Sábado', type: 'Adolescentes Mulheres', mode: 'Presencial', frequency: 'Quinzenal', time: '15:30h', emoji: '👩‍🦰' },
+            { name: 'Pérolas', leader: 'Ellen e Mariana', day: 'Sábado', type: 'Jovens mulheres', mode: 'Presencial', frequency: 'Semanal', time: '16:00h', emoji: '👩' },
+            { name: 'Ágape', leader: 'Sarah Santos', day: 'Quinta', type: 'Jovens mulheres', mode: 'Online', frequency: 'Semanal', time: '21h', emoji: '👩' },
+            { name: 'Pérolas Monte Castelo', leader: 'Jenny Colares', day: 'Segunda', type: 'Jovens mulheres', mode: 'Presencial', frequency: 'Quinzenal', time: '19:30h', emoji: '👩' },
+            { name: 'Connect de Homens', leader: 'Daniel', day: 'Terça', type: 'Homens adultos', mode: 'Presencial', frequency: 'Semanal', time: '19h', emoji: '👨' }
         ];
 
         const dayOrder = {
@@ -709,7 +698,7 @@
                 const card = document.createElement('div');
                 card.className = `connect-card ${connect.type.toLowerCase().replace(' ', '-')}`;
                 card.setAttribute('tabindex', '0');
-                card.setAttribute('aria-label', `Connect: ${connect.name}, Líder: ${connect.leader}, Dia: ${connect.day}, Tipo: ${connect.type}, Modalidade: ${connect.mode}, Frequência: ${connect.frequency}`);
+                card.setAttribute('aria-label', `Connect: ${connect.name}, Líder: ${connect.leader}, Dia: ${connect.day}, Tipo: ${connect.type}, Modalidade: ${connect.mode}, Frequência: ${connect.frequency}, Horário: ${connect.time}${connect.location ? ', Localização: ' + connect.location : ''}`);
                 card.innerHTML = `
                     <div class="emoji">${connect.emoji}</div>
                     <div class="name">${connect.name}</div>
@@ -718,6 +707,8 @@
                     <div class="detail">Tipo: ${connect.type}</div>
                     <div class="detail">Modalidade: ${connect.mode}</div>
                     <div class="detail">Frequência: ${connect.frequency}</div>
+                    <div class="detail">Horário: ${connect.time}</div>
+                    ${connect.location ? `<div class="detail">Localização: ${connect.location}</div>` : ''}
                 `;
                 connectsList.appendChild(card);
             });
